@@ -1,0 +1,10 @@
+{
+  "BaseUrl": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/",
+  "UnityVersion": "6000.3",
+  "MaxPages": 5,
+  "RequestDelayMilliseconds": 250,
+  "RequestTimeoutSeconds": 30,
+  "UserAgent": "UnityDocsRag-Lab1/1.0 (educational project)",
+  "RawOutputDirectory": "data/raw/unity-6000.3",
+  "ManifestPath": "data/state/unity-6000.3-manifest.json"
+}

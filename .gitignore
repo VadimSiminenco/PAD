@@ -478,5 +478,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Generated Unity Scripting API grabber output
+lab1/data/raw/
+lab1/data/state/
+
 # Vim temporary swap files
 *.swp

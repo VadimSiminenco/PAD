@@ -23,7 +23,8 @@ Ollama — это локальная среда запуска моделей, �
 Откройте CMD и перейдите в каталог проекта:
 
 ```bat
-cd /d C:\Users\user\PAD\lab1
+git clone https://github.com/VadimSiminenco/PAD.git
+cd PAD\lab1
 ```
 
 Создайте локальный файл настроек из примера и вручную замените примерный пароль PostgreSQL в `.env`:
@@ -76,4 +77,18 @@ docker compose --env-file .env down
 
 ## Текущее состояние и наблюдаемость
 
-Сейчас Docker Compose запускает только инфраструктуру PostgreSQL и Ollama, а не готовую RAG-систему. Grabber, API и RAG-компоненты пока не реализованы. Langfuse будет добавлен отдельным этапом для локальной self-hosted наблюдаемости.
+Сейчас Docker Compose запускает только инфраструктуру PostgreSQL и Ollama, а не готовую RAG-систему. Langfuse будет добавлен отдельным этапом для локальной self-hosted наблюдаемости.
+
+## Grabber Unity Scripting API
+
+Grabber читает официальный `docdata/toc.js` со страницы Unity Scripting API, рекурсивно обходит его структуру, проверяет ссылки по allowlist версии 6000.3 и загружает страницы последовательно. Текущий безопасный лимит — 5 страниц за запуск; полный crawl намеренно ограничен. Полный корпус не загружается.
+
+Запускайте команду из каталога `lab1`:
+
+```bat
+dotnet run --project src/UnityDocsRag.Ingestion -- configs/ingestion.json
+```
+
+Исходный HTML сохраняется в `data/raw/unity-6000.3`, а manifest — в `data/state/unity-6000.3-manifest.json`. При повторном запуске страницы с тем же содержимым показываются как `Unchanged`; дубликаты не создаются и HTML не перезаписывается. Папки `lab1/data/raw/` и `lab1/data/state/` содержат generated data и исключены из Git.
+
+На этом этапе реализован только grabber с локальным файловым cache. Preprocessing, chunking, embeddings, PostgreSQL indexing, API и полная RAG-система ещё не реализованы.
