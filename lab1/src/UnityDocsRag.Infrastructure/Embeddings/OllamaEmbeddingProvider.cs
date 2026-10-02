@@ -8,7 +8,7 @@ using UnityDocsRag.Core.Embeddings;
 
 namespace UnityDocsRag.Infrastructure.Embeddings;
 
-public sealed class OllamaEmbeddingProvider : IEmbeddingProvider
+public sealed class OllamaEmbeddingProvider : IEmbeddingProvider, IQueryEmbeddingProvider
 {
     private const int ErrorBodyLimit = 512;
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
@@ -30,20 +30,47 @@ public sealed class OllamaEmbeddingProvider : IEmbeddingProvider
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(chunks);
-        ArgumentNullException.ThrowIfNull(profile);
-        if (!string.Equals(profile.Provider, "Ollama", StringComparison.OrdinalIgnoreCase))
-            throw new ArgumentException("Embedding profile provider must be 'Ollama'.", nameof(profile));
+        ValidateProfile(profile);
         cancellationToken.ThrowIfCancellationRequested();
         if (chunks.Count == 0) return Array.AsReadOnly(Array.Empty<ChunkEmbedding>());
 
+        var inputTexts = chunks.Select(chunk => chunk.Text).ToArray();
+        var vectors = await EmbedTextsAsync(inputTexts, profile, cancellationToken).ConfigureAwait(false);
         var result = new List<ChunkEmbedding>(chunks.Count);
-        for (var offset = 0; offset < chunks.Count; offset += _options.BatchSize)
+        for (var index = 0; index < vectors.Count; index++)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            var count = Math.Min(_options.BatchSize, chunks.Count - offset);
-            var batch = new DocumentChunk[count];
-            for (var index = 0; index < count; index++) batch[index] = chunks[offset + index];
-            var requestDto = new EmbedRequest(profile.ModelName, batch.Select(chunk => chunk.Text).ToArray(), _options.Truncate, _options.KeepAlive);
+            result.Add(new ChunkEmbedding(chunks[index], profile, vectors[index]));
+        }
+        return result.AsReadOnly();
+    }
+
+    public async Task<QueryEmbedding> EmbedQueryAsync(string question, EmbeddingProfile profile,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(question))
+            throw new ArgumentException("Question must not be empty or whitespace.", nameof(question));
+        ValidateProfile(profile);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var vectors = await EmbedTextsAsync(new[] { question }, profile, cancellationToken).ConfigureAwait(false);
+        if (vectors.Count != 1)
+            throw new InvalidDataException($"Ollama returned {vectors.Count} embeddings for a single query input.");
+        return new QueryEmbedding(profile, vectors[0]);
+    }
+
+    private async Task<IReadOnlyList<float[]>> EmbedTextsAsync(IReadOnlyList<string> inputTexts,
+        EmbeddingProfile profile, CancellationToken cancellationToken)
+    {
+        if (inputTexts.Count == 0) return Array.AsReadOnly(Array.Empty<float[]>());
+        var result = new List<float[]>(inputTexts.Count);
+        for (var offset = 0; offset < inputTexts.Count; offset += _options.BatchSize)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var count = Math.Min(_options.BatchSize, inputTexts.Count - offset);
+            var batch = new string[count];
+            for (var index = 0; index < count; index++) batch[index] = inputTexts[offset + index];
+            var requestDto = new EmbedRequest(profile.ModelName, batch, _options.Truncate, _options.KeepAlive);
             using var request = new HttpRequestMessage(HttpMethod.Post, _endpoint)
             {
                 Content = JsonContent.Create(requestDto, options: JsonOptions)
@@ -86,18 +113,25 @@ public sealed class OllamaEmbeddingProvider : IEmbeddingProvider
                     if (!float.IsFinite(vector[valueIndex]))
                         throw new InvalidDataException($"Ollama embedding at batch index {index} contains a non-finite value at position {valueIndex}.");
                 }
-                result.Add(new ChunkEmbedding(batch[index], profile, vector));
+                result.Add(vector);
             }
         }
         return result.AsReadOnly();
     }
 
-    private static string LimitAndRedact(string body, IReadOnlyList<DocumentChunk> batch)
+    private static void ValidateProfile(EmbeddingProfile profile)
+    {
+        ArgumentNullException.ThrowIfNull(profile);
+        if (!string.Equals(profile.Provider, "Ollama", StringComparison.OrdinalIgnoreCase))
+            throw new ArgumentException("Embedding profile provider must be 'Ollama'.", nameof(profile));
+    }
+
+    private static string LimitAndRedact(string body, IReadOnlyList<string> inputTexts)
     {
         var safe = body;
-        foreach (var chunk in batch)
+        foreach (var inputText in inputTexts)
         {
-            if (!string.IsNullOrEmpty(chunk.Text)) safe = safe.Replace(chunk.Text, "[chunk text redacted]", StringComparison.Ordinal);
+            if (!string.IsNullOrEmpty(inputText)) safe = safe.Replace(inputText, "[input text redacted]", StringComparison.Ordinal);
         }
         safe = safe.Replace('\r', ' ').Replace('\n', ' ').Trim();
         if (safe.Length > ErrorBodyLimit) safe = safe[..ErrorBodyLimit] + "…";

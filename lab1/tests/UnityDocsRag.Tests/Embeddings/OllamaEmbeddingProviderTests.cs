@@ -1,6 +1,7 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
+using UnityDocsRag.Core.Abstractions;
 using UnityDocsRag.Core.Documents;
 using UnityDocsRag.Core.Embeddings;
 using UnityDocsRag.Infrastructure.Embeddings;
@@ -141,6 +142,113 @@ public sealed class OllamaEmbeddingProviderTests
         using var client = new HttpClient(handler);
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => Provider(client).EmbedAsync(
             new[] { Chunk("a", "text") }, Profile, cancellation.Token));
+    }
+
+    [Theory]
+    [InlineData("Как создать NavMeshAgent в Unity?")]
+    [InlineData("How do I create a NavMeshAgent in Unity?")]
+    public async Task QueryEmbeddingPassesQuestionUnchangedAndUsesConfiguredRequest(string question)
+    {
+        var handler = new FakeHandler(async (request, token) =>
+        {
+            Assert.Equal(HttpMethod.Post, request.Method);
+            Assert.Equal("http://127.0.0.1:11434/api/embed", request.RequestUri!.AbsoluteUri);
+            using var json = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
+            var root = json.RootElement;
+            Assert.Equal("embeddinggemma", root.GetProperty("model").GetString());
+            Assert.Equal(question, Assert.Single(root.GetProperty("input").EnumerateArray()).GetString());
+            Assert.True(root.GetProperty("truncate").GetBoolean());
+            Assert.Equal("30s", root.GetProperty("keep_alive").GetString());
+            return Ok(new[] { 0.25f, 0.5f, 0.75f });
+        });
+        using var client = new HttpClient(handler);
+        IQueryEmbeddingProvider provider = new OllamaEmbeddingProvider(client,
+            new OllamaEmbeddingOptions { Truncate = true, KeepAlive = "30s" });
+
+        var result = await provider.EmbedQueryAsync(question, Profile, CancellationToken.None);
+
+        Assert.Equal(1, handler.RequestCount);
+        Assert.Same(Profile, result.Profile);
+        Assert.Equal(3, result.Vector.Count);
+        Assert.Equal(new[] { 0.25f, 0.5f, 0.75f }, result.Vector);
+        var readOnlyVector = Assert.IsAssignableFrom<IList<float>>(result.Vector);
+        Assert.True(readOnlyVector.IsReadOnly);
+        Assert.Throws<NotSupportedException>(() => readOnlyVector[0] = 9f);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData(" \t\r\n")]
+    public async Task EmptyQuestionIsRejectedBeforeHttp(string? question)
+    {
+        var handler = new FakeHandler((_, _) => throw new InvalidOperationException("Unexpected request."));
+        using var client = new HttpClient(handler);
+        IQueryEmbeddingProvider provider = Provider(client);
+
+        await Assert.ThrowsAsync<ArgumentException>(() => provider.EmbedQueryAsync(question!, Profile, CancellationToken.None));
+        Assert.Equal(0, handler.RequestCount);
+    }
+
+    [Fact]
+    public async Task QueryResponseWithWrongEmbeddingCountIsRejected()
+    {
+        using var client = new HttpClient(Responding(Ok(new[] { 1f, 2f, 3f }, new[] { 4f, 5f, 6f })));
+        IQueryEmbeddingProvider provider = Provider(client);
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => provider.EmbedQueryAsync("a question", Profile, CancellationToken.None));
+        Assert.Contains("2 embeddings for a batch of 1 inputs", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task QueryResponseWithWrongDimensionIsRejected()
+    {
+        using var client = new HttpClient(Responding(Ok(new[] { 1f, 2f })));
+        IQueryEmbeddingProvider provider = Provider(client);
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => provider.EmbedQueryAsync("a question", Profile, CancellationToken.None));
+        Assert.Contains("dimension 2; expected 3", exception.Message, StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData("{\"embeddings\":[[1,1e1000,3]]}")]
+    [InlineData("{\"embeddings\":[[1,-1e1000,3]]}")]
+    [InlineData("{\"embeddings\":[[1,\"NaN\",3]]}")]
+    public async Task QueryResponseWithNonFiniteValueIsRejected(string body)
+    {
+        using var client = new HttpClient(Responding(JsonResponse(body)));
+        IQueryEmbeddingProvider provider = Provider(client);
+        await Assert.ThrowsAsync<InvalidDataException>(() => provider.EmbedQueryAsync("a question", Profile, CancellationToken.None));
+    }
+
+    [Fact]
+    public async Task QueryHttpErrorDoesNotRevealQuestionText()
+    {
+        const string secretQuestion = "private question: should not leak";
+        using var client = new HttpClient(Responding(JsonResponse("error: " + secretQuestion, HttpStatusCode.BadGateway)));
+        IQueryEmbeddingProvider provider = Provider(client);
+
+        var exception = await Assert.ThrowsAsync<HttpRequestException>(() => provider.EmbedQueryAsync(secretQuestion, Profile, CancellationToken.None));
+
+        Assert.Equal(HttpStatusCode.BadGateway, exception.StatusCode);
+        Assert.Contains("502", exception.Message, StringComparison.Ordinal);
+        Assert.DoesNotContain(secretQuestion, exception.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task QueryCancellationTokenIsPassedToHttpRequest()
+    {
+        using var cancellation = new CancellationTokenSource();
+        var handler = new FakeHandler((_, token) =>
+        {
+            Assert.True(token.CanBeCanceled);
+            cancellation.Cancel();
+            return Task.FromCanceled<HttpResponseMessage>(token);
+        });
+        using var client = new HttpClient(handler);
+        IQueryEmbeddingProvider provider = Provider(client);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => provider.EmbedQueryAsync(
+            "question", Profile, cancellation.Token));
+        Assert.Equal(1, handler.RequestCount);
     }
 
     [Theory]
