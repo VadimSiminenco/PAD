@@ -22,6 +22,14 @@ public interface IRetriever
         CancellationToken cancellationToken);
 }
 
+public interface IQueryEmbeddingProvider
+{
+    Task<QueryEmbedding> EmbedQueryAsync(
+        string question,
+        EmbeddingProfile profile,
+        CancellationToken cancellationToken);
+}
+
 public interface IReranker
 {
     Task<IReadOnlyList<RetrievedChunk>> RerankAsync(
