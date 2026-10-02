@@ -30,6 +30,14 @@ public interface IQueryEmbeddingProvider
         CancellationToken cancellationToken);
 }
 
+public interface ISemanticSearchService
+{
+    Task<IReadOnlyList<RetrievedChunk>> SearchAsync(
+        RetrievalQuery query,
+        EmbeddingProfile profile,
+        CancellationToken cancellationToken);
+}
+
 public interface IReranker
 {
     Task<IReadOnlyList<RetrievedChunk>> RerankAsync(

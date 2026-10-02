@@ -1,0 +1,13 @@
+{
+  "OllamaEndpoint": "http://127.0.0.1:11434",
+  "EmbeddingProvider": "Ollama",
+  "EmbeddingModel": "embeddinggemma",
+  "EmbeddingDimension": 768,
+  "Multilingual": true,
+  "OllamaTruncate": false,
+  "OllamaKeepAlive": "5m",
+  "PostgresConnectionStringEnvironmentVariable": "UNITYDOCS_POSTGRES_CONNECTION_STRING",
+  "PostgresCommandTimeoutSeconds": 30,
+  "TopK": 5,
+  "SimilarityThreshold": 0.0
+}

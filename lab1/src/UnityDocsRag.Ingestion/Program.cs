@@ -4,6 +4,7 @@ using UnityDocsRag.Core.Abstractions;
 using UnityDocsRag.Infrastructure.Documentation;
 using UnityDocsRag.Infrastructure.Embeddings;
 using UnityDocsRag.Infrastructure.Preprocessing;
+using UnityDocsRag.Infrastructure.Retrieval;
 using UnityDocsRag.Infrastructure.Storage;
 
 using var cancellationSource = new CancellationTokenSource();
@@ -20,12 +21,38 @@ Console.CancelKeyPress += cancelHandler;
 try
 {
     var command = args.Length == 0 ? "grab" : args[0];
-    if (args.Length > 2 || (command is not "grab" and not "process" and not "index" && args.Length != 1))
+    var validArguments = command == "search"
+        ? args.Length is 2 or 3
+        : args.Length <= 2 && (command is "grab" or "process" or "index" || args.Length == 1);
+    if (!validArguments)
     {
-        throw new ArgumentException("Usage: [grab [config]] | [process [config]] | [index [config]] | [legacy-grab-config]");
+        throw new ArgumentException("Usage: [grab [config]] | [process [config]] | [index [config]] | search \"<question>\" [config] | [legacy-grab-config]");
     }
 
-    if (command == "index")
+    if (command == "search")
+    {
+        var question = args[1];
+        if (string.IsNullOrWhiteSpace(question)) throw new ArgumentException("Search question must not be empty.");
+        var configPath = args.Length == 3 ? args[2] : Path.Combine("configs", "search.json");
+        var options = await ReadOptionsAsync<UnityDocsRag.Ingestion.SearchRunOptions>(configPath, cancellationSource.Token);
+        options.Validate();
+        var connectionString = options.GetPostgresConnectionString();
+        var postgresOptions = new PostgresVectorStoreOptions
+        {
+            ConnectionString = connectionString,
+            CommandTimeoutSeconds = options.PostgresCommandTimeoutSeconds
+        };
+        await using var dataSource = postgresOptions.CreateDataSource();
+        using var httpClient = new HttpClient();
+        var embeddingProvider = new OllamaEmbeddingProvider(httpClient, options.CreateOllamaOptions());
+        var retriever = new PostgresVectorRetriever(dataSource,
+            new PostgresVectorRetrieverOptions { CommandTimeoutSeconds = options.PostgresCommandTimeoutSeconds });
+        var service = new SemanticSearchService(embeddingProvider, retriever);
+        var runner = new UnityDocsRag.Ingestion.SearchRunner(service, options.CreateEmbeddingProfile(),
+            loggerFactory.CreateLogger<UnityDocsRag.Ingestion.SearchRunner>());
+        await runner.RunAsync(question, options.TopK, options.SimilarityThreshold, cancellationSource.Token);
+    }
+    else if (command == "index")
     {
         var configPath = args.Length == 2 ? args[1] : Path.Combine("configs", "indexing.json");
         var options = await ReadOptionsAsync<UnityDocsRag.Ingestion.IndexingRunOptions>(configPath, cancellationSource.Token);
@@ -82,7 +109,7 @@ catch (OperationCanceledException) when (cancellationSource.IsCancellationReques
 }
 catch (Exception exception)
 {
-    logger.LogError("Command failed ({ExceptionType}). Usage: [grab [config]] | [process [config]] | [index [config]] | [legacy-grab-config]",
+    logger.LogError("Command failed ({ExceptionType}). Usage: [grab [config]] | [process [config]] | [index [config]] | search \"<question>\" [config] | [legacy-grab-config]",
         exception.GetType().Name);
     return 1;
 }
