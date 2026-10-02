@@ -8,7 +8,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-unitydocs}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_local_only}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./sql/001_enable_vector.sql:/docker-entrypoint-initdb.d/001_enable_vector.sql:ro
@@ -24,12 +24,11 @@ services:
     container_name: unitydocs-ollama
     restart: unless-stopped
     ports:
-      - "${OLLAMA_PORT:-11434}:11434"
+      - "127.0.0.1:${OLLAMA_PORT:-11434}:11434"
     volumes:
       - ollama_models:/root/.ollama
 
 volumes:
   postgres_data:
   ollama_models:
-    external: true
     name: unitydocs_ollama
