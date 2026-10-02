@@ -61,3 +61,35 @@ public sealed record ChunkEmbedding
     public EmbeddingProfile Profile { get; }
     public IReadOnlyList<float> Vector { get; }
 }
+
+/// <summary>An already-computed embedding for a user query.</summary>
+public sealed record QueryEmbedding
+{
+    private readonly float[] _values;
+
+    public QueryEmbedding(EmbeddingProfile profile, IReadOnlyList<float> values)
+    {
+        Profile = profile ?? throw new ArgumentNullException(nameof(profile));
+        ArgumentNullException.ThrowIfNull(values);
+        if (values.Count == 0)
+            throw new ArgumentException("Query embedding vector must not be empty.", nameof(values));
+        if (values.Count != profile.Dimension)
+            throw new ArgumentException(
+                $"Query embedding has {values.Count} values, but profile '{profile.ModelName}' requires {profile.Dimension}.",
+                nameof(values));
+
+        for (var index = 0; index < values.Count; index++)
+        {
+            if (!float.IsFinite(values[index]))
+                throw new ArgumentException(
+                    $"Query embedding value at index {index} must be finite; NaN and positive or negative infinity are not supported.",
+                    nameof(values));
+        }
+
+        _values = values.ToArray();
+        Vector = Array.AsReadOnly(_values);
+    }
+
+    public EmbeddingProfile Profile { get; }
+    public IReadOnlyList<float> Vector { get; }
+}

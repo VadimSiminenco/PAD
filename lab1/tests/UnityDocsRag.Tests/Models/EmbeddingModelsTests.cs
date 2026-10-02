@@ -39,4 +39,40 @@ public sealed class EmbeddingModelsTests
 
         Assert.Throws<ArgumentException>(() => new ChunkEmbedding(chunk, profile, new float[] { 0.1f, value }));
     }
+
+    [Fact]
+    public void QueryEmbeddingCopiesVector()
+    {
+        var profile = new EmbeddingProfile("local", "test-model", 2, multilingual: true);
+        var values = new List<float> { 0.25f, 0.75f };
+        var embedding = new QueryEmbedding(profile, values);
+        values[0] = 9f;
+
+        Assert.Same(profile, embedding.Profile);
+        Assert.Equal(new[] { 0.25f, 0.75f }, embedding.Vector);
+    }
+
+    [Fact]
+    public void QueryEmbeddingRejectsWrongDimension()
+    {
+        var profile = new EmbeddingProfile("local", "test-model", 2, multilingual: false);
+        Assert.Throws<ArgumentException>(() => new QueryEmbedding(profile, new[] { 1f }));
+    }
+
+    [Fact]
+    public void QueryEmbeddingRejectsEmptyVector()
+    {
+        var profile = new EmbeddingProfile("local", "test-model", 2, multilingual: false);
+        Assert.Throws<ArgumentException>(() => new QueryEmbedding(profile, Array.Empty<float>()));
+    }
+
+    [Theory]
+    [InlineData(float.NaN)]
+    [InlineData(float.PositiveInfinity)]
+    [InlineData(float.NegativeInfinity)]
+    public void QueryEmbeddingRejectsNonFiniteValues(float value)
+    {
+        var profile = new EmbeddingProfile("local", "test-model", 2, multilingual: false);
+        Assert.Throws<ArgumentException>(() => new QueryEmbedding(profile, new[] { 0f, value }));
+    }
 }

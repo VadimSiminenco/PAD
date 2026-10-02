@@ -1,4 +1,5 @@
 using UnityDocsRag.Core.Generation;
+using UnityDocsRag.Core.Embeddings;
 using UnityDocsRag.Core.Retrieval;
 
 namespace UnityDocsRag.Core.Abstractions;
@@ -15,7 +16,10 @@ public interface IUnityTopicChecker
 
 public interface IRetriever
 {
-    Task<IReadOnlyList<RetrievedChunk>> RetrieveAsync(RetrievalQuery query, CancellationToken cancellationToken);
+    Task<IReadOnlyList<RetrievedChunk>> RetrieveAsync(
+        RetrievalQuery query,
+        QueryEmbedding queryEmbedding,
+        CancellationToken cancellationToken);
 }
 
 public interface IReranker
