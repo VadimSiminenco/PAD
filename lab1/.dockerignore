@@ -1,0 +1,36 @@
+# .NET build output
+**/bin/
+**/obj/
+**/TestResults/
+**/artifacts/
+
+# Git
+.git/
+.gitignore
+
+# IDEs and editor state
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.sln.docstates
+
+# Local application data and generated experiments
+data/
+**/data/
+experiments/results/
+logs/
+**/logs/
+
+# Environment and local secrets (keep .env.example available)
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# OS noise
+.DS_Store
+Thumbs.db
