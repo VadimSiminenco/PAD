@@ -63,6 +63,26 @@ docker compose --env-file .env exec postgres psql -U unitydocs -d unitydocs -c "
 
 Если имя пользователя или базы изменено в `.env`, замените `unitydocs` в команде соответствующими значениями.
 
+## Схема базы данных
+
+SQL-скрипт `001_enable_vector.sql` включает расширение pgvector (`vector`), а `002_create_rag_schema.sql` создаёт схему `rag`, таблицы документов, chunks, embedding-профилей и embeddings, а также индексы, включая HNSW для cosine-поиска текущей модели. Колонка `embedding` имеет тип `vector` без фиксированной размерности, чтобы хранить профили разных моделей; для каждого профиля и размерности нужен отдельный partial HNSW index.
+
+Docker entrypoint автоматически выполняет SQL init scripts по порядку только при первом создании пустого PostgreSQL volume. Для существующего volume ничего удалять не нужно: примените идемпотентный `002` вручную из Windows CMD в каталоге `lab1`:
+
+```bat
+docker compose --env-file .env up -d postgres
+docker compose --env-file .env exec -T postgres psql -U unitydocs -d unitydocs < sql\002_create_rag_schema.sql
+```
+
+Повторный запуск `002_create_rag_schema.sql` безопасен. Проверить таблицы и индексы можно командами:
+
+```bat
+docker compose --env-file .env exec postgres psql -U unitydocs -d unitydocs -c "\dt rag.*"
+docker compose --env-file .env exec postgres psql -U unitydocs -d unitydocs -c "SELECT indexname, indexdef FROM pg_indexes WHERE schemaname = 'rag' ORDER BY indexname;"
+```
+
+Команды используют локальный `.env`; не публикуйте его содержимое или реальный пароль.
+
 ## Повторный запуск
 
 PostgreSQL и модели Ollama хранятся в Docker volumes и сохраняются после остановки контейнеров. При наличии моделей в volume `unitydocs_ollama` скачивать их повторно не требуется.
