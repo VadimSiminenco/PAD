@@ -1,0 +1,15 @@
+{
+  "ProcessedDocumentsPath": "data/processed/unity-6000.3/documents.json",
+  "ChunksPath": "data/chunks/unity-6000.3/chunks.json",
+  "EmbeddingProvider": "Ollama",
+  "EmbeddingModel": "embeddinggemma",
+  "EmbeddingDimension": 768,
+  "Multilingual": true,
+  "OllamaEndpoint": "http://127.0.0.1:11434/api/embed",
+  "EmbeddingBatchSize": 8,
+  "OllamaTruncate": false,
+  "OllamaKeepAlive": "5m",
+  "OllamaRequestTimeoutSeconds": 300,
+  "PostgresConnectionStringEnvironmentVariable": "UNITYDOCS_POSTGRES_CONNECTION_STRING",
+  "PostgresCommandTimeoutSeconds": 30
+}
