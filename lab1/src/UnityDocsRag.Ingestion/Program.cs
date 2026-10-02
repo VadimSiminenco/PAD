@@ -2,7 +2,9 @@ using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using UnityDocsRag.Core.Abstractions;
 using UnityDocsRag.Infrastructure.Documentation;
+using UnityDocsRag.Infrastructure.Embeddings;
 using UnityDocsRag.Infrastructure.Preprocessing;
+using UnityDocsRag.Infrastructure.Storage;
 
 using var cancellationSource = new CancellationTokenSource();
 using var loggerFactory = LoggerFactory.Create(logging =>
@@ -18,12 +20,33 @@ Console.CancelKeyPress += cancelHandler;
 try
 {
     var command = args.Length == 0 ? "grab" : args[0];
-    if (args.Length > 2 || (command is not "grab" and not "process" && args.Length != 1))
+    if (args.Length > 2 || (command is not "grab" and not "process" and not "index" && args.Length != 1))
     {
-        throw new ArgumentException("Usage: [grab [config]] | [process [config]] | [legacy-grab-config]");
+        throw new ArgumentException("Usage: [grab [config]] | [process [config]] | [index [config]] | [legacy-grab-config]");
     }
 
-    if (command == "process")
+    if (command == "index")
+    {
+        var configPath = args.Length == 2 ? args[1] : Path.Combine("configs", "indexing.json");
+        var options = await ReadOptionsAsync<UnityDocsRag.Ingestion.IndexingRunOptions>(configPath, cancellationSource.Token);
+        options.Validate();
+        var snapshot = await new ProcessingArtifactReader().ReadAsync(options.ProcessedDocumentsPath, options.ChunksPath,
+            cancellationSource.Token);
+        var connectionString = options.GetPostgresConnectionString();
+        var postgresOptions = new PostgresVectorStoreOptions
+        {
+            ConnectionString = connectionString,
+            CommandTimeoutSeconds = options.PostgresCommandTimeoutSeconds
+        };
+        await using var dataSource = postgresOptions.CreateDataSource();
+        using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(options.OllamaRequestTimeoutSeconds) };
+        var embeddingProvider = new OllamaEmbeddingProvider(httpClient, options.CreateOllamaOptions());
+        var vectorStore = new PostgresVectorStore(dataSource, postgresOptions);
+        var runner = new UnityDocsRag.Ingestion.IndexingRunner(embeddingProvider, vectorStore,
+            loggerFactory.CreateLogger<UnityDocsRag.Ingestion.IndexingRunner>());
+        await runner.RunAsync(snapshot, options.CreateEmbeddingProfile(), cancellationSource.Token);
+    }
+    else if (command == "process")
     {
         var configPath = args.Length == 2 ? args[1] : Path.Combine("configs", "processing.json");
         var options = await ReadOptionsAsync<ProcessingRunOptions>(configPath, cancellationSource.Token);
@@ -54,12 +77,13 @@ try
 }
 catch (OperationCanceledException) when (cancellationSource.IsCancellationRequested)
 {
-    logger.LogInformation("Ingestion cancelled by user");
+    logger.LogInformation("Command cancelled by user");
     return 130;
 }
 catch (Exception exception)
 {
-    logger.LogError("Ingestion failed: {ErrorMessage}", exception.Message);
+    logger.LogError("Command failed ({ExceptionType}). Usage: [grab [config]] | [process [config]] | [index [config]] | [legacy-grab-config]",
+        exception.GetType().Name);
     return 1;
 }
 finally
