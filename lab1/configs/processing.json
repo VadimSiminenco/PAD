@@ -1,0 +1,9 @@
+{
+  "UnityVersion": "6000.3",
+  "RawInputDirectory": "data/raw/unity-6000.3",
+  "ManifestPath": "data/state/unity-6000.3-manifest.json",
+  "ProcessedDocumentsPath": "data/processed/unity-6000.3/documents.json",
+  "ChunksPath": "data/chunks/unity-6000.3/chunks.json",
+  "ChunkSize": 512,
+  "ChunkOverlap": 64
+}

@@ -481,6 +481,8 @@ $RECYCLE.BIN/
 # Generated Unity Scripting API grabber output
 lab1/data/raw/
 lab1/data/state/
+lab1/data/processed/
+lab1/data/chunks/
 
 # Vim temporary swap files
 *.swp
