@@ -56,4 +56,89 @@ public sealed class UnityDocumentationLinkExtractorTests
         var url = new Uri("https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Quaternion.html");
         Assert.Equal(expected, _extractor.GetTitle(html, url));
     }
+
+    [Fact]
+    public void ExtractsOnlyDirectPropertyAndMethodLinksIncludingSetDestination()
+    {
+        const string html = """
+            <div class="section">
+              <div class="subsection"><h2>Properties</h2><table class="list"><tr><td><a href="AI.NavMeshAgent-agentType.html">agentType</a></td></tr></table></div>
+              <div class="subsection"><h2>Methods</h2><table class="list"><tr><td><a href="AI.NavMeshAgent.SetDestination.html">SetDestination</a></td></tr></table></div>
+            </div>
+            """;
+
+        var links = _extractor.ExtractDirectMemberPageLinks(html, new Uri(IndexUrl.AbsoluteUri + "AI.NavMeshAgent.html"));
+
+        Assert.Equal(new[]
+        {
+            "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentType.html",
+            "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html"
+        }, links.Select(link => link.AbsoluteUri));
+    }
+
+    [Fact]
+    public void ExcludesInheritedMembersAndLinksOutsideMainSection()
+    {
+        const string html = """
+            <header><div class="subsection"><table class="list"><tr><td><a href="Header.html">Header</a></td></tr></table></div></header>
+            <aside><a href="Sidebar.html">Sidebar</a></aside>
+            <div class="section">
+              <div class="subsection"><h2>Methods</h2><table class="list"><tr><td><a href="OwnMethod.html">Own method</a></td></tr></table></div>
+              <div class="subsection"><h2>Inherited Members</h2><div class="subsection"><table class="list"><tr><td><a href="Inherited.html">Inherited</a></td></tr></table></div></div>
+            </div>
+            <footer><a href="Footer.html">Footer</a></footer>
+            """;
+
+        var links = _extractor.ExtractDirectMemberPageLinks(html, new Uri(IndexUrl.AbsoluteUri + "AI.NavMeshAgent.html"));
+
+        Assert.Equal(new[] { "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/OwnMethod.html" },
+            links.Select(link => link.AbsoluteUri));
+    }
+
+    [Fact]
+    public void RejectsManualExternalQueryFragmentAndSourcePageLinks()
+    {
+        const string html = """
+            <div class="section"><div class="subsection"><h2>Methods</h2><table class="list">
+              <tr><td><a href="https://example.com/6000.3/Documentation/ScriptReference/External.html">external</a></td></tr>
+              <tr><td><a href="/6000.3/Documentation/Manual/ManualPage.html">manual</a></td></tr>
+              <tr><td><a href="https://docs.unity3d.com/6000.3/Documentation/Packages/com.unity.ai/PackagePage.html">package</a></td></tr>
+              <tr><td><a href="Method.html?x=1">query</a></td></tr>
+              <tr><td><a href="Method.html#part">fragment</a></td></tr>
+              <tr><td><a href="AI.NavMeshAgent.html">self</a></td></tr>
+              <tr><td><a href="//docs.unity3d.com:444/6000.3/Documentation/ScriptReference/Port.html">port</a></td></tr>
+            </table></div></div>
+            """;
+
+        var links = _extractor.ExtractDirectMemberPageLinks(html, new Uri(IndexUrl.AbsoluteUri + "AI.NavMeshAgent.html"));
+
+        Assert.Empty(links);
+    }
+
+    [Fact]
+    public void DeduplicatesAndSortsByCanonicalAbsoluteUrl()
+    {
+        const string html = """
+            <div class="section"><div class="subsection"><h2>Methods</h2><table class="list">
+              <tr><td><a href="Zed.html">zed</a></td></tr>
+              <tr><td><a href="Alpha.html">alpha</a></td></tr>
+              <tr><td><a href="./Alpha.html">duplicate</a></td></tr>
+            </table></div></div>
+            """;
+
+        var links = _extractor.ExtractDirectMemberPageLinks(html, new Uri(IndexUrl.AbsoluteUri + "AI.NavMeshAgent.html"));
+
+        Assert.Equal(new[]
+        {
+            "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Alpha.html",
+            "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Zed.html"
+        }, links.Select(link => link.AbsoluteUri));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("not valid markup {{{")]
+    [InlineData("<div class='section'><table class='list'><a href='Accidental.html'>orphan</a>")]
+    public void EmptyOrMalformedHtmlDoesNotProduceAccidentalLinks(string html) =>
+        Assert.Empty(_extractor.ExtractDirectMemberPageLinks(html, IndexUrl));
 }

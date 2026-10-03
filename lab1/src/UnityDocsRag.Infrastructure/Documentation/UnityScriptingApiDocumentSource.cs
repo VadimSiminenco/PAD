@@ -67,30 +67,53 @@ public sealed class UnityScriptingApiDocumentSource : IDocumentSource
             throw new InvalidOperationException($"Could not download the required Unity Scripting API TOC at '{tocUrl}': {exception.Message}", exception);
         }
 
-        Uri[] pageUrls;
+        Uri[] tocPageUrls;
         try
         {
-            pageUrls = _linkExtractor.ExtractPageLinksFromToc(tocContent).Take(_options.MaxPages).ToArray();
+            tocPageUrls = _linkExtractor.ExtractPageLinksFromToc(tocContent).ToArray();
         }
         catch (Exception exception) when (exception is not OperationCanceledException)
         {
             throw new InvalidOperationException($"Could not process the required Unity Scripting API TOC at '{tocUrl}': {exception.Message}", exception);
         }
 
-        for (var indexInPages = 0; indexInPages < pageUrls.Length; indexInPages++)
+        Uri[] seedPageUrls;
+        if (_options.SeedPages.Count == 0)
+        {
+            // An empty seed list retains the original bounded, alphabetically sorted TOC selection.
+            seedPageUrls = tocPageUrls.Take(_options.MaxPages).ToArray();
+        }
+        else
+        {
+            var pagesByName = tocPageUrls.ToDictionary(
+                page => Path.GetFileName(Uri.UnescapeDataString(page.AbsolutePath)),
+                page => page,
+                StringComparer.Ordinal);
+            var missingSeeds = _options.SeedPages.Where(seed => !pagesByName.ContainsKey(seed)).OrderBy(seed => seed, StringComparer.Ordinal).ToArray();
+            if (missingSeeds.Length != 0)
+            {
+                throw new InvalidOperationException(
+                    $"Configured Unity documentation seed page(s) were not found in the TOC: {string.Join(", ", missingSeeds)}.");
+            }
+
+            seedPageUrls = _options.SeedPages.OrderBy(seed => seed, StringComparer.Ordinal).Select(seed => pagesByName[seed]).ToArray();
+        }
+
+        var requestedUrls = new HashSet<string>(seedPageUrls.Select(page => page.AbsoluteUri), StringComparer.Ordinal);
+        var memberUrls = new SortedSet<string>(StringComparer.Ordinal);
+        var documentationRequestCount = 0;
+
+        async Task<HtmlDownload?> TryDownloadDocumentationPageAsync(Uri pageUrl)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            if (indexInPages > 0 && _options.RequestDelayMilliseconds > 0)
+            if (documentationRequestCount > 0 && _options.RequestDelayMilliseconds > 0)
             {
                 await Task.Delay(_options.RequestDelayMilliseconds, cancellationToken).ConfigureAwait(false);
             }
-
-            RetrievedDocument? document;
-            var pageUrl = pageUrls[indexInPages];
+            documentationRequestCount++;
             try
             {
-                var page = await DownloadAsync(pageUrl, cancellationToken).ConfigureAwait(false);
-                document = CreateDocument(pageUrl, page);
+                return await DownloadAsync(pageUrl, cancellationToken).ConfigureAwait(false);
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
@@ -99,10 +122,34 @@ public sealed class UnityScriptingApiDocumentSource : IDocumentSource
             catch (Exception exception)
             {
                 _logger.LogWarning(exception, "Skipping Unity documentation page {PageUrl} after download failure", pageUrl);
-                continue;
+                return null;
+            }
+        }
+
+        foreach (var seedUrl in seedPageUrls)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var page = await TryDownloadDocumentationPageAsync(seedUrl).ConfigureAwait(false);
+            if (page is null) continue;
+
+            if (_options.IncludeMemberPages)
+            {
+                foreach (var memberUrl in _linkExtractor.ExtractDirectMemberPageLinks(page.Content, seedUrl))
+                {
+                    if (requestedUrls.Add(memberUrl.AbsoluteUri)) memberUrls.Add(memberUrl.AbsoluteUri);
+                }
             }
 
-            yield return document;
+            yield return CreateDocument(seedUrl, page);
+        }
+
+        var availableMemberSlots = Math.Max(0, _options.MaxPages - seedPageUrls.Length);
+        foreach (var memberUrlText in memberUrls.Take(availableMemberSlots))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var memberUrl = new Uri(memberUrlText, UriKind.Absolute);
+            var page = await TryDownloadDocumentationPageAsync(memberUrl).ConfigureAwait(false);
+            if (page is not null) yield return CreateDocument(memberUrl, page);
         }
     }
 

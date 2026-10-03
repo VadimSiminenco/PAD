@@ -82,6 +82,71 @@ public sealed class UnityDocumentationLinkExtractor
         }
     }
 
+    public IReadOnlyList<Uri> ExtractDirectMemberPageLinks(string html, Uri pageUrl)
+    {
+        ArgumentNullException.ThrowIfNull(pageUrl);
+        if (string.IsNullOrWhiteSpace(html)) return Array.Empty<Uri>();
+
+        try
+        {
+            var document = new HtmlParser().ParseDocument(html);
+            var mainSection = document.QuerySelector(".section");
+            if (mainSection is null) return Array.Empty<Uri>();
+
+            var links = new SortedSet<string>(UrlComparer);
+            foreach (var subsection in mainSection.Children.Where(element => element.ClassList.Contains("subsection")))
+            {
+                if (IsInheritedMembersSection(subsection) || !IsDirectMemberSection(subsection)) continue;
+
+                foreach (var table in subsection.QuerySelectorAll("table.list"))
+                {
+                    if (HasNestedSubsection(table, subsection)) continue;
+                    foreach (var anchor in table.QuerySelectorAll("a[href]"))
+                    {
+                        var href = anchor.GetAttribute("href")?.Trim();
+                        if (string.IsNullOrEmpty(href) || !Uri.TryCreate(pageUrl, href, out var resolved)) continue;
+                        if (IsAllowedPage(resolved) && !Uri.Compare(
+                                resolved, pageUrl, UriComponents.AbsoluteUri, UriFormat.UriEscaped, StringComparison.Ordinal).Equals(0))
+                            links.Add(resolved.AbsoluteUri);
+                    }
+                }
+            }
+
+            return links.Select(link => new Uri(link, UriKind.Absolute)).ToArray();
+        }
+        catch (Exception exception) when (exception is not (OutOfMemoryException or StackOverflowException))
+        {
+            return Array.Empty<Uri>();
+        }
+    }
+
+    private static bool IsInheritedMembersSection(AngleSharp.Dom.IElement subsection)
+    {
+        var heading = subsection.QuerySelector("h2, h3, h4, .subsection-title");
+        var text = NormalizeWhitespace(heading?.TextContent);
+        return text.StartsWith("Inherited Members", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool IsDirectMemberSection(AngleSharp.Dom.IElement subsection)
+    {
+        var heading = subsection.QuerySelector("h2, h3, h4, .subsection-title");
+        var text = NormalizeWhitespace(heading?.TextContent);
+        return text.Contains("propert", StringComparison.OrdinalIgnoreCase) ||
+               text.Contains("constructor", StringComparison.OrdinalIgnoreCase) ||
+               text.Contains("operator", StringComparison.OrdinalIgnoreCase) ||
+               text.Contains("method", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static bool HasNestedSubsection(AngleSharp.Dom.IElement element, AngleSharp.Dom.IElement outerSubsection)
+    {
+        for (var parent = element.ParentElement; parent is not null && !ReferenceEquals(parent, outerSubsection); parent = parent.ParentElement)
+        {
+            if (parent.ClassList.Contains("subsection")) return true;
+        }
+
+        return false;
+    }
+
     private static void Visit(JsonElement element, SortedSet<string> links)
     {
         if (element.ValueKind == JsonValueKind.Array)

@@ -118,7 +118,7 @@ dotnet run --project src/UnityDocsRag.Ingestion -- ask "Как задать то
 
 ## Grabber Unity Scripting API
 
-Grabber читает официальный `docdata/toc.js` со страницы Unity Scripting API, рекурсивно обходит его структуру, проверяет ссылки по allowlist версии 6000.3 и загружает страницы последовательно. Текущий безопасный лимит — 5 страниц за запуск; полный crawl намеренно ограничен. Полный корпус не загружается.
+Grabber читает официальный `docdata/toc.js` со страницы Unity Scripting API, проверяет ссылки по allowlist версии 6000.3 и загружает страницы последовательно. Текущий временный конфиг задаёт `SeedPages: ["AI.NavMeshAgent.html"]` и `IncludeMemberPages: true`: загружается страница NavMeshAgent, затем её прямые собственные properties, constructors, operators и methods. Раздел `Inherited Members` исключается, а страницы members не обходятся рекурсивно. `MaxPages: 75` ограничивает суммарное число seed- и member-страниц; index и TOC в лимит не входят. Полный Unity Scripting API corpus будет отдельным этапом и сейчас не загружается.
 
 Запускайте команду из каталога `lab1`:
 

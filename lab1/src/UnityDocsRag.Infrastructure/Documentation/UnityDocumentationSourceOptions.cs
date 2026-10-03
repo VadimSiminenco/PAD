@@ -7,6 +7,8 @@ public sealed class UnityDocumentationSourceOptions
     public string BaseUrl { get; init; } = DefaultBaseUrl;
     public string UnityVersion { get; init; } = "6000.3";
     public int MaxPages { get; init; } = 5;
+    public IReadOnlyList<string> SeedPages { get; init; } = Array.Empty<string>();
+    public bool IncludeMemberPages { get; init; }
     public int RequestDelayMilliseconds { get; init; } = 250;
     public int RequestTimeoutSeconds { get; init; } = 30;
     public string UserAgent { get; init; } = "UnityDocsRag-Lab1/1.0 (educational project)";
@@ -28,10 +30,29 @@ public sealed class UnityDocumentationSourceOptions
                 nameof(BaseUrl));
         }
 
-        if (MaxPages is < 1 or > 50)
+        if (MaxPages is < 1 or > 500)
         {
-            throw new ArgumentOutOfRangeException(nameof(MaxPages), "MaxPages must be between 1 and 50.");
+            throw new ArgumentOutOfRangeException(nameof(MaxPages), "MaxPages must be between 1 and 500.");
         }
+
+        ArgumentNullException.ThrowIfNull(SeedPages);
+        var seeds = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var seed in SeedPages)
+        {
+            if (string.IsNullOrWhiteSpace(seed) ||
+                Path.IsPathRooted(seed) ||
+                seed.Contains('/') || seed.Contains('\\') ||
+                seed.Contains('?') || seed.Contains('#') ||
+                seed.Contains("..", StringComparison.Ordinal) ||
+                !string.Equals(Path.GetFileName(seed), seed, StringComparison.Ordinal) ||
+                !seed.EndsWith(".html", StringComparison.Ordinal))
+                throw new ArgumentException("SeedPages entries must be relative .html file names without path, query, or fragment components.", nameof(SeedPages));
+            if (!seeds.Add(seed))
+                throw new ArgumentException("SeedPages entries must be unique using ordinal comparison.", nameof(SeedPages));
+        }
+
+        if (SeedPages.Count > MaxPages)
+            throw new ArgumentException("MaxPages must be at least the number of configured seed pages.", nameof(MaxPages));
 
         if (RequestDelayMilliseconds < 0)
         {

@@ -1,7 +1,9 @@
 {
   "BaseUrl": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/",
   "UnityVersion": "6000.3",
-  "MaxPages": 5,
+  "MaxPages": 75,
+  "SeedPages": ["AI.NavMeshAgent.html"],
+  "IncludeMemberPages": true,
   "RequestDelayMilliseconds": 250,
   "RequestTimeoutSeconds": 30,
   "UserAgent": "UnityDocsRag-Lab1/1.0 (educational project)",
