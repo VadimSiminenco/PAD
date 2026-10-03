@@ -97,7 +97,24 @@ docker compose --env-file .env down
 
 ## Текущее состояние и наблюдаемость
 
-Сейчас Docker Compose запускает только инфраструктуру PostgreSQL и Ollama, а не готовую RAG-систему. Langfuse будет добавлен отдельным этапом для локальной self-hosted наблюдаемости.
+Docker Compose запускает инфраструктуру PostgreSQL и Ollama. Локальная команда `ask` выполняет определение русского/английского языка, semantic search, пороговые domain/evidence gates и генерацию ответа с citations. Полный Unity corpus ещё не загружен; Langfuse и reranking будут отдельными этапами.
+
+### Задать вопрос
+
+Из каталога `lab1` задайте connection string PostgreSQL в указанной конфигурацией переменной окружения и запустите:
+
+```bat
+dotnet run --project src/UnityDocsRag.Ingestion -- ask "How do I set a NavMeshAgent destination?"
+dotnet run --project src/UnityDocsRag.Ingestion -- ask "Как задать точку назначения NavMeshAgent?" configs\ask.json
+```
+
+Файл `configs/ask.json` содержит несекретные настройки моделей, retrieval и порогов. Пароль и connection string в него не помещаются: по умолчанию строка подключения читается из `UNITYDOCS_POSTGRES_CONNECTION_STRING`.
+
+Команда различает три основных результата:
+
+- `OutOfDomain` — retrieval не нашёл достаточно близких результатов, чтобы считать вопрос относящимся к Unity;
+- `InsufficientEvidence` — вопрос близок к Unity, но similarity найденной документации ниже порога для обоснованного ответа;
+- `Answered` — ответ сформирован по chunks, прошедшим evidence threshold, и сопровождается citations.
 
 ## Grabber Unity Scripting API
 
@@ -111,4 +128,4 @@ dotnet run --project src/UnityDocsRag.Ingestion -- configs/ingestion.json
 
 Исходный HTML сохраняется в `data/raw/unity-6000.3`, а manifest — в `data/state/unity-6000.3-manifest.json`. При повторном запуске страницы с тем же содержимым показываются как `Unchanged`; дубликаты не создаются и HTML не перезаписывается. Папки `lab1/data/raw/` и `lab1/data/state/` содержат generated data и исключены из Git.
 
-На этом этапе реализован только grabber с локальным файловым cache. Preprocessing, chunking, embeddings, PostgreSQL indexing, API и полная RAG-система ещё не реализованы.
+Grabber сохраняет локальный файловый cache; preprocessing, chunking и indexing выполняются отдельными командами. Команда `ask` использует уже созданный PostgreSQL индекс. API, Langfuse, reranking и полный crawl Unity corpus не входят в текущую реализацию.

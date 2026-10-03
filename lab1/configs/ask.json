@@ -1,0 +1,21 @@
+{
+  "OllamaEndpoint": "http://127.0.0.1:11434",
+  "EmbeddingProvider": "Ollama",
+  "EmbeddingModel": "embeddinggemma",
+  "EmbeddingDimension": 768,
+  "Multilingual": true,
+  "OllamaTruncate": false,
+  "EmbeddingKeepAlive": "5m",
+  "GenerationModel": "qwen3:4b",
+  "GenerationKeepAlive": "5m",
+  "GenerationTimeoutSeconds": 1200,
+  "Temperature": 0.0,
+  "NumPredict": 256,
+  "NumCtx": 4096,
+  "PostgresConnectionStringEnvironmentVariable": "UNITYDOCS_POSTGRES_CONNECTION_STRING",
+  "PostgresCommandTimeoutSeconds": 30,
+  "TopK": 5,
+  "DomainSimilarityThreshold": 0.25,
+  "EvidenceSimilarityThreshold": 0.45,
+  "MaxEvidenceChunks": 3
+}

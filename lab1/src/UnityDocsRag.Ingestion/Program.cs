@@ -3,9 +3,12 @@ using Microsoft.Extensions.Logging;
 using UnityDocsRag.Core.Abstractions;
 using UnityDocsRag.Infrastructure.Documentation;
 using UnityDocsRag.Infrastructure.Embeddings;
+using UnityDocsRag.Infrastructure.Generation;
 using UnityDocsRag.Infrastructure.Preprocessing;
+using UnityDocsRag.Infrastructure.Query;
 using UnityDocsRag.Infrastructure.Retrieval;
 using UnityDocsRag.Infrastructure.Storage;
+using UnityDocsRag.Ingestion;
 
 using var cancellationSource = new CancellationTokenSource();
 using var loggerFactory = LoggerFactory.Create(logging =>
@@ -21,15 +24,42 @@ Console.CancelKeyPress += cancelHandler;
 try
 {
     var command = args.Length == 0 ? "grab" : args[0];
-    var validArguments = command == "search"
+    var validArguments = command is "search" or "ask"
         ? args.Length is 2 or 3
         : args.Length <= 2 && (command is "grab" or "process" or "index" || args.Length == 1);
     if (!validArguments)
     {
-        throw new ArgumentException("Usage: [grab [config]] | [process [config]] | [index [config]] | search \"<question>\" [config] | [legacy-grab-config]");
+        throw new ArgumentException("Usage: [grab [config]] | [process [config]] | [index [config]] | search \"<question>\" [config] | ask \"<question>\" [config] | [legacy-grab-config]");
     }
 
-    if (command == "search")
+    if (command == "ask")
+    {
+        var question = args[1];
+        if (string.IsNullOrWhiteSpace(question)) throw new ArgumentException("Ask question must not be empty.");
+        var configPath = args.Length == 3 ? args[2] : Path.Combine("configs", "ask.json");
+        var options = await ReadOptionsAsync<AskRunOptions>(configPath, cancellationSource.Token);
+        options.Validate();
+        var connectionString = options.GetPostgresConnectionString();
+        var postgresOptions = new PostgresVectorStoreOptions
+        {
+            ConnectionString = connectionString,
+            CommandTimeoutSeconds = options.PostgresCommandTimeoutSeconds
+        };
+        await using var dataSource = postgresOptions.CreateDataSource();
+        using var httpClient = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
+        var profile = options.CreateEmbeddingProfile();
+        var embeddingProvider = new OllamaEmbeddingProvider(httpClient, options.CreateOllamaEmbeddingOptions());
+        var retriever = new PostgresVectorRetriever(dataSource,
+            new PostgresVectorRetrieverOptions { CommandTimeoutSeconds = options.PostgresCommandTimeoutSeconds });
+        var semanticSearch = new SemanticSearchService(embeddingProvider, retriever);
+        var answerGenerator = new OllamaAnswerGenerator(httpClient, options.CreateOllamaGenerationOptions());
+        var queryService = new RagQueryService(
+            new RussianEnglishLanguageDetector(), semanticSearch, answerGenerator, profile,
+            options.TopK, options.DomainSimilarityThreshold, options.EvidenceSimilarityThreshold, options.MaxEvidenceChunks);
+        var runner = new AskRunner(queryService, loggerFactory.CreateLogger<AskRunner>());
+        await runner.RunAsync(question, cancellationSource.Token);
+    }
+    else if (command == "search")
     {
         var question = args[1];
         if (string.IsNullOrWhiteSpace(question)) throw new ArgumentException("Search question must not be empty.");
@@ -109,7 +139,7 @@ catch (OperationCanceledException) when (cancellationSource.IsCancellationReques
 }
 catch (Exception exception)
 {
-    logger.LogError("Command failed ({ExceptionType}). Usage: [grab [config]] | [process [config]] | [index [config]] | search \"<question>\" [config] | [legacy-grab-config]",
+    logger.LogError("Command failed ({ExceptionType}). Usage: [grab [config]] | [process [config]] | [index [config]] | search \"<question>\" [config] | ask \"<question>\" [config] | [legacy-grab-config]",
         exception.GetType().Name);
     return 1;
 }
