@@ -67,6 +67,59 @@ public sealed class UnityHtmlDocumentPreprocessorTests
         await Assert.ThrowsAsync<InvalidDataException>(() => new UnityHtmlDocumentPreprocessor().ProcessAsync(Retrieved("<h1>No content</h1>"), CancellationToken.None));
 
     [Fact]
+    public async Task RendersUnitySignaturesAndBrSeparatedCodeExamplesWithoutLosingFormatting()
+    {
+        const string html = """
+            <div id="content-wrap"><div class="section">
+              <div class="mb20"><h1>NavMeshAgent.SetDestination</h1></div>
+              <div class="signature-CS sig-block"><h2>Declaration</h2>public bool<span>SetDestination</span>(<a href="Vector3.html">Vector3</a> <span>target</span>);</div>
+              <pre>using UnityEngine.AI;<br/><br/>public class Example<br/>{<br/>    void Start() { var agent = new <a href="NavMeshAgent.html">NavMeshAgent</a>(); }<br/>}<br/><br/>    void Update()</pre>
+            </div></div>
+            """;
+
+        var processed = await new UnityHtmlDocumentPreprocessor().ProcessAsync(Retrieved(html), CancellationToken.None);
+
+        Assert.Contains("```csharp\npublic bool SetDestination(Vector3 target);\n```", processed.Content, StringComparison.Ordinal);
+        Assert.Contains("```csharp\nusing UnityEngine.AI;\n\npublic class Example", processed.Content, StringComparison.Ordinal);
+        Assert.Contains("\n}\n\n    void Update()", processed.Content, StringComparison.Ordinal);
+        Assert.DoesNotContain("Declarationpublic", processed.Content, StringComparison.Ordinal);
+        Assert.DoesNotContain(";public class", processed.Content, StringComparison.Ordinal);
+        Assert.DoesNotContain("}    void", processed.Content, StringComparison.Ordinal);
+
+        var codeBlocks = System.Text.RegularExpressions.Regex.Matches(processed.Content, "```csharp\\n(.*?)\\n```",
+            System.Text.RegularExpressions.RegexOptions.Singleline);
+        Assert.Equal(2, codeBlocks.Count);
+        foreach (System.Text.RegularExpressions.Match codeBlock in codeBlocks)
+            Assert.DoesNotContain("`", codeBlock.Groups[1].Value, StringComparison.Ordinal);
+        Assert.Equal("2", processed.Metadata["preprocessorVersion"]);
+    }
+
+    [Fact]
+    public async Task RemovesOnlyCommonLeadingIndentFromFencedCode()
+    {
+        const string html = """
+            <div id="content-wrap"><div class="section">
+              <div class="mb20"><h1>API</h1></div>
+              <div class="signature-CS sig-block">
+                            <h2>Declaration</h2>
+                            public bool <span>SetDestination</span>(Vector3 target);
+              </div>
+              <pre>
+                    if (ready)
+                    {
+                        Run();
+                    }
+              </pre>
+            </div></div>
+            """;
+
+        var processed = await new UnityHtmlDocumentPreprocessor().ProcessAsync(Retrieved(html), CancellationToken.None);
+
+        Assert.Contains("```csharp\npublic bool SetDestination(Vector3 target);\n```", processed.Content, StringComparison.Ordinal);
+        Assert.Contains("```csharp\nif (ready)\n{\n    Run();\n}\n```", processed.Content, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void NormalizationIsDeterministicAndPreservesFencedCodeIndentation()
     {
         const string input = "  alpha   beta  \r\n\r\n\r\n```csharp\r\n  int  x;  \r\n```  ";

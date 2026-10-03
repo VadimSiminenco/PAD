@@ -30,7 +30,7 @@ public sealed class UnityHtmlDocumentPreprocessor : IDocumentPreprocessor
             throw new InvalidDataException("Unity documentation main content contains no useful text.");
         var metadata = new Dictionary<string, string>(document.Metadata, StringComparer.Ordinal)
         {
-            ["preprocessorVersion"] = "1",
+            ["preprocessorVersion"] = "2",
             ["sourceContentHash"] = document.ContentHash
         };
         var hash = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(content))).ToLowerInvariant();
@@ -56,7 +56,7 @@ public sealed class UnityHtmlDocumentPreprocessor : IDocumentPreprocessor
             }
             else if (tag == "pre" || child.ClassList.Contains("signature-CS"))
             {
-                var code = child.TextContent.Trim('\r', '\n', ' ', '\t');
+                var code = RenderCode(child, isSignature: child.ClassList.Contains("signature-CS"));
                 if (code.Length > 0) output.Add("```csharp\n" + code + "\n```");
             }
             else if (tag == "table")
@@ -101,6 +101,77 @@ public sealed class UnityHtmlDocumentPreprocessor : IDocumentPreprocessor
             }
         }
     }
+
+    private static string RenderCode(IElement element, bool isSignature)
+    {
+        var builder = new StringBuilder();
+        AppendCode(element, builder, isSignature);
+
+        var normalized = builder.ToString().Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n');
+        var lines = normalized.Split('\n').ToList();
+        while (lines.Count > 0 && string.IsNullOrWhiteSpace(lines[0])) lines.RemoveAt(0);
+        while (lines.Count > 0 && string.IsNullOrWhiteSpace(lines[^1])) lines.RemoveAt(lines.Count - 1);
+
+        var commonIndent = lines
+            .Where(line => !string.IsNullOrWhiteSpace(line))
+            .Select(CountLeadingIndent)
+            .DefaultIfEmpty(0)
+            .Min();
+        if (commonIndent > 0)
+        {
+            for (var index = 0; index < lines.Count; index++)
+            {
+                var removable = Math.Min(commonIndent, CountLeadingIndent(lines[index]));
+                lines[index] = lines[index][removable..];
+            }
+        }
+
+        return string.Join('\n', lines);
+    }
+
+    private static int CountLeadingIndent(string line)
+    {
+        var count = 0;
+        while (count < line.Length && line[count] is ' ' or '\t') count++;
+        return count;
+    }
+
+    private static void AppendCode(INode node, StringBuilder builder, bool isSignature)
+    {
+        if (node is IText text)
+        {
+            AppendCodeText(text.Data, builder);
+            return;
+        }
+
+        if (node is not IElement element) return;
+        var tag = element.TagName;
+        if (tag.Equals("IMG", StringComparison.OrdinalIgnoreCase) ||
+            tag.Equals("SCRIPT", StringComparison.OrdinalIgnoreCase) ||
+            tag.Equals("STYLE", StringComparison.OrdinalIgnoreCase)) return;
+        if (tag.Equals("BR", StringComparison.OrdinalIgnoreCase))
+        {
+            builder.Append('\n');
+            return;
+        }
+        if (isSignature && tag.Equals("H2", StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(string.Join(' ', element.TextContent.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries)),
+                "Declaration", StringComparison.OrdinalIgnoreCase)) return;
+
+        foreach (var child in element.ChildNodes) AppendCode(child, builder, isSignature);
+    }
+
+    private static void AppendCodeText(string value, StringBuilder builder)
+    {
+        if (value.Length == 0) return;
+
+        // Inline markup may split adjacent C# tokens into separate DOM nodes without source whitespace.
+        if (builder.Length > 0 && IsCodeWordCharacter(builder[^1]) && IsCodeWordCharacter(value[0]))
+            builder.Append(' ');
+        builder.Append(value);
+    }
+
+    private static bool IsCodeWordCharacter(char value) => char.IsLetterOrDigit(value) || value == '_';
 
     private static string RenderInline(IElement element)
     {
