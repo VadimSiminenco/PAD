@@ -1,0 +1,141 @@
+{
+  "Version": 1,
+  "UnityVersion": "6000.3",
+  "Questions": [
+    {
+      "Id": "Q01",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Как задать NavMeshAgent целевую точку с расчётом пути и чем это отличается от мгновенного переноса агента в позицию?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": true,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination(Vector3 target) задаёт или обновляет цель и запускает расчёт нового пути.",
+        "Warp(Vector3 newPosition) переносит агента в указанную позицию."
+      ]
+    },
+    {
+      "Id": "Q02",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "After requesting a destination with NavMeshAgent.SetDestination, which property tells me the path is still being computed, and what states can pathStatus report?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": true,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination starts calculating a new path, which may take a few frames.",
+        "pathPending is true while a path is being computed and is not ready.",
+        "pathStatus reports whether the current path is complete, partial, or invalid."
+      ]
+    },
+    {
+      "Id": "Q03",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Для чего нужно свойство NavMeshAgent.autoBraking при приближении агента к цели?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ],
+      "ExpectedFacts": [
+        "При true агент автоматически тормозит по мере приближения к цели.",
+        "Это помогает избежать проскакивания целевой точки или бесконечного движения вокруг неё."
+      ]
+    },
+    {
+      "Id": "Q04",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "What does NavMeshAgent.stoppingDistance control, and why might a larger value help near the target?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html"
+      ],
+      "ExpectedFacts": [
+        "The agent stops within the configured distance from the target position.",
+        "A larger stopping distance gives the agent more room to manoeuvre near the end of the path and may avoid sudden braking or turning."
+      ]
+    },
+    {
+      "Id": "Q05",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Как заранее рассчитать путь NavMeshAgent к заданной точке через CalculatePath и что означает возвращаемое bool?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ],
+      "ExpectedFacts": [
+        "CalculatePath(Vector3 targetPosition, NavMeshPath path) вычисляет путь к точке и записывает результат в path.",
+        "Метод выполняет поиск пути синхронно.",
+        "Возвращает true, если найден полный или частичный путь; иначе false."
+      ]
+    },
+    {
+      "Id": "Q06",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "What does NavMeshAgent.Move(Vector3 offset) do, and what happens to an existing path?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ],
+      "ExpectedFacts": [
+        "Move applies relative movement to the agent's current position using the offset vector.",
+        "If the agent has a path, that path is adjusted."
+      ]
+    },
+    {
+      "Id": "Q07",
+      "Language": "ru",
+      "Category": "UnityWithoutCorpusEvidence",
+      "Text": "Как вызвать Animator.SetTrigger в Unity 6.3 и какие параметры принимает этот метод?",
+      "ExpectedStatus": "InsufficientEvidence",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q08",
+      "Language": "en",
+      "Category": "UnityWithoutCorpusEvidence",
+      "Text": "Which ForceMode values can be used with Rigidbody.AddForce in Unity 6.3, and how do they affect the applied force?",
+      "ExpectedStatus": "InsufficientEvidence",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q09",
+      "Language": "ru",
+      "Category": "OutOfDomain",
+      "Text": "Как сварить рассыпчатый рис?",
+      "ExpectedStatus": "OutOfDomain",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q10",
+      "Language": "en",
+      "Category": "OutOfDomain",
+      "Text": "What is the capital of Canada?",
+      "ExpectedStatus": "OutOfDomain",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    }
+  ]
+}
