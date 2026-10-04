@@ -7,6 +7,7 @@ using UnityDocsRag.Infrastructure.Generation;
 using UnityDocsRag.Infrastructure.Preprocessing;
 using UnityDocsRag.Infrastructure.Query;
 using UnityDocsRag.Infrastructure.Retrieval;
+using UnityDocsRag.Infrastructure.Reranking;
 using UnityDocsRag.Infrastructure.Storage;
 using UnityDocsRag.Ingestion;
 
@@ -52,9 +53,11 @@ try
         var retriever = new PostgresVectorRetriever(dataSource,
             new PostgresVectorRetrieverOptions { CommandTimeoutSeconds = options.PostgresCommandTimeoutSeconds });
         var semanticSearch = new SemanticSearchService(embeddingProvider, retriever);
+        var reranker = new OllamaReranker(httpClient, options.CreateOllamaRerankerOptions());
         var answerGenerator = new OllamaAnswerGenerator(httpClient, options.CreateOllamaGenerationOptions());
         var queryService = new RagQueryService(
-            new RussianEnglishLanguageDetector(), semanticSearch, answerGenerator, profile,
+            new RussianEnglishLanguageDetector(), semanticSearch, reranker, answerGenerator,
+            loggerFactory.CreateLogger<RagQueryService>(), profile,
             options.TopK, options.DomainSimilarityThreshold, options.EvidenceSimilarityThreshold, options.MaxEvidenceChunks);
         var runner = new AskRunner(queryService, loggerFactory.CreateLogger<AskRunner>());
         await runner.RunAsync(question, cancellationSource.Token);

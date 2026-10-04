@@ -34,8 +34,11 @@ public sealed class OllamaEmbeddingProvider : IEmbeddingProvider, IQueryEmbeddin
         cancellationToken.ThrowIfCancellationRequested();
         if (chunks.Count == 0) return Array.AsReadOnly(Array.Empty<ChunkEmbedding>());
 
-        var inputTexts = chunks.Select(chunk => chunk.Text).ToArray();
-        var vectors = await EmbedTextsAsync(inputTexts, profile, cancellationToken).ConfigureAwait(false);
+        var originalTexts = chunks.Select(chunk => chunk.Text).ToArray();
+        var inputTexts = IsEmbeddingGemma(profile.ModelName)
+            ? originalTexts.Select(FormatEmbeddingGemmaDocumentInput).ToArray()
+            : originalTexts;
+        var vectors = await EmbedTextsAsync(inputTexts, originalTexts, profile, cancellationToken).ConfigureAwait(false);
         var result = new List<ChunkEmbedding>(chunks.Count);
         for (var index = 0; index < vectors.Count; index++)
         {
@@ -53,14 +56,15 @@ public sealed class OllamaEmbeddingProvider : IEmbeddingProvider, IQueryEmbeddin
         ValidateProfile(profile);
         cancellationToken.ThrowIfCancellationRequested();
 
-        var vectors = await EmbedTextsAsync(new[] { question }, profile, cancellationToken).ConfigureAwait(false);
+        var input = IsEmbeddingGemma(profile.ModelName) ? FormatEmbeddingGemmaQueryInput(question) : question;
+        var vectors = await EmbedTextsAsync(new[] { input }, new[] { question }, profile, cancellationToken).ConfigureAwait(false);
         if (vectors.Count != 1)
             throw new InvalidDataException($"Ollama returned {vectors.Count} embeddings for a single query input.");
         return new QueryEmbedding(profile, vectors[0]);
     }
 
     private async Task<IReadOnlyList<float[]>> EmbedTextsAsync(IReadOnlyList<string> inputTexts,
-        EmbeddingProfile profile, CancellationToken cancellationToken)
+        IReadOnlyList<string> originalTexts, EmbeddingProfile profile, CancellationToken cancellationToken)
     {
         if (inputTexts.Count == 0) return Array.AsReadOnly(Array.Empty<float[]>());
         var result = new List<float[]>(inputTexts.Count);
@@ -69,7 +73,12 @@ public sealed class OllamaEmbeddingProvider : IEmbeddingProvider, IQueryEmbeddin
             cancellationToken.ThrowIfCancellationRequested();
             var count = Math.Min(_options.BatchSize, inputTexts.Count - offset);
             var batch = new string[count];
-            for (var index = 0; index < count; index++) batch[index] = inputTexts[offset + index];
+            var originalBatch = new string[count];
+            for (var index = 0; index < count; index++)
+            {
+                batch[index] = inputTexts[offset + index];
+                originalBatch[index] = originalTexts[offset + index];
+            }
             var requestDto = new EmbedRequest(profile.ModelName, batch, _options.Truncate, _options.KeepAlive);
             using var request = new HttpRequestMessage(HttpMethod.Post, _endpoint)
             {
@@ -80,7 +89,7 @@ public sealed class OllamaEmbeddingProvider : IEmbeddingProvider, IQueryEmbeddin
             var body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
-                var safeBody = LimitAndRedact(body, batch);
+                var safeBody = LimitAndRedact(body, batch.Concat(originalBatch).ToArray());
                 throw new HttpRequestException(
                     $"Ollama embedding request failed with HTTP {(int)response.StatusCode} ({response.StatusCode}). Response: {safeBody}",
                     null, response.StatusCode);
@@ -125,6 +134,17 @@ public sealed class OllamaEmbeddingProvider : IEmbeddingProvider, IQueryEmbeddin
         if (!string.Equals(profile.Provider, "Ollama", StringComparison.OrdinalIgnoreCase))
             throw new ArgumentException("Embedding profile provider must be 'Ollama'.", nameof(profile));
     }
+
+    private static bool IsEmbeddingGemma(string modelName)
+    {
+        var normalized = modelName.Trim();
+        return string.Equals(normalized, "embeddinggemma", StringComparison.OrdinalIgnoreCase) ||
+               normalized.StartsWith("embeddinggemma:", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string FormatEmbeddingGemmaDocumentInput(string text) => "title: none | text: " + text;
+
+    private static string FormatEmbeddingGemmaQueryInput(string question) => "task: search result | query: " + question;
 
     private static string LimitAndRedact(string body, IReadOnlyList<string> inputTexts)
     {

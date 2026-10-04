@@ -23,7 +23,8 @@ public sealed class OllamaEmbeddingProviderTests
             Assert.Equal("application/json", request.Content!.Headers.ContentType!.MediaType);
             var dto = JsonDocument.Parse(await request.Content.ReadAsStringAsync(token)).RootElement;
             Assert.Equal("embeddinggemma", dto.GetProperty("model").GetString());
-            Assert.Equal(new[] { "first text", "second text" }, dto.GetProperty("input").EnumerateArray().Select(item => item.GetString()));
+            Assert.Equal(new[] { "title: none | text: first text", "title: none | text: second text" },
+                dto.GetProperty("input").EnumerateArray().Select(item => item.GetString()));
             Assert.False(dto.GetProperty("truncate").GetBoolean());
             Assert.Equal("5m", dto.GetProperty("keep_alive").GetString());
             Assert.False(dto.TryGetProperty("dimensions", out _));
@@ -44,10 +45,13 @@ public sealed class OllamaEmbeddingProviderTests
     {
         var chunks = Enumerable.Range(0, 5).Select(index => Chunk(index.ToString(), "chunk-" + index)).ToArray();
         var nextVector = 0;
+        var sentInputs = new List<string>();
         var handler = new FakeHandler(async (request, token) =>
         {
             using var json = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
-            var count = json.RootElement.GetProperty("input").GetArrayLength();
+            var batchInputs = json.RootElement.GetProperty("input").EnumerateArray().Select(item => item.GetString()!).ToArray();
+            sentInputs.AddRange(batchInputs);
+            var count = batchInputs.Length;
             var vectors = Enumerable.Range(nextVector, count).Select(index => new[] { (float)index, 0f, 0f }).ToArray();
             nextVector += count;
             return Ok(vectors);
@@ -55,6 +59,7 @@ public sealed class OllamaEmbeddingProviderTests
         using var client = new HttpClient(handler);
         var result = await Provider(client, batchSize: 2).EmbedAsync(chunks, Profile, CancellationToken.None);
         Assert.Equal(3, handler.RequestCount);
+        Assert.Equal(Enumerable.Range(0, 5).Select(index => $"title: none | text: chunk-{index}"), sentInputs);
         Assert.Equal(chunks, result.Select(item => item.Chunk));
         Assert.Equal(new[] { 0f, 1f, 2f, 3f, 4f }, result.Select(item => item.Vector[0]));
     }
@@ -118,15 +123,17 @@ public sealed class OllamaEmbeddingProviderTests
     }
 
     [Fact]
-    public async Task NonSuccessStatusIncludesStatusButNotChunkTextOrVectorData()
+    public async Task NonSuccessStatusIncludesStatusButNotOriginalOrFormattedChunkTextOrVectorData()
     {
         const string secretText = "do not disclose this chunk text";
-        using var client = new HttpClient(Responding(JsonResponse("error: " + secretText, HttpStatusCode.BadGateway)));
+        const string formattedText = "title: none | text: " + secretText;
+        using var client = new HttpClient(Responding(JsonResponse("error: " + secretText + " | " + formattedText, HttpStatusCode.BadGateway)));
         var exception = await Assert.ThrowsAsync<HttpRequestException>(() => Provider(client).EmbedAsync(
             new[] { Chunk("a", secretText) }, Profile, CancellationToken.None));
         Assert.Equal(HttpStatusCode.BadGateway, exception.StatusCode);
         Assert.Contains("502", exception.Message, StringComparison.Ordinal);
         Assert.DoesNotContain(secretText, exception.Message, StringComparison.Ordinal);
+        Assert.DoesNotContain(formattedText, exception.Message, StringComparison.Ordinal);
         Assert.DoesNotContain("1,2,3", exception.Message, StringComparison.Ordinal);
     }
 
@@ -147,7 +154,7 @@ public sealed class OllamaEmbeddingProviderTests
     [Theory]
     [InlineData("Как создать NavMeshAgent в Unity?")]
     [InlineData("How do I create a NavMeshAgent in Unity?")]
-    public async Task QueryEmbeddingPassesQuestionUnchangedAndUsesConfiguredRequest(string question)
+    public async Task QueryEmbeddingUsesEmbeddingGemmaSearchPromptAndConfiguredRequest(string question)
     {
         var handler = new FakeHandler(async (request, token) =>
         {
@@ -156,7 +163,8 @@ public sealed class OllamaEmbeddingProviderTests
             using var json = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
             var root = json.RootElement;
             Assert.Equal("embeddinggemma", root.GetProperty("model").GetString());
-            Assert.Equal(question, Assert.Single(root.GetProperty("input").EnumerateArray()).GetString());
+            Assert.Equal("task: search result | query: " + question,
+                Assert.Single(root.GetProperty("input").EnumerateArray()).GetString());
             Assert.True(root.GetProperty("truncate").GetBoolean());
             Assert.Equal("30s", root.GetProperty("keep_alive").GetString());
             return Ok(new[] { 0.25f, 0.5f, 0.75f });
@@ -220,10 +228,11 @@ public sealed class OllamaEmbeddingProviderTests
     }
 
     [Fact]
-    public async Task QueryHttpErrorDoesNotRevealQuestionText()
+    public async Task QueryHttpErrorDoesNotRevealOriginalOrFormattedQuestion()
     {
         const string secretQuestion = "private question: should not leak";
-        using var client = new HttpClient(Responding(JsonResponse("error: " + secretQuestion, HttpStatusCode.BadGateway)));
+        const string formattedQuestion = "task: search result | query: " + secretQuestion;
+        using var client = new HttpClient(Responding(JsonResponse("error: " + secretQuestion + " | " + formattedQuestion, HttpStatusCode.BadGateway)));
         IQueryEmbeddingProvider provider = Provider(client);
 
         var exception = await Assert.ThrowsAsync<HttpRequestException>(() => provider.EmbedQueryAsync(secretQuestion, Profile, CancellationToken.None));
@@ -231,6 +240,53 @@ public sealed class OllamaEmbeddingProviderTests
         Assert.Equal(HttpStatusCode.BadGateway, exception.StatusCode);
         Assert.Contains("502", exception.Message, StringComparison.Ordinal);
         Assert.DoesNotContain(secretQuestion, exception.Message, StringComparison.Ordinal);
+        Assert.DoesNotContain(formattedQuestion, exception.Message, StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData(" embeddinggemma:latest ")]
+    [InlineData("EmbeddingGemma:Q4_0")]
+    public async Task EmbeddingGemmaTaggedModelsUseDocumentPrompt(string modelName)
+    {
+        using var client = new HttpClient(new FakeHandler(async (request, token) =>
+        {
+            using var json = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
+            Assert.Equal("title: none | text: body", Assert.Single(json.RootElement.GetProperty("input").EnumerateArray()).GetString());
+            return Ok(new[] { 1f, 2f, 3f });
+        }));
+
+        var profile = new EmbeddingProfile("Ollama", modelName, 3, multilingual: true);
+        var result = await Provider(client).EmbedAsync([Chunk("tagged", "body")], profile, CancellationToken.None);
+
+        Assert.Single(result);
+        Assert.Equal("body", result[0].Chunk.Text);
+    }
+
+    [Fact]
+    public async Task OtherEmbeddingModelsReceiveDocumentAndQueryTextWithoutPrefixes()
+    {
+        var profile = new EmbeddingProfile("Ollama", "nomic-embed-text:latest", 3, multilingual: true);
+        var handler = new FakeHandler(async (request, token) =>
+        {
+            using var json = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
+            Assert.Equal("raw document text", Assert.Single(json.RootElement.GetProperty("input").EnumerateArray()).GetString());
+            return Ok(new[] { 1f, 2f, 3f });
+        });
+        using var client = new HttpClient(handler);
+        var provider = new OllamaEmbeddingProvider(client, new OllamaEmbeddingOptions());
+
+        var embedded = await provider.EmbedAsync([Chunk("other", "raw document text")], profile, CancellationToken.None);
+        Assert.Single(embedded);
+
+        handler.SetResponse(async (request, token) =>
+        {
+            using var json = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
+            Assert.Equal("raw question", Assert.Single(json.RootElement.GetProperty("input").EnumerateArray()).GetString());
+            return Ok(new[] { 1f, 2f, 3f });
+        });
+        var query = await provider.EmbedQueryAsync("raw question", profile, CancellationToken.None);
+        Assert.Equal(profile, query.Profile);
+        Assert.Equal(2, handler.RequestCount);
     }
 
     [Fact]
@@ -271,11 +327,13 @@ public sealed class OllamaEmbeddingProviderTests
 
     private sealed class FakeHandler(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> send) : HttpMessageHandler
     {
+        private Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> _send = send;
         public int RequestCount { get; private set; }
+        public void SetResponse(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> send) => _send = send;
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             RequestCount++;
-            return send(request, cancellationToken);
+            return _send(request, cancellationToken);
         }
     }
 }

@@ -1,6 +1,7 @@
 using UnityDocsRag.Core.Embeddings;
 using UnityDocsRag.Infrastructure.Embeddings;
 using UnityDocsRag.Infrastructure.Generation;
+using UnityDocsRag.Infrastructure.Reranking;
 
 namespace UnityDocsRag.Ingestion;
 
@@ -19,6 +20,14 @@ public sealed class AskRunOptions
     public double Temperature { get; init; }
     public int NumPredict { get; init; } = 256;
     public int NumCtx { get; init; } = 4096;
+    public string RerankerModel { get; init; } = "qwen3:4b";
+    public string RerankerKeepAlive { get; init; } = "5m";
+    public int RerankerTimeoutSeconds { get; init; } = 1200;
+    public double RerankerTemperature { get; init; }
+    public int RerankerNumPredict { get; init; } = 512;
+    public int RerankerNumCtx { get; init; } = 4096;
+    public int RerankerMaxCandidates { get; init; } = 5;
+    public bool RerankerThink { get; init; }
     public string PostgresConnectionStringEnvironmentVariable { get; init; } = "UNITYDOCS_POSTGRES_CONNECTION_STRING";
     public int PostgresCommandTimeoutSeconds { get; init; } = 30;
     public int TopK { get; init; } = 5;
@@ -52,6 +61,8 @@ public sealed class AskRunOptions
         if (TopK <= 0) throw new ArgumentOutOfRangeException(nameof(TopK), "TopK must be positive.");
         if (MaxEvidenceChunks <= 0 || MaxEvidenceChunks > TopK)
             throw new ArgumentOutOfRangeException(nameof(MaxEvidenceChunks), "MaxEvidenceChunks must be positive and no greater than TopK.");
+        if (RerankerMaxCandidates < TopK)
+            throw new ArgumentOutOfRangeException(nameof(RerankerMaxCandidates), "RerankerMaxCandidates must be greater than or equal to TopK.");
         ValidateThreshold(DomainSimilarityThreshold, nameof(DomainSimilarityThreshold));
         ValidateThreshold(EvidenceSimilarityThreshold, nameof(EvidenceSimilarityThreshold));
         if (DomainSimilarityThreshold >= EvidenceSimilarityThreshold)
@@ -59,6 +70,7 @@ public sealed class AskRunOptions
 
         CreateOllamaEmbeddingOptions().Validate();
         CreateOllamaGenerationOptions().Validate();
+        CreateOllamaRerankerOptions().Validate();
     }
 
     public EmbeddingProfile CreateEmbeddingProfile() =>
@@ -82,6 +94,24 @@ public sealed class AskRunOptions
         NumPredict = NumPredict,
         NumCtx = NumCtx
     };
+
+    public OllamaRerankerOptions CreateOllamaRerankerOptions()
+    {
+        var options = new OllamaRerankerOptions
+        {
+            Endpoint = OllamaEndpoint,
+            Model = RerankerModel,
+            KeepAlive = RerankerKeepAlive,
+            HttpTimeoutSeconds = RerankerTimeoutSeconds,
+            Temperature = RerankerTemperature,
+            NumPredict = RerankerNumPredict,
+            NumCtx = RerankerNumCtx,
+            MaxCandidates = RerankerMaxCandidates,
+            Think = RerankerThink
+        };
+        options.Validate();
+        return options;
+    }
 
     public string GetPostgresConnectionString()
     {

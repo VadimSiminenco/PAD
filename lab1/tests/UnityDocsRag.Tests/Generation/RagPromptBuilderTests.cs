@@ -59,9 +59,31 @@ public sealed class RagPromptBuilderTests
         Assert.Contains("A brief answer is acceptable", prompt.SystemMessage, StringComparison.Ordinal);
         Assert.Contains("exhaustive documentation", prompt.SystemMessage, StringComparison.Ordinal);
         Assert.Contains("documented signature, description, or example", prompt.SystemMessage, StringComparison.Ordinal);
-        Assert.Contains("only when the sources contain no facts that directly answer", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("only when the sources cannot support even a limited, factually grounded answer", prompt.SystemMessage, StringComparison.Ordinal);
         Assert.Contains("Do not use outside knowledge or invent details", prompt.SystemMessage, StringComparison.Ordinal);
         Assert.Contains("source number or numbers actually used", prompt.SystemMessage, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void PromptAllowsGroundedConditionalAnswersAndUsesNegativeConstraintsToDistinguishOperations()
+    {
+        var prompt = new RagPromptBuilder().Build(
+            new UserQuestion("How can I achieve this without an immediate change?"),
+            SupportedLanguage.English, Array.Empty<RetrievedChunk>());
+
+        Assert.Contains("useful way to perform the requested action", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("do not guarantee the final result", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("explicitly state the documented condition or limitation", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("A negative part of the question", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("helps distinguish operations", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("does not by itself make evidence insufficient", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("cannot support even a limited, factually grounded answer", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("Do not promise a result the documentation does not guarantee", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("Do not use outside knowledge or invent details", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.Contains("source number or numbers actually used", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.DoesNotContain("NavMeshAgent", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.DoesNotContain("SetDestination", prompt.SystemMessage, StringComparison.Ordinal);
+        Assert.DoesNotContain("Warp", prompt.SystemMessage, StringComparison.Ordinal);
     }
 
     [Fact]

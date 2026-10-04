@@ -9,7 +9,9 @@
 - Ollama для локального запуска моделей;
 - Docker Compose для локальной инфраструктуры.
 
-Ollama — это локальная среда запуска моделей, а не готовая RAG-система. Для проекта выбраны модели `embeddinggemma` для embeddings и `qwen3:4b` для генерации ответов на русском и английском. Размерность embeddings `embeddinggemma` — 768.
+Ollama — это локальная среда запуска моделей, а не готовая RAG-система. Для проекта выбраны модели `embeddinggemma` для embeddings и `qwen3:4b-instruct` для генерации ответов на русском и английском. Размерность embeddings `embeddinggemma` — 768.
+
+Для `embeddinggemma` query и document embeddings используют официальные asymmetric retrieval prompts Google: `task: search result | query: {question}` и `title: none | text: {chunk}`. После изменения формата необходимо полностью переиндексировать документы, чтобы document и query embeddings создавались согласованно. Это улучшает соответствие embedding-модели задаче retrieval, но не гарантирует идеальное ранжирование.
 
 ## Предварительные требования
 
@@ -49,7 +51,7 @@ docker compose --env-file .env ps
 
 ```bat
 docker compose --env-file .env exec ollama ollama pull embeddinggemma
-docker compose --env-file .env exec ollama ollama pull qwen3:4b
+docker compose --env-file .env exec ollama ollama pull qwen3:4b-instruct
 docker compose --env-file .env exec ollama ollama list
 ```
 
@@ -97,7 +99,7 @@ docker compose --env-file .env down
 
 ## Текущее состояние и наблюдаемость
 
-Docker Compose запускает инфраструктуру PostgreSQL и Ollama. Локальная команда `ask` выполняет определение русского/английского языка, semantic search, пороговые domain/evidence gates и генерацию ответа с citations. Полный Unity corpus ещё не загружен; Langfuse и reranking будут отдельными этапами.
+Docker Compose запускает инфраструктуру PostgreSQL и Ollama. Локальная команда `ask` определяет русский/английский язык, выполняет semantic retrieval, применяет domain/evidence thresholds к исходным similarity scores, reranks подходящие результаты локальной Ollama-моделью, выбирает top evidence и генерирует grounded-ответ с citations. Для reranking и generation в `configs/ask.json` используется `qwen3:4b-instruct`, но это отдельные вызовы с независимыми настройками. Качество ранжирования оценивается отдельно и не гарантирует идеальный top-1.
 
 ### Задать вопрос
 
@@ -108,13 +110,13 @@ dotnet run --project src/UnityDocsRag.Ingestion -- ask "How do I set a NavMeshAg
 dotnet run --project src/UnityDocsRag.Ingestion -- ask "Как задать точку назначения NavMeshAgent?" configs\ask.json
 ```
 
-Файл `configs/ask.json` содержит несекретные настройки моделей, retrieval и порогов. Пароль и connection string в него не помещаются: по умолчанию строка подключения читается из `UNITYDOCS_POSTGRES_CONNECTION_STRING`.
+Файл `configs/ask.json` содержит несекретные настройки embedding, generation, reranking, retrieval и порогов. Пароль и connection string в него не помещаются: по умолчанию строка подключения читается из `UNITYDOCS_POSTGRES_CONNECTION_STRING`.
 
 Команда различает три основных результата:
 
 - `OutOfDomain` — retrieval не нашёл достаточно близких результатов, чтобы считать вопрос относящимся к Unity;
 - `InsufficientEvidence` — вопрос близок к Unity, но similarity найденной документации ниже порога для обоснованного ответа;
-- `Answered` — ответ сформирован по chunks, прошедшим evidence threshold, и сопровождается citations.
+- `Answered` — ответ сформирован по chunks, прошедшим evidence threshold и локальное reranking, и сопровождается citations.
 
 ## Grabber Unity Scripting API
 
@@ -128,4 +130,4 @@ dotnet run --project src/UnityDocsRag.Ingestion -- configs/ingestion.json
 
 Исходный HTML сохраняется в `data/raw/unity-6000.3`, а manifest — в `data/state/unity-6000.3-manifest.json`. При повторном запуске страницы с тем же содержимым показываются как `Unchanged`; дубликаты не создаются и HTML не перезаписывается. Папки `lab1/data/raw/` и `lab1/data/state/` содержат generated data и исключены из Git.
 
-Grabber сохраняет локальный файловый cache; preprocessing, chunking и indexing выполняются отдельными командами. Команда `ask` использует уже созданный PostgreSQL индекс. API, Langfuse, reranking и полный crawl Unity corpus не входят в текущую реализацию.
+Grabber сохраняет локальный файловый cache; preprocessing, chunking и indexing выполняются отдельными командами. Команда `ask` использует уже созданный PostgreSQL индекс. API, Langfuse и полный crawl Unity corpus не входят в текущую реализацию.
