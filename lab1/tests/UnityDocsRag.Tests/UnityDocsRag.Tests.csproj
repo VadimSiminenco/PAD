@@ -22,6 +22,7 @@
     <ProjectReference Include="..\..\src\UnityDocsRag.Core\UnityDocsRag.Core.csproj" />
     <ProjectReference Include="..\..\src\UnityDocsRag.Infrastructure\UnityDocsRag.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\UnityDocsRag.Ingestion\UnityDocsRag.Ingestion.csproj" />
+    <ProjectReference Include="..\..\src\UnityDocsRag.Evaluation\UnityDocsRag.Evaluation.csproj" />
   </ItemGroup>
 
 </Project>
