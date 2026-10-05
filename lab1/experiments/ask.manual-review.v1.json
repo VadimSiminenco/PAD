@@ -1,0 +1,845 @@
+{
+  "ReviewVersion": 1,
+  "Inputs": {
+    "AskReport": "experiments/ask.questions-v2.json",
+    "Dataset": "experiments/questions.v2.json",
+    "AskConfig": "configs/ask.json",
+    "AuxiliaryRetrievalReport": "experiments/retrieval.questions-v2.json",
+    "ProcessedDocuments": "data/processed/unity-6000.3/documents.json",
+    "Manifest": "data/state/unity-6000.3-manifest.json"
+  },
+  "Method": "Offline manual audit. Ratings assess answer meaning against local processed documentation; status matching and citation presence alone do not establish factual correctness. Empty reference lists on refusals mean no relevant page exists in the current corpus.",
+  "Questions": [
+    {
+      "Id": "Q01",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Partial",
+      "AnsweredChecks": {
+        "Completeness": "Partial",
+        "Grounding": "Correct",
+        "Citations": "Partial",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "SetDestination и ожидание пути описаны верно, но отличие от Warp не объяснено; citation Warp отсутствует.",
+      "ExpectedFacts": [
+        "SetDestination(Vector3 target) задаёт или обновляет цель и запускает расчёт нового пути.",
+        "Warp(Vector3 newPosition) переносит агента в указанную позицию."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ]
+    },
+    {
+      "Id": "Q02",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Названы pathPending и состояния complete/partial/invalid; все необходимые страницы цитированы.",
+      "ExpectedFacts": [
+        "SetDestination starts calculating a new path, which may take a few frames.",
+        "pathPending is true while a path is being computed and is not ready.",
+        "pathStatus reports whether the current path is complete, partial, or invalid."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html"
+      ]
+    },
+    {
+      "Id": "Q03",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Торможение при autoBraking=true и предотвращение проскакивания цели подтверждены страницей свойства.",
+      "ExpectedFacts": [
+        "При true агент автоматически тормозит по мере приближения к цели.",
+        "Это помогает избежать проскакивания целевой точки или бесконечного движения вокруг неё."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ]
+    },
+    {
+      "Id": "Q04",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Объяснены радиус остановки и возможная польза большего значения; оба положения есть в документации.",
+      "ExpectedFacts": [
+        "The agent stops within the configured distance from the target position.",
+        "A larger stopping distance gives the agent more room to manoeuvre near the end of the path and may avoid sudden braking or turning."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html"
+      ]
+    },
+    {
+      "Id": "Q05",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Partial",
+      "AnsweredChecks": {
+        "Completeness": "Partial",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Верно объяснён bool для полного или частичного пути, но не сказано, что CalculatePath записывает путь в NavMeshPath и работает синхронно.",
+      "ExpectedFacts": [
+        "CalculatePath(Vector3 targetPosition, NavMeshPath path) вычисляет путь к точке и записывает результат в path.",
+        "Метод выполняет поиск пути синхронно.",
+        "Возвращает true, если найден полный или частичный путь; иначе false."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ]
+    },
+    {
+      "Id": "Q06",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Относительное смещение и корректировка существующего пути прямо указаны на странице Move.",
+      "ExpectedFacts": [
+        "Move applies relative movement to the agent's current position using the offset vector.",
+        "If the agent has a path, that path is adjusted."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ]
+    },
+    {
+      "Id": "Q07",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": null,
+      "RefusalRating": "Correct",
+      "Rationale": "Отказ уместен: страницы Animator.SetTrigger и необходимых сведений в текущем локальном корпусе нет.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    },
+    {
+      "Id": "Q08",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": null,
+      "RefusalRating": "Correct",
+      "Rationale": "Отказ уместен: страницы Rigidbody.AddForce и описания ForceMode в текущем локальном корпусе нет.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    },
+    {
+      "Id": "Q09",
+      "ExpectedStatus": "OutOfDomain",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": null,
+      "RefusalRating": "Correct",
+      "Rationale": "Кулинарный вопрос не относится к Unity; отказ по области корректен.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    },
+    {
+      "Id": "Q10",
+      "ExpectedStatus": "OutOfDomain",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": null,
+      "RefusalRating": "Correct",
+      "Rationale": "Географический вопрос не относится к Unity; отказ по области корректен.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    },
+    {
+      "Id": "Q11",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Названы speed как предел скорости при следовании пути и невозможность превысить его на прямом участке.",
+      "ExpectedFacts": [
+        "Свойство speed задаёт максимальную скорость движения при следовании по пути.",
+        "Даже на длинном прямом участке скорость не превысит значение speed."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html"
+      ]
+    },
+    {
+      "Id": "Q12",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Установка isStopped в true останавливает, а в false возобновляет движение по текущему пути.",
+      "ExpectedFacts": [
+        "Setting isStopped to true stops movement along the current path.",
+        "Setting isStopped to false after stopping resumes movement along that path."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html"
+      ]
+    },
+    {
+      "Id": "Q13",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Partial",
+      "AnsweredChecks": {
+        "Completeness": "Partial",
+        "Grounding": "Correct",
+        "Citations": "Partial",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Ответ объясняет stoppingDistance, но не называет вторую требуемую настройку autoBraking; её citation отсутствует.",
+      "ExpectedFacts": [
+        "stoppingDistance задаёт допустимое расстояние от цели, в пределах которого агент останавливается.",
+        "При autoBraking=true агент автоматически тормозит при приближении к цели, чтобы не проскочить её."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ]
+    },
+    {
+      "Id": "Q14",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Partial",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Partial",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Основные действия и значение infinity при неизвестной дистанции верны; утверждение, что дистанция обязательно infinity до завершения расчёта, локальная страница прямо не подтверждает.",
+      "ExpectedFacts": [
+        "SetDestination(Vector3 target) requests or updates a destination and starts calculating a new path.",
+        "remainingDistance is the distance from the agent to the destination along the current path.",
+        "remainingDistance is infinity when that distance is unknown."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html"
+      ]
+    },
+    {
+      "Id": "Q15",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Incorrect",
+      "AnsweredChecks": {
+        "Completeness": "Incorrect",
+        "Grounding": "Incorrect",
+        "Citations": "Correct",
+        "Language": "Incorrect"
+      },
+      "RefusalRating": null,
+      "Rationale": "Текст ответа буквально «1»: он не сообщает свойство autoRepath и условие повторного поиска; наличие правильного URL citation этого не исправляет.",
+      "ExpectedFacts": [
+        "Свойство autoRepath определяет, будет ли агент пытаться получить новый путь при недействительности существующего."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html"
+      ]
+    },
+    {
+      "Id": "Q16",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "areaMask назван битовым полем проходимых областей; изменение делает путь stale.",
+      "ExpectedFacts": [
+        "areaMask is a bitfield specifying which NavMesh areas are passable.",
+        "Changing areaMask makes the path stale."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-areaMask.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-areaMask.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-areaMask.html"
+      ]
+    },
+    {
+      "Id": "Q17",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": false,
+      "OverallRating": "Incorrect",
+      "AnsweredChecks": null,
+      "RefusalRating": "Incorrect",
+      "Rationale": "Отказ необоснован: CalculatePath вычисляет и сохраняет путь, а SetPath назначает его агенту и при успехе возобновляет движение.",
+      "ExpectedFacts": [
+        "CalculatePath вычисляет путь к заданной точке и записывает результат в NavMeshPath.",
+        "SetPath назначает агенту новый путь; при успешном назначении агент продолжает движение к новой цели.",
+        "Для работы SetPath агент должен находиться близко к началу пути и иметь возможность перемещаться через тип области в начальной точке."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html"
+      ],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html"
+      ]
+    },
+    {
+      "Id": "Q18",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Warp переносит агента в заданную позицию; bool сообщает об успешности переноса.",
+      "ExpectedFacts": [
+        "Warp(Vector3 newPosition) warps the agent to the provided position.",
+        "It returns true if the warp succeeds and false otherwise."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ]
+    },
+    {
+      "Id": "Q19",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "SetAreaCost и сброс стоимости при включении или отключении агента подтверждены страницей метода.",
+      "ExpectedFacts": [
+        "SetAreaCost(int areaIndex, float areaCost) задаёт стоимость прохождения области указанного типа.",
+        "При отключении или включении агента стоимость сбрасывается к значению по умолчанию."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html"
+      ]
+    },
+    {
+      "Id": "Q20",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Incorrect",
+      "AnsweredChecks": {
+        "Completeness": "Incorrect",
+        "Grounding": "Incorrect",
+        "Citations": "Incorrect",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Ответ не использует pathPending и подменяет запрос цели CalculatePath; утверждение «hasPath=false значит путь не рассчитывается» неверно, а CalculatePath в документации синхронен.",
+      "ExpectedFacts": [
+        "SetDestination requests a destination and starts calculating a new path.",
+        "pathPending indicates that a path is being computed but is not yet ready.",
+        "hasPath indicates whether the agent currently has a path calculated to the desired destination."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ]
+    },
+    {
+      "Id": "Q21",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Incorrect",
+      "AnsweredChecks": {
+        "Completeness": "Partial",
+        "Grounding": "Incorrect",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "updatePosition=false и повторная синхронизация описаны верно, но центральный совет управлять Transform через nextPosition неверен: nextPosition задаёт симулируемую позицию агента, а не напрямую Transform.",
+      "ExpectedFacts": [
+        "При updatePosition=false позиция Transform и симулируемая позиция агента не синхронизируются друг с другом.",
+        "Это позволяет явно управлять позицией Transform из скрипта.",
+        "При повторном включении updatePosition Transform перемещается в симулируемую позицию."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html"
+      ]
+    },
+    {
+      "Id": "Q22",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "autoTraverseOffMeshLink=false даёт ручное управление; пауза на link и CompleteOffMeshLink подтверждены дополнительной локальной страницей.",
+      "ExpectedFacts": [
+        "autoTraverseOffMeshLink controls whether the agent traverses OffMeshLinks automatically.",
+        "Setting it to false allows special control over that movement."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isOnOffMeshLink.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CompleteOffMeshLink.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CompleteOffMeshLink.html"
+      ]
+    },
+    {
+      "Id": "Q23",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Incorrect",
+      "AnsweredChecks": {
+        "Completeness": "Incorrect",
+        "Grounding": "Incorrect",
+        "Citations": "Partial",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "Текст ответа буквально «Нет»: не сравнивает Move с Warp и не сообщает о корректировке пути; citation Warp отсутствует.",
+      "ExpectedFacts": [
+        "Move(Vector3 offset) применяет относительное смещение к текущей позиции агента.",
+        "При наличии пути Move корректирует его.",
+        "Warp(Vector3 newPosition) переносит агента в указанную позицию."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ]
+    },
+    {
+      "Id": "Q24",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": {
+        "Completeness": "Correct",
+        "Grounding": "Correct",
+        "Citations": "Correct",
+        "Language": "Correct"
+      },
+      "RefusalRating": null,
+      "Rationale": "GetAreaCost возвращает стоимость области; документ явно ограничивает её влияние поиском пути, а не скоростью движения.",
+      "ExpectedFacts": [
+        "GetAreaCost(int areaIndex) returns the current cost for the specified NavMesh area index.",
+        "The cost applies to pathfinding and does not automatically affect movement speed while following the path."
+      ],
+      "ExpectedReferenceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html"
+      ],
+      "ActualCitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html"
+      ],
+      "CheckedLocalUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html"
+      ]
+    },
+    {
+      "Id": "Q25",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": null,
+      "RefusalRating": "Correct",
+      "Rationale": "Отказ уместен: сведений о переходах Animator Controller по Trigger в локальном корпусе нет.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    },
+    {
+      "Id": "Q26",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": null,
+      "RefusalRating": "Correct",
+      "Rationale": "Отказ уместен: режимы Rigidbody interpolation локальным корпусом не покрыты.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    },
+    {
+      "Id": "Q27",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": false,
+      "OverallRating": "Incorrect",
+      "AnsweredChecks": null,
+      "RefusalRating": "Incorrect",
+      "Rationale": "Physics.OverlapSphere — вопрос об API Unity, но страницы метода и ответа в локальном корпусе нет; ожидается InsufficientEvidence, а не OutOfDomain.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    },
+    {
+      "Id": "Q28",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": null,
+      "RefusalRating": "Correct",
+      "Rationale": "Отказ уместен: сведения об асинхронной загрузке и освобождении Addressables в локальном корпусе отсутствуют.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    },
+    {
+      "Id": "Q29",
+      "ExpectedStatus": "OutOfDomain",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": null,
+      "RefusalRating": "Correct",
+      "Rationale": "Вопрос о банковском вкладе вне области Unity; отказ корректен.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    },
+    {
+      "Id": "Q30",
+      "ExpectedStatus": "OutOfDomain",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": true,
+      "OverallRating": "Correct",
+      "AnsweredChecks": null,
+      "RefusalRating": "Correct",
+      "Rationale": "Вопрос об уходе за розами вне области Unity; отказ корректен.",
+      "ExpectedFacts": [],
+      "ExpectedReferenceUrls": [],
+      "ActualCitationUrls": [],
+      "CheckedLocalUrls": []
+    }
+  ],
+  "Summary": {
+    "QuestionCount": 30,
+    "StatusMatches": 28,
+    "StatusMismatches": [
+      "Q17",
+      "Q27"
+    ],
+    "ActualAnsweredCount": 19,
+    "Ratings": {
+      "Correct": 20,
+      "Partial": 4,
+      "Incorrect": 6,
+      "NeedsReview": 0
+    },
+    "ByExpectedCategory": [
+      {
+        "ExpectedCategory": "InCorpus",
+        "QuestionCount": 20,
+        "Ratings": {
+          "Correct": 11,
+          "Partial": 4,
+          "Incorrect": 5,
+          "NeedsReview": 0
+        }
+      },
+      {
+        "ExpectedCategory": "UnityWithoutCorpusEvidence",
+        "QuestionCount": 6,
+        "Ratings": {
+          "Correct": 5,
+          "Partial": 0,
+          "Incorrect": 1,
+          "NeedsReview": 0
+        }
+      },
+      {
+        "ExpectedCategory": "OutOfDomain",
+        "QuestionCount": 4,
+        "Ratings": {
+          "Correct": 4,
+          "Partial": 0,
+          "Incorrect": 0,
+          "NeedsReview": 0
+        }
+      }
+    ]
+  },
+  "PotentialCauses": [
+    {
+      "Stage": "Retrieval",
+      "Attribution": "Hypothesis",
+      "QuestionIds": [
+        "Q01",
+        "Q20",
+        "Q23"
+      ],
+      "Rationale": "В отдельном retrieval-отчёте для Q01 Warp отсутствует в Top-5, для Q20 SetDestination и pathPending отсутствуют в Top-5, а для Q23 Warp стоит четвёртым с similarity около 0.432, ниже порога evidence 0.45 в ask.json. Это могло лишить генератор нужных страниц.",
+      "EvidenceLimit": "Отдельный retrieval-отчёт не является trace именно сохранённого ask-прогона; фактический список кандидатов и фильтрация в ask-отчёте не записаны."
+    },
+    {
+      "Stage": "Reranking",
+      "Attribution": "Hypothesis",
+      "QuestionIds": [
+        "Q13",
+        "Q17",
+        "Q21"
+      ],
+      "Rationale": "В отдельном retrieval-отчёте оба эталонных URL Q13 и Q17 видны в Top-5, а Q21 содержит updatePosition и nextPosition. Reranking и ограничение MaxEvidenceChunks могли изменить состав контекста.",
+      "EvidenceLimit": "Порядок после reranking и выбранные chunks в ask-отчёте отсутствуют; невозможно отделить влияние reranking от выбора генератора."
+    },
+    {
+      "Stage": "Generation",
+      "Attribution": "Hypothesis",
+      "QuestionIds": [
+        "Q05",
+        "Q13",
+        "Q15",
+        "Q17",
+        "Q20",
+        "Q21",
+        "Q23"
+      ],
+      "Rationale": "Q05 и Q13 опускают части ответа; Q15 возвращает «1», Q23 — «Нет»; Q20 и Q21 дают неверные практические выводы. Даже при наличии citation это не доказывает использование подтверждённого текста. Отказ Q17 также мог возникнуть на проверке достаточности evidence генератором.",
+      "EvidenceLimit": "По итоговому ответу виден дефект содержания, но без prompt, выбранных chunks и структурированного ответа модели нельзя доказать, на каком шаге он возник."
+    },
+    {
+      "Stage": "DomainGate",
+      "Attribution": "Hypothesis",
+      "QuestionIds": [
+        "Q27"
+      ],
+      "Rationale": "Unity-вопрос о Physics.OverlapSphere получил OutOfDomain вместо InsufficientEvidence. Возможно, similarity к узкому корпусу NavMeshAgent оказалась ниже domain threshold и вопрос был ошибочно отвергнут.",
+      "EvidenceLimit": "В ask-отчёте нет исходных similarity и решения gate; точный механизм не установлен."
+    }
+  ]
+}

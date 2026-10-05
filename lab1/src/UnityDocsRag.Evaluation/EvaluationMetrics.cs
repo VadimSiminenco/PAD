@@ -27,6 +27,38 @@ public static class EvaluationMetrics
         return 0.0;
     }
 
+    public static double? SourceCoverageAtK(EvaluationQuestion question, IReadOnlyList<string> rankedUrls, int k)
+    {
+        ArgumentNullException.ThrowIfNull(question);
+        ArgumentNullException.ThrowIfNull(rankedUrls);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(k);
+
+        if (question.ExpectedStatus != AnswerStatus.Answered)
+        {
+            return null;
+        }
+
+        var expected = new HashSet<string>(question.ExpectedSourceUrls, StringComparer.Ordinal);
+        if (expected.Count == 0)
+        {
+            throw new InvalidDataException("Answered question must have expected source URLs.");
+        }
+
+        var remaining = new HashSet<string>(expected, StringComparer.Ordinal);
+        for (var index = 0; index < Math.Min(k, rankedUrls.Count); index++)
+        {
+            remaining.Remove(rankedUrls[index]);
+        }
+
+        return (double)(expected.Count - remaining.Count) / expected.Count;
+    }
+
+    public static double? AllSourcesHitAtK(EvaluationQuestion question, IReadOnlyList<string> rankedUrls, int k)
+    {
+        var coverage = SourceCoverageAtK(question, rankedUrls, k);
+        return coverage is null ? null : coverage == 1.0 ? 1.0 : 0.0;
+    }
+
     public static double? ReciprocalRank(EvaluationQuestion question, IReadOnlyList<string> rankedUrls)
     {
         ArgumentNullException.ThrowIfNull(question);

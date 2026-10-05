@@ -1,0 +1,421 @@
+{
+  "Version": 1,
+  "UnityVersion": "6000.3",
+  "Questions": [
+    {
+      "Id": "Q01",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Как задать NavMeshAgent целевую точку с расчётом пути и чем это отличается от мгновенного переноса агента в позицию?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": true,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination(Vector3 target) задаёт или обновляет цель и запускает расчёт нового пути.",
+        "Warp(Vector3 newPosition) переносит агента в указанную позицию."
+      ]
+    },
+    {
+      "Id": "Q02",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "After requesting a destination with NavMeshAgent.SetDestination, which property tells me the path is still being computed, and what states can pathStatus report?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": true,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination starts calculating a new path, which may take a few frames.",
+        "pathPending is true while a path is being computed and is not ready.",
+        "pathStatus reports whether the current path is complete, partial, or invalid."
+      ]
+    },
+    {
+      "Id": "Q03",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Для чего нужно свойство NavMeshAgent.autoBraking при приближении агента к цели?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ],
+      "ExpectedFacts": [
+        "При true агент автоматически тормозит по мере приближения к цели.",
+        "Это помогает избежать проскакивания целевой точки или бесконечного движения вокруг неё."
+      ]
+    },
+    {
+      "Id": "Q04",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "What does NavMeshAgent.stoppingDistance control, and why might a larger value help near the target?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html"
+      ],
+      "ExpectedFacts": [
+        "The agent stops within the configured distance from the target position.",
+        "A larger stopping distance gives the agent more room to manoeuvre near the end of the path and may avoid sudden braking or turning."
+      ]
+    },
+    {
+      "Id": "Q05",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Как заранее рассчитать путь NavMeshAgent к заданной точке через CalculatePath и что означает возвращаемое bool?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ],
+      "ExpectedFacts": [
+        "CalculatePath(Vector3 targetPosition, NavMeshPath path) вычисляет путь к точке и записывает результат в path.",
+        "Метод выполняет поиск пути синхронно.",
+        "Возвращает true, если найден полный или частичный путь; иначе false."
+      ]
+    },
+    {
+      "Id": "Q06",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "What does NavMeshAgent.Move(Vector3 offset) do, and what happens to an existing path?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ],
+      "ExpectedFacts": [
+        "Move applies relative movement to the agent's current position using the offset vector.",
+        "If the agent has a path, that path is adjusted."
+      ]
+    },
+    {
+      "Id": "Q07",
+      "Language": "ru",
+      "Category": "UnityWithoutCorpusEvidence",
+      "Text": "Как вызвать Animator.SetTrigger в Unity 6.3 и какие параметры принимает этот метод?",
+      "ExpectedStatus": "InsufficientEvidence",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q08",
+      "Language": "en",
+      "Category": "UnityWithoutCorpusEvidence",
+      "Text": "Which ForceMode values can be used with Rigidbody.AddForce in Unity 6.3, and how do they affect the applied force?",
+      "ExpectedStatus": "InsufficientEvidence",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q09",
+      "Language": "ru",
+      "Category": "OutOfDomain",
+      "Text": "Как сварить рассыпчатый рис?",
+      "ExpectedStatus": "OutOfDomain",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q10",
+      "Language": "en",
+      "Category": "OutOfDomain",
+      "Text": "What is the capital of Canada?",
+      "ExpectedStatus": "OutOfDomain",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q11",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Чем ограничить максимальную скорость агента при следовании по пути?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html"
+      ],
+      "ExpectedFacts": [
+        "Свойство speed задаёт максимальную скорость движения при следовании по пути.",
+        "Даже на длинном прямом участке скорость не превысит значение speed."
+      ]
+    },
+    {
+      "Id": "Q12",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "How can I pause a NavMeshAgent on its current path and later let it continue along that same path?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html"
+      ],
+      "ExpectedFacts": [
+        "Setting isStopped to true stops movement along the current path.",
+        "Setting isStopped to false after stopping resumes movement along that path."
+      ]
+    },
+    {
+      "Id": "Q13",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Какие две настройки помогут агенту остановиться поблизости от цели и не проскочить её?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": true,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ],
+      "ExpectedFacts": [
+        "stoppingDistance задаёт допустимое расстояние от цели, в пределах которого агент останавливается.",
+        "При autoBraking=true агент автоматически тормозит при приближении к цели, чтобы не проскочить её."
+      ]
+    },
+    {
+      "Id": "Q14",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "How do I request a new destination for an agent, then read its remaining distance along the current path, including when that distance is unknown?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": true,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination(Vector3 target) requests or updates a destination and starts calculating a new path.",
+        "remainingDistance is the distance from the agent to the destination along the current path.",
+        "remainingDistance is infinity when that distance is unknown."
+      ]
+    },
+    {
+      "Id": "Q15",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Может ли агент автоматически попытаться получить новый путь, когда текущий стал недействительным?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html"
+      ],
+      "ExpectedFacts": [
+        "Свойство autoRepath определяет, будет ли агент пытаться получить новый путь при недействительности существующего."
+      ]
+    },
+    {
+      "Id": "Q16",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "Which setting controls the NavMesh areas an agent may pass through, and what happens to its path when that setting changes?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-areaMask.html"
+      ],
+      "ExpectedFacts": [
+        "areaMask is a bitfield specifying which NavMesh areas are passable.",
+        "Changing areaMask makes the path stale."
+      ]
+    },
+    {
+      "Id": "Q17",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Как заранее вычислить путь к точке и затем назначить найденный путь агенту для движения?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": true,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html"
+      ],
+      "ExpectedFacts": [
+        "CalculatePath вычисляет путь к заданной точке и записывает результат в NavMeshPath.",
+        "SetPath назначает агенту новый путь; при успешном назначении агент продолжает движение к новой цели.",
+        "Для работы SetPath агент должен находиться близко к началу пути и иметь возможность перемещаться через тип области в начальной точке."
+      ]
+    },
+    {
+      "Id": "Q18",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "Which operation places an agent at a specified position, and what does its boolean return value indicate?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ExpectedFacts": [
+        "Warp(Vector3 newPosition) warps the agent to the provided position.",
+        "It returns true if the warp succeeds and false otherwise."
+      ]
+    },
+    {
+      "Id": "Q19",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Как задать стоимость прохода агента через определённую область NavMesh и что произойдёт с настройкой при отключении агента?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html"
+      ],
+      "ExpectedFacts": [
+        "SetAreaCost(int areaIndex, float areaCost) задаёт стоимость прохождения области указанного типа.",
+        "При отключении или включении агента стоимость сбрасывается к значению по умолчанию."
+      ]
+    },
+    {
+      "Id": "Q20",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "After asking an agent to go to a target, how can I distinguish a path still being calculated from one the agent currently has?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": true,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination requests a destination and starts calculating a new path.",
+        "pathPending indicates that a path is being computed but is not yet ready.",
+        "hasPath indicates whether the agent currently has a path calculated to the desired destination."
+      ]
+    },
+    {
+      "Id": "Q21",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Как передать скрипту управление положением Transform отдельно от симулируемой позиции агента?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html"
+      ],
+      "ExpectedFacts": [
+        "При updatePosition=false позиция Transform и симулируемая позиция агента не синхронизируются друг с другом.",
+        "Это позволяет явно управлять позицией Transform из скрипта.",
+        "При повторном включении updatePosition Transform перемещается в симулируемую позицию."
+      ]
+    },
+    {
+      "Id": "Q22",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "How can I prevent automatic traversal of an OffMeshLink so I can control that movement myself?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html"
+      ],
+      "ExpectedFacts": [
+        "autoTraverseOffMeshLink controls whether the agent traverses OffMeshLinks automatically.",
+        "Setting it to false allows special control over that movement."
+      ]
+    },
+    {
+      "Id": "Q23",
+      "Language": "ru",
+      "Category": "InCorpus",
+      "Text": "Как различить смещение агента относительно текущей позиции и перенос в указанную позицию, и что произойдёт с существующим путём при относительном смещении?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": true,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ExpectedFacts": [
+        "Move(Vector3 offset) применяет относительное смещение к текущей позиции агента.",
+        "При наличии пути Move корректирует его.",
+        "Warp(Vector3 newPosition) переносит агента в указанную позицию."
+      ]
+    },
+    {
+      "Id": "Q24",
+      "Language": "en",
+      "Category": "InCorpus",
+      "Text": "How can I read an agent's current traversal cost for a NavMesh area, and does that cost automatically change the agent's movement speed?",
+      "ExpectedStatus": "Answered",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html"
+      ],
+      "ExpectedFacts": [
+        "GetAreaCost(int areaIndex) returns the current cost for the specified NavMesh area index.",
+        "The cost applies to pathfinding and does not automatically affect movement speed while following the path."
+      ]
+    },
+    {
+      "Id": "Q25",
+      "Language": "ru",
+      "Category": "UnityWithoutCorpusEvidence",
+      "Text": "Как создать переход между состояниями Animator Controller по условию Trigger?",
+      "ExpectedStatus": "InsufficientEvidence",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q26",
+      "Language": "en",
+      "Category": "UnityWithoutCorpusEvidence",
+      "Text": "What Rigidbody interpolation modes are available in Unity 6.3, and how do I configure them?",
+      "ExpectedStatus": "InsufficientEvidence",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q27",
+      "Language": "ru",
+      "Category": "UnityWithoutCorpusEvidence",
+      "Text": "Как получить список коллайдеров в сфере через Physics.OverlapSphere?",
+      "ExpectedStatus": "InsufficientEvidence",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q28",
+      "Language": "en",
+      "Category": "UnityWithoutCorpusEvidence",
+      "Text": "How do I load an Addressables asset asynchronously and release it afterward?",
+      "ExpectedStatus": "InsufficientEvidence",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q29",
+      "Language": "ru",
+      "Category": "OutOfDomain",
+      "Text": "Как рассчитать проценты по банковскому вкладу?",
+      "ExpectedStatus": "OutOfDomain",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q30",
+      "Language": "en",
+      "Category": "OutOfDomain",
+      "Text": "How do I prune a rose bush?",
+      "ExpectedStatus": "OutOfDomain",
+      "RequiresMultipleSources": false,
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    }
+  ]
+}

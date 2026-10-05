@@ -1,0 +1,599 @@
+{
+  "Version": 1,
+  "DatasetSha256": "7BBCF075E31F23B9657457215644DD97964B02049F9E9ADC4B30E0CD83DEAC61",
+  "ConfigSha256": "B21A4537D429BA85141FFA1A87185FDF6BCD7D85B7C0AD1F8B3EBBEB84624561",
+  "OutputPathSha256": "BD5D6D890344C388C9886464297CB0D84F791A1B8865EADD02DB14D438B13A58",
+  "QuestionIds": [
+    "Q01",
+    "Q02",
+    "Q03",
+    "Q04",
+    "Q05",
+    "Q06",
+    "Q07",
+    "Q08",
+    "Q09",
+    "Q10",
+    "Q11",
+    "Q12",
+    "Q13",
+    "Q14",
+    "Q15",
+    "Q16",
+    "Q17",
+    "Q18",
+    "Q19",
+    "Q20",
+    "Q21",
+    "Q22",
+    "Q23",
+    "Q24",
+    "Q25",
+    "Q26",
+    "Q27",
+    "Q28",
+    "Q29",
+    "Q30"
+  ],
+  "CompletedQuestions": [
+    {
+      "Id": "Q01",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "NavMeshAgent.SetDestination \u043C\u0435\u0442\u043E\u0434 \u0443\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442 \u0438\u043B\u0438 \u043E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u0442 \u0446\u0435\u043B\u044C, \u0447\u0442\u043E \u0438\u043D\u0438\u0446\u0438\u0438\u0440\u0443\u0435\u0442 \u0440\u0430\u0441\u0447\u0435\u0442 \u043D\u043E\u0432\u043E\u0433\u043E \u043F\u0443\u0442\u0438. \u041F\u0443\u0442\u044C \u043C\u043E\u0436\u0435\u0442 \u043D\u0435 \u0441\u0442\u0430\u0442\u044C \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u043C \u0441\u0440\u0430\u0437\u0443, \u0430 \u043F\u043E\u044F\u0432\u0438\u0442\u0441\u044F \u0441\u043F\u0443\u0441\u0442\u044F \u043D\u0435\u0441\u043A\u043E\u043B\u044C\u043A\u043E \u043A\u0430\u0434\u0440\u043E\u0432. \u0412 \u043F\u0440\u043E\u0446\u0435\u0441\u0441\u0435 \u0440\u0430\u0441\u0447\u0435\u0442\u0430 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 pathPending \u0431\u0443\u0434\u0435\u0442 \u0438\u0441\u0442\u0438\u043D\u043D\u044B\u043C. \u0415\u0441\u043B\u0438 \u043F\u0443\u0442\u044C \u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0441\u044F \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u043C, \u0430\u0433\u0435\u043D\u0442 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0438\u0442 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435. \u041C\u0435\u0442\u043E\u0434 \u043F\u0440\u0438\u043D\u0438\u043C\u0430\u0435\u0442 \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440 target \u2014 \u0442\u043E\u0447\u043A\u0443 \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination(Vector3 target) \u0437\u0430\u0434\u0430\u0451\u0442 \u0438\u043B\u0438 \u043E\u0431\u043D\u043E\u0432\u043B\u044F\u0435\u0442 \u0446\u0435\u043B\u044C \u0438 \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0435\u0442 \u0440\u0430\u0441\u0447\u0451\u0442 \u043D\u043E\u0432\u043E\u0433\u043E \u043F\u0443\u0442\u0438.",
+        "Warp(Vector3 newPosition) \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442 \u0430\u0433\u0435\u043D\u0442\u0430 \u0432 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u0443\u044E \u043F\u043E\u0437\u0438\u0446\u0438\u044E."
+      ]
+    },
+    {
+      "Id": "Q02",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "The property that tells me the path is still being computed is \u0060pathPending\u0060. The \u0060pathStatus\u0060 can report the states: PathInvalid, Partial, or Complete.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination starts calculating a new path, which may take a few frames.",
+        "pathPending is true while a path is being computed and is not ready.",
+        "pathStatus reports whether the current path is complete, partial, or invalid."
+      ]
+    },
+    {
+      "Id": "Q03",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u0414\u0430, NavMeshAgent.autoBraking \u043F\u043E\u0437\u0432\u043E\u043B\u044F\u0435\u0442 \u0430\u0433\u0435\u043D\u0442\u0443 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438 \u0442\u043E\u0440\u043C\u043E\u0437\u0438\u0442\u044C, \u0447\u0442\u043E\u0431\u044B \u0438\u0437\u0431\u0435\u0436\u0430\u0442\u044C \u043F\u0440\u0435\u0432\u044B\u0448\u0435\u043D\u0438\u044F \u0446\u0435\u043B\u0438. \u0415\u0441\u043B\u0438 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u043E \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u043E \u0432 true, \u0430\u0433\u0435\u043D\u0442 \u0431\u0443\u0434\u0435\u0442 \u0442\u043E\u0440\u043C\u043E\u0437\u0438\u0442\u044C \u043F\u0440\u0438 \u043F\u0440\u0438\u0431\u043B\u0438\u0436\u0435\u043D\u0438\u0438 \u043A \u0446\u0435\u043B\u0438, \u0447\u0442\u043E\u0431\u044B \u043D\u0435 \u043F\u0440\u0435\u0432\u044B\u0441\u0438\u0442\u044C \u0435\u0451 \u0438\u043B\u0438 \u0432\u0440\u0430\u0449\u0430\u0442\u044C\u0441\u044F \u0431\u0435\u0441\u043A\u043E\u043D\u0435\u0447\u043D\u043E \u0432\u043E\u043A\u0440\u0443\u0433 \u0437\u043E\u043D\u044B \u0446\u0435\u043B\u0438.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ],
+      "ExpectedFacts": [
+        "\u041F\u0440\u0438 true \u0430\u0433\u0435\u043D\u0442 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438 \u0442\u043E\u0440\u043C\u043E\u0437\u0438\u0442 \u043F\u043E \u043C\u0435\u0440\u0435 \u043F\u0440\u0438\u0431\u043B\u0438\u0436\u0435\u043D\u0438\u044F \u043A \u0446\u0435\u043B\u0438.",
+        "\u042D\u0442\u043E \u043F\u043E\u043C\u043E\u0433\u0430\u0435\u0442 \u0438\u0437\u0431\u0435\u0436\u0430\u0442\u044C \u043F\u0440\u043E\u0441\u043A\u0430\u043A\u0438\u0432\u0430\u043D\u0438\u044F \u0446\u0435\u043B\u0435\u0432\u043E\u0439 \u0442\u043E\u0447\u043A\u0438 \u0438\u043B\u0438 \u0431\u0435\u0441\u043A\u043E\u043D\u0435\u0447\u043D\u043E\u0433\u043E \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F \u0432\u043E\u043A\u0440\u0443\u0433 \u043D\u0435\u0451."
+      ]
+    },
+    {
+      "Id": "Q04",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "NavMeshAgent.stoppingDistance controls the distance within which the agent should stop from the target position. A larger value gives the agent more room for manoeuvre at the end of the path, which can help avoid sudden braking, turning, or other unconvincing AI behaviour, especially when the agent is near the target.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html"
+      ],
+      "ExpectedFacts": [
+        "The agent stops within the configured distance from the target position.",
+        "A larger stopping distance gives the agent more room to manoeuvre near the end of the path and may avoid sudden braking or turning."
+      ]
+    },
+    {
+      "Id": "Q05",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u0414\u0430, \u043C\u0435\u0442\u043E\u0434 CalculatePath \u0432\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 bool. \u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u043C\u043E\u0435 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 \u0438\u0441\u0442\u0438\u043D\u043D\u043E, \u0435\u0441\u043B\u0438 \u043D\u0430\u0439\u0434\u0435\u043D\u0430 \u043F\u043E\u043B\u043D\u0430\u044F \u0438\u043B\u0438 \u0447\u0430\u0441\u0442\u0438\u0447\u043D\u0430\u044F \u043F\u0443\u0442\u044C, \u0438 \u043B\u043E\u0436\u043D\u043E \u0432 \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u043E\u043C \u0441\u043B\u0443\u0447\u0430\u0435.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ],
+      "ExpectedFacts": [
+        "CalculatePath(Vector3 targetPosition, NavMeshPath path) \u0432\u044B\u0447\u0438\u0441\u043B\u044F\u0435\u0442 \u043F\u0443\u0442\u044C \u043A \u0442\u043E\u0447\u043A\u0435 \u0438 \u0437\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u0435\u0442 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0432 path.",
+        "\u041C\u0435\u0442\u043E\u0434 \u0432\u044B\u043F\u043E\u043B\u043D\u044F\u0435\u0442 \u043F\u043E\u0438\u0441\u043A \u043F\u0443\u0442\u0438 \u0441\u0438\u043D\u0445\u0440\u043E\u043D\u043D\u043E.",
+        "\u0412\u043E\u0437\u0432\u0440\u0430\u0449\u0430\u0435\u0442 true, \u0435\u0441\u043B\u0438 \u043D\u0430\u0439\u0434\u0435\u043D \u043F\u043E\u043B\u043D\u044B\u0439 \u0438\u043B\u0438 \u0447\u0430\u0441\u0442\u0438\u0447\u043D\u044B\u0439 \u043F\u0443\u0442\u044C; \u0438\u043D\u0430\u0447\u0435 false."
+      ]
+    },
+    {
+      "Id": "Q06",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "NavMeshAgent.Move(Vector3 offset) applies relative movement to the agent\u0027s current position. If the agent has an existing path, that path is adjusted to accommodate the new position. This is supported by SOURCE 1, which states: \u0027If the agent has a path it will be adjusted.\u0027",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ],
+      "ExpectedFacts": [
+        "Move applies relative movement to the agent\u0027s current position using the offset vector.",
+        "If the agent has a path, that path is adjusted."
+      ]
+    },
+    {
+      "Id": "Q07",
+      "ExpectedCategory": "UnityWithoutCorpusEvidence",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u0412 \u043D\u0430\u0439\u0434\u0435\u043D\u043D\u043E\u0439 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u0446\u0438\u0438 \u043D\u0435\u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u0438 \u0434\u043B\u044F \u043E\u0442\u0432\u0435\u0442\u0430.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q08",
+      "ExpectedCategory": "UnityWithoutCorpusEvidence",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "The retrieved documentation does not contain enough information to answer.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q09",
+      "ExpectedCategory": "OutOfDomain",
+      "ExpectedStatus": "OutOfDomain",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u041F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u044E\u0442\u0441\u044F \u0442\u043E\u043B\u044C\u043A\u043E \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043F\u043E Unity.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q10",
+      "ExpectedCategory": "OutOfDomain",
+      "ExpectedStatus": "OutOfDomain",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "Only Unity-related questions are supported.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q11",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D\u0438\u044F \u0430\u0433\u0435\u043D\u0442\u0430 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u044F\u0435\u0442\u0441\u044F \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u043E\u043C NavMeshAgent.speed. \u042D\u0442\u043E \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0430\u044F \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F \u0430\u0433\u0435\u043D\u0442\u0430 \u043F\u0440\u0438 \u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u0438 \u043F\u043E \u043F\u0443\u0442\u0438. \u0410\u0433\u0435\u043D\u0442 \u043C\u043E\u0436\u0435\u0442 \u0443\u0441\u043A\u043E\u0440\u044F\u0442\u044C\u0441\u044F \u0438 \u0437\u0430\u043C\u0435\u0434\u043B\u044F\u0442\u044C\u0441\u044F \u0432 \u0437\u0430\u0432\u0438\u0441\u0438\u043C\u043E\u0441\u0442\u0438 \u043E\u0442 \u0445\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0430 \u043F\u0443\u0442\u0438 (\u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440, \u043F\u0440\u0438 \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u0438\u0438 \u043E\u0441\u0442\u0440\u044B\u0445 \u043F\u043E\u0432\u043E\u0440\u043E\u0442\u043E\u0432), \u043D\u043E \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u043D\u0435 \u043F\u0440\u0435\u0432\u044B\u0448\u0430\u0435\u0442 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435, \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u043D\u043E\u0435 \u044D\u0442\u0438\u043C \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u043E\u043C, \u0434\u0430\u0436\u0435 \u043D\u0430 \u0434\u043B\u0438\u043D\u043D\u044B\u0445 \u043F\u0440\u044F\u043C\u044B\u0445 \u0443\u0447\u0430\u0441\u0442\u043A\u0430\u0445 \u043F\u0443\u0442\u0438.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html"
+      ],
+      "ExpectedFacts": [
+        "\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u043E speed \u0437\u0430\u0434\u0430\u0451\u0442 \u043C\u0430\u043A\u0441\u0438\u043C\u0430\u043B\u044C\u043D\u0443\u044E \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u044F \u043F\u0440\u0438 \u0441\u043B\u0435\u0434\u043E\u0432\u0430\u043D\u0438\u0438 \u043F\u043E \u043F\u0443\u0442\u0438.",
+        "\u0414\u0430\u0436\u0435 \u043D\u0430 \u0434\u043B\u0438\u043D\u043D\u043E\u043C \u043F\u0440\u044F\u043C\u043E\u043C \u0443\u0447\u0430\u0441\u0442\u043A\u0435 \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u044C \u043D\u0435 \u043F\u0440\u0435\u0432\u044B\u0441\u0438\u0442 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0435 speed."
+      ]
+    },
+    {
+      "Id": "Q12",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "Set the NavMeshAgent.isStopped property to true to pause the agent on its current path, then set it to false to resume movement along the same path.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html"
+      ],
+      "ExpectedFacts": [
+        "Setting isStopped to true stops movement along the current path.",
+        "Setting isStopped to false after stopping resumes movement along that path."
+      ]
+    },
+    {
+      "Id": "Q13",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u043E stoppingDistance \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u044F\u0435\u0442 \u0440\u0430\u0441\u0441\u0442\u043E\u044F\u043D\u0438\u0435, \u0432 \u043F\u0440\u0435\u0434\u0435\u043B\u0430\u0445 \u043A\u043E\u0442\u043E\u0440\u043E\u0433\u043E \u0430\u0433\u0435\u043D\u0442 \u0434\u043E\u043B\u0436\u0435\u043D \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C\u0441\u044F \u043E\u0442 \u0446\u0435\u043B\u0438. \u041E\u043D\u043E \u043F\u043E\u0437\u0432\u043E\u043B\u044F\u0435\u0442 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C \u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u044B\u0439 \u0440\u0430\u0434\u0438\u0443\u0441, \u0432 \u043A\u043E\u0442\u043E\u0440\u043E\u043C \u0430\u0433\u0435\u043D\u0442 \u0434\u043E\u043B\u0436\u0435\u043D \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C\u0441\u044F, \u0438 \u043E\u0431\u0435\u0441\u043F\u0435\u0447\u0438\u0432\u0430\u0435\u0442 \u0431\u043E\u043B\u044C\u0448\u0435 \u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u0430 \u0434\u043B\u044F \u043C\u0430\u043D\u0451\u0432\u0440\u0430 \u0432 \u043A\u043E\u043D\u0446\u0435 \u043F\u0443\u0442\u0438, \u0447\u0442\u043E \u043C\u043E\u0436\u0435\u0442 \u0438\u0437\u0431\u0435\u0436\u0430\u0442\u044C \u0440\u0435\u0437\u043A\u043E\u0433\u043E \u0442\u043E\u0440\u043C\u043E\u0436\u0435\u043D\u0438\u044F \u0438\u043B\u0438 \u0434\u0440\u0443\u0433\u0438\u0445 \u043D\u0435\u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0445 \u043F\u043E\u0432\u0435\u0434\u0435\u043D\u0438\u0439. \u0412 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u0446\u0438\u0438 \u0443\u043A\u0430\u0437\u0430\u043D\u043E, \u0447\u0442\u043E \u043F\u0440\u0438 \u0443\u0432\u0435\u043B\u0438\u0447\u0435\u043D\u0438\u0438 stoppingDistance \u0430\u0433\u0435\u043D\u0442 \u043F\u043E\u043B\u0443\u0447\u0430\u0435\u0442 \u0431\u043E\u043B\u044C\u0448\u0435 \u043F\u0440\u043E\u0441\u0442\u0440\u0430\u043D\u0441\u0442\u0432\u0430 \u0434\u043B\u044F \u043C\u0430\u043D\u0451\u0432\u0440\u0430 \u0438 \u043C\u043E\u0436\u0435\u0442 \u0438\u0437\u0431\u0435\u0436\u0430\u0442\u044C \u0440\u0435\u0437\u043A\u0438\u0445 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u0439 \u043F\u043E\u0432\u0435\u0434\u0435\u043D\u0438\u044F.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ],
+      "ExpectedFacts": [
+        "stoppingDistance \u0437\u0430\u0434\u0430\u0451\u0442 \u0434\u043E\u043F\u0443\u0441\u0442\u0438\u043C\u043E\u0435 \u0440\u0430\u0441\u0441\u0442\u043E\u044F\u043D\u0438\u0435 \u043E\u0442 \u0446\u0435\u043B\u0438, \u0432 \u043F\u0440\u0435\u0434\u0435\u043B\u0430\u0445 \u043A\u043E\u0442\u043E\u0440\u043E\u0433\u043E \u0430\u0433\u0435\u043D\u0442 \u043E\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0441\u044F.",
+        "\u041F\u0440\u0438 autoBraking=true \u0430\u0433\u0435\u043D\u0442 \u0430\u0432\u0442\u043E\u043C\u0430\u0442\u0438\u0447\u0435\u0441\u043A\u0438 \u0442\u043E\u0440\u043C\u043E\u0437\u0438\u0442 \u043F\u0440\u0438 \u043F\u0440\u0438\u0431\u043B\u0438\u0436\u0435\u043D\u0438\u0438 \u043A \u0446\u0435\u043B\u0438, \u0447\u0442\u043E\u0431\u044B \u043D\u0435 \u043F\u0440\u043E\u0441\u043A\u043E\u0447\u0438\u0442\u044C \u0435\u0451."
+      ]
+    },
+    {
+      "Id": "Q14",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "To request a new destination for an agent, use the \u0060SetDestination\u0060 method to set a new destination point. This triggers the agent to calculate a new path. To read the remaining distance along the current path, access the \u0060remainingDistance\u0060 property, which returns the distance between the agent\u0027s current position and the destination on the current path. If the path is not yet computed or is unknown, \u0060remainingDistance\u0060 will have a value of infinity. Note that the path may not be available immediately; use \u0060pathPending\u0060 to check if a path is still being computed.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination(Vector3 target) requests or updates a destination and starts calculating a new path.",
+        "remainingDistance is the distance from the agent to the destination along the current path.",
+        "remainingDistance is infinity when that distance is unknown."
+      ]
+    },
+    {
+      "Id": "Q15",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "1",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html"
+      ],
+      "ExpectedFacts": [
+        "\u0421\u0432\u043E\u0439\u0441\u0442\u0432\u043E autoRepath \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u044F\u0435\u0442, \u0431\u0443\u0434\u0435\u0442 \u043B\u0438 \u0430\u0433\u0435\u043D\u0442 \u043F\u044B\u0442\u0430\u0442\u044C\u0441\u044F \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u043D\u043E\u0432\u044B\u0439 \u043F\u0443\u0442\u044C \u043F\u0440\u0438 \u043D\u0435\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u0438 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044E\u0449\u0435\u0433\u043E."
+      ]
+    },
+    {
+      "Id": "Q16",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "The setting that controls the NavMesh areas an agent may pass through is \u0060areaMask\u0060. It is a bitfield that specifies which NavMesh areas are passable. When \u0060areaMask\u0060 changes, the path becomes stale, as indicated by the \u0060isPathStale\u0060 property.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-areaMask.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-areaMask.html"
+      ],
+      "ExpectedFacts": [
+        "areaMask is a bitfield specifying which NavMesh areas are passable.",
+        "Changing areaMask makes the path stale."
+      ]
+    },
+    {
+      "Id": "Q17",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": false,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u0412 \u043F\u0440\u0435\u0434\u043E\u0441\u0442\u0430\u0432\u043B\u0435\u043D\u043D\u043E\u0439 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u0446\u0438\u0438 \u043D\u0435\u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u0438 \u0434\u043B\u044F \u043E\u0442\u0432\u0435\u0442\u0430.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html"
+      ],
+      "ExpectedFacts": [
+        "CalculatePath \u0432\u044B\u0447\u0438\u0441\u043B\u044F\u0435\u0442 \u043F\u0443\u0442\u044C \u043A \u0437\u0430\u0434\u0430\u043D\u043D\u043E\u0439 \u0442\u043E\u0447\u043A\u0435 \u0438 \u0437\u0430\u043F\u0438\u0441\u044B\u0432\u0430\u0435\u0442 \u0440\u0435\u0437\u0443\u043B\u044C\u0442\u0430\u0442 \u0432 NavMeshPath.",
+        "SetPath \u043D\u0430\u0437\u043D\u0430\u0447\u0430\u0435\u0442 \u0430\u0433\u0435\u043D\u0442\u0443 \u043D\u043E\u0432\u044B\u0439 \u043F\u0443\u0442\u044C; \u043F\u0440\u0438 \u0443\u0441\u043F\u0435\u0448\u043D\u043E\u043C \u043D\u0430\u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0438 \u0430\u0433\u0435\u043D\u0442 \u043F\u0440\u043E\u0434\u043E\u043B\u0436\u0430\u0435\u0442 \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0435 \u043A \u043D\u043E\u0432\u043E\u0439 \u0446\u0435\u043B\u0438.",
+        "\u0414\u043B\u044F \u0440\u0430\u0431\u043E\u0442\u044B SetPath \u0430\u0433\u0435\u043D\u0442 \u0434\u043E\u043B\u0436\u0435\u043D \u043D\u0430\u0445\u043E\u0434\u0438\u0442\u044C\u0441\u044F \u0431\u043B\u0438\u0437\u043A\u043E \u043A \u043D\u0430\u0447\u0430\u043B\u0443 \u043F\u0443\u0442\u0438 \u0438 \u0438\u043C\u0435\u0442\u044C \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0430\u0442\u044C\u0441\u044F \u0447\u0435\u0440\u0435\u0437 \u0442\u0438\u043F \u043E\u0431\u043B\u0430\u0441\u0442\u0438 \u0432 \u043D\u0430\u0447\u0430\u043B\u044C\u043D\u043E\u0439 \u0442\u043E\u0447\u043A\u0435."
+      ]
+    },
+    {
+      "Id": "Q18",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "NavMeshAgent.Warp places an agent at a specified position. Its boolean return value indicates whether the warp operation was successful (true) or not (false).",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ExpectedFacts": [
+        "Warp(Vector3 newPosition) warps the agent to the provided position.",
+        "It returns true if the warp succeeds and false otherwise."
+      ]
+    },
+    {
+      "Id": "Q19",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u041C\u0435\u0442\u043E\u0434 NavMeshAgent.SetAreaCost \u043F\u043E\u0437\u0432\u043E\u043B\u044F\u0435\u0442 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u0447\u0435\u0440\u0435\u0437 \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0451\u043D\u043D\u044B\u0435 \u0437\u043E\u043D\u044B. \u041E\u043D \u043F\u0440\u0438\u043D\u0438\u043C\u0430\u0435\u0442 \u0434\u0432\u0430 \u043F\u0430\u0440\u0430\u043C\u0435\u0442\u0440\u0430: \u0438\u043D\u0434\u0435\u043A\u0441 \u0437\u043E\u043D\u044B \u0438 \u043D\u043E\u0432\u0443\u044E \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u044D\u0442\u043E\u0439 \u0437\u043E\u043D\u044B. \u041F\u0440\u0438 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0438 \u0438\u043B\u0438 \u0432\u044B\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0438 \u0430\u0433\u0435\u043D\u0442\u0430 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0431\u0443\u0434\u0435\u0442 \u0441\u0431\u0440\u043E\u0448\u0435\u043D\u0430 \u0434\u043E \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044F \u043F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E \u0434\u043B\u044F \u0441\u043B\u043E\u044F.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html"
+      ],
+      "ExpectedFacts": [
+        "SetAreaCost(int areaIndex, float areaCost) \u0437\u0430\u0434\u0430\u0451\u0442 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u043F\u0440\u043E\u0445\u043E\u0436\u0434\u0435\u043D\u0438\u044F \u043E\u0431\u043B\u0430\u0441\u0442\u0438 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u0433\u043E \u0442\u0438\u043F\u0430.",
+        "\u041F\u0440\u0438 \u043E\u0442\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0438 \u0438\u043B\u0438 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0438 \u0430\u0433\u0435\u043D\u0442\u0430 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F \u043A \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u044E \u043F\u043E \u0443\u043C\u043E\u043B\u0447\u0430\u043D\u0438\u044E."
+      ]
+    },
+    {
+      "Id": "Q20",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "The property \u0060NavMeshAgent.hasPath\u0060 indicates whether the agent currently has a valid path to a destination. If \u0060hasPath\u0060 is true, the agent has a path that it is following; if false, it does not have a path. To distinguish between a path still being calculated and one the agent currently has, you can check \u0060hasPath\u0060. If \u0060hasPath\u0060 is false, it means no path is currently active or being calculated. However, if \u0060hasPath\u0060 is true, the path is active and being used. The \u0060CalculatePath\u0060 method initiates path calculation, but it does not guarantee that the path is immediately available\u2014so checking \u0060hasPath\u0060 after calling \u0060CalculatePath\u0060 will show whether the path has been successfully computed and stored. This property reflects the current state, not the pending state of calculation.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html"
+      ],
+      "ExpectedFacts": [
+        "SetDestination requests a destination and starts calculating a new path.",
+        "pathPending indicates that a path is being computed but is not yet ready.",
+        "hasPath indicates whether the agent currently has a path calculated to the desired destination."
+      ]
+    },
+    {
+      "Id": "Q21",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u0427\u0442\u043E\u0431\u044B \u0438\u0437\u043C\u0435\u043D\u0438\u0442\u044C \u043F\u043E\u0437\u0438\u0446\u0438\u044E \u043E\u0431\u044A\u0435\u043A\u0442\u0430, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u044F NavMeshAgent, \u043D\u0435\u043E\u0431\u0445\u043E\u0434\u0438\u043C\u043E \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u043E nextPosition. \u041F\u0440\u0438 \u044D\u0442\u043E\u043C, \u0435\u0441\u043B\u0438 updatePosition \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D \u0432 false, \u043F\u043E\u0437\u0438\u0446\u0438\u044F \u0442\u0440\u0430\u043D\u0441\u0444\u043E\u0440\u043C\u0430 \u043D\u0435 \u0431\u0443\u0434\u0435\u0442 \u0441\u0438\u043D\u0445\u0440\u043E\u043D\u0438\u0437\u0438\u0440\u043E\u0432\u0430\u043D\u0430 \u0441 \u0441\u0438\u043C\u0443\u043B\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u043E\u0439 \u043F\u043E\u0437\u0438\u0446\u0438\u0435\u0439 \u0430\u0433\u0435\u043D\u0442\u0430. \u0412 \u044D\u0442\u043E\u043C \u0441\u043B\u0443\u0447\u0430\u0435 \u043C\u043E\u0436\u043D\u043E \u043D\u0430\u043F\u0440\u044F\u043C\u0443\u044E \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0442\u044C \u043F\u043E\u0437\u0438\u0446\u0438\u0435\u0439 \u0442\u0440\u0430\u043D\u0441\u0444\u043E\u0440\u043C\u0430 \u0447\u0435\u0440\u0435\u0437 nextPosition. \u041F\u0440\u0438 \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0438 updatePosition (\u0441 \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0435\u0433\u043E \u0441\u043E\u0441\u0442\u043E\u044F\u043D\u0438\u044F false), \u0442\u0440\u0430\u043D\u0441\u0444\u043E\u0440\u043C \u0431\u0443\u0434\u0435\u0442 \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0435\u043D \u0432 \u0441\u0438\u043C\u0443\u043B\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u0443\u044E \u043F\u043E\u0437\u0438\u0446\u0438\u044E. \u0414\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u0446\u0438\u044F \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0430\u0435\u0442, \u0447\u0442\u043E \u043F\u0440\u0438 \u0443\u0441\u0442\u0430\u043D\u043E\u0432\u043A\u0435 nextPosition \u0430\u0433\u0435\u043D\u0442 \u0431\u0443\u0434\u0435\u0442 \u0434\u0432\u0438\u0433\u0430\u0442\u044C\u0441\u044F \u043A \u044D\u0442\u043E\u0439 \u043F\u043E\u0437\u0438\u0446\u0438\u0438, \u043F\u0440\u0438 \u044D\u0442\u043E\u043C \u0443\u0447\u0438\u0442\u044B\u0432\u0430\u044F \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u044F \u043D\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u043E\u043D\u043D\u043E\u0439 \u0441\u0435\u0442\u043A\u0438 \u0438 \u0433\u0440\u0430\u043D\u0438\u0446. \u0414\u043E\u043F\u043E\u043B\u043D\u0438\u0442\u0435\u043B\u044C\u043D\u044B\u0435 \u0440\u0435\u0441\u0443\u0440\u0441\u044B: Warp \u0434\u043B\u044F \u0442\u0435\u043B\u0435\u043F\u043E\u0440\u0442\u0430\u0446\u0438\u0438 \u0430\u0433\u0435\u043D\u0442\u0430.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html"
+      ],
+      "ExpectedFacts": [
+        "\u041F\u0440\u0438 updatePosition=false \u043F\u043E\u0437\u0438\u0446\u0438\u044F Transform \u0438 \u0441\u0438\u043C\u0443\u043B\u0438\u0440\u0443\u0435\u043C\u0430\u044F \u043F\u043E\u0437\u0438\u0446\u0438\u044F \u0430\u0433\u0435\u043D\u0442\u0430 \u043D\u0435 \u0441\u0438\u043D\u0445\u0440\u043E\u043D\u0438\u0437\u0438\u0440\u0443\u044E\u0442\u0441\u044F \u0434\u0440\u0443\u0433 \u0441 \u0434\u0440\u0443\u0433\u043E\u043C.",
+        "\u042D\u0442\u043E \u043F\u043E\u0437\u0432\u043E\u043B\u044F\u0435\u0442 \u044F\u0432\u043D\u043E \u0443\u043F\u0440\u0430\u0432\u043B\u044F\u0442\u044C \u043F\u043E\u0437\u0438\u0446\u0438\u0435\u0439 Transform \u0438\u0437 \u0441\u043A\u0440\u0438\u043F\u0442\u0430.",
+        "\u041F\u0440\u0438 \u043F\u043E\u0432\u0442\u043E\u0440\u043D\u043E\u043C \u0432\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0438 updatePosition Transform \u043F\u0435\u0440\u0435\u043C\u0435\u0449\u0430\u0435\u0442\u0441\u044F \u0432 \u0441\u0438\u043C\u0443\u043B\u0438\u0440\u0443\u0435\u043C\u0443\u044E \u043F\u043E\u0437\u0438\u0446\u0438\u044E."
+      ]
+    },
+    {
+      "Id": "Q22",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "Set the NavMeshAgent.autoTraverseOffMeshLink property to false to prevent automatic traversal of an OffMeshLink. When this is disabled, the agent will pause on the link, and you can then use the NavMeshAgent.CompleteOffMeshLink() method to manually complete the movement. This allows for custom movement control over the link.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isOnOffMeshLink.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CompleteOffMeshLink.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html"
+      ],
+      "ExpectedFacts": [
+        "autoTraverseOffMeshLink controls whether the agent traverses OffMeshLinks automatically.",
+        "Setting it to false allows special control over that movement."
+      ]
+    },
+    {
+      "Id": "Q23",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u041D\u0435\u0442",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "ExpectedFacts": [
+        "Move(Vector3 offset) \u043F\u0440\u0438\u043C\u0435\u043D\u044F\u0435\u0442 \u043E\u0442\u043D\u043E\u0441\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435 \u0441\u043C\u0435\u0449\u0435\u043D\u0438\u0435 \u043A \u0442\u0435\u043A\u0443\u0449\u0435\u0439 \u043F\u043E\u0437\u0438\u0446\u0438\u0438 \u0430\u0433\u0435\u043D\u0442\u0430.",
+        "\u041F\u0440\u0438 \u043D\u0430\u043B\u0438\u0447\u0438\u0438 \u043F\u0443\u0442\u0438 Move \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u0438\u0440\u0443\u0435\u0442 \u0435\u0433\u043E.",
+        "Warp(Vector3 newPosition) \u043F\u0435\u0440\u0435\u043D\u043E\u0441\u0438\u0442 \u0430\u0433\u0435\u043D\u0442\u0430 \u0432 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u0443\u044E \u043F\u043E\u0437\u0438\u0446\u0438\u044E."
+      ]
+    },
+    {
+      "Id": "Q24",
+      "ExpectedCategory": "InCorpus",
+      "ExpectedStatus": "Answered",
+      "ActualStatus": "Answered",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "You can read an agent\u0027s current traversal cost for a NavMesh area using the NavMeshAgent.GetAreaCost method, which returns a float representing the current cost for the specified area index. However, this cost applies only to pathfinding calculations and does not automatically change the agent\u0027s movement speed. The path cost reflects difficulty or environmental factors like terrain type, but it does not directly affect the agent\u0027s real-time movement speed.",
+      "CitationUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html"
+      ],
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html"
+      ],
+      "ExpectedFacts": [
+        "GetAreaCost(int areaIndex) returns the current cost for the specified NavMesh area index.",
+        "The cost applies to pathfinding and does not automatically affect movement speed while following the path."
+      ]
+    },
+    {
+      "Id": "Q25",
+      "ExpectedCategory": "UnityWithoutCorpusEvidence",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u0412 \u043D\u0430\u0439\u0434\u0435\u043D\u043D\u043E\u0439 \u0434\u043E\u043A\u0443\u043C\u0435\u043D\u0442\u0430\u0446\u0438\u0438 \u043D\u0435\u0434\u043E\u0441\u0442\u0430\u0442\u043E\u0447\u043D\u043E \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u0438 \u0434\u043B\u044F \u043E\u0442\u0432\u0435\u0442\u0430.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q26",
+      "ExpectedCategory": "UnityWithoutCorpusEvidence",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "The retrieved documentation does not contain enough information to answer.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q27",
+      "ExpectedCategory": "UnityWithoutCorpusEvidence",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": false,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u041F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u044E\u0442\u0441\u044F \u0442\u043E\u043B\u044C\u043A\u043E \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043F\u043E Unity.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q28",
+      "ExpectedCategory": "UnityWithoutCorpusEvidence",
+      "ExpectedStatus": "InsufficientEvidence",
+      "ActualStatus": "InsufficientEvidence",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "The retrieved documentation does not contain enough information to answer.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q29",
+      "ExpectedCategory": "OutOfDomain",
+      "ExpectedStatus": "OutOfDomain",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": true,
+      "ExpectedLanguage": "ru",
+      "DetectedLanguage": "ru",
+      "AnswerText": "\u041F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u044E\u0442\u0441\u044F \u0442\u043E\u043B\u044C\u043A\u043E \u0432\u043E\u043F\u0440\u043E\u0441\u044B \u043F\u043E Unity.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    },
+    {
+      "Id": "Q30",
+      "ExpectedCategory": "OutOfDomain",
+      "ExpectedStatus": "OutOfDomain",
+      "ActualStatus": "OutOfDomain",
+      "StatusMatches": true,
+      "ExpectedLanguage": "en",
+      "DetectedLanguage": "en",
+      "AnswerText": "Only Unity-related questions are supported.",
+      "CitationUrls": [],
+      "ExpectedSourceUrls": [],
+      "ExpectedFacts": []
+    }
+  ]
+}

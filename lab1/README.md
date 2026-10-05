@@ -118,6 +118,35 @@ dotnet run --project src/UnityDocsRag.Ingestion -- ask "Как задать то
 - `InsufficientEvidence` — вопрос близок к Unity, но similarity найденной документации ниже порога для обоснованного ответа;
 - `Answered` — ответ сформирован по chunks, прошедшим evidence threshold и локальное reranking, и сопровождается citations.
 
+### Локальный веб-интерфейс
+
+Из каталога `lab1` запустите PostgreSQL и Ollama, задайте connection string в PowerShell (замените пароль на значение из локального `.env`) и запустите API:
+
+```powershell
+docker compose --env-file .env up -d postgres ollama
+$env:UNITYDOCS_POSTGRES_CONNECTION_STRING = "Host=127.0.0.1;Port=5432;Database=unitydocs;Username=unitydocs;Password=YOUR_LOCAL_PASSWORD"
+dotnet run --project src/UnityDocsRag.Api
+```
+
+Откройте страницу [http://127.0.0.1:5187](http://127.0.0.1:5187). Она использует тот же `configs/ask.json` и тот же RAG-конвейер, что команда `ask`.
+
+### Langfuse Cloud tracing (необязательно)
+
+Трассировка включается только для веб-API. В PowerShell задайте переменные в текущем сеансе; base URL должен соответствовать вашему региону Langfuse Cloud. Public/secret keys вводите из настроек Langfuse и не сохраняйте в репозитории или конфигурационных файлах:
+
+```powershell
+$env:LANGFUSE_ENABLED = "true"
+$env:LANGFUSE_BASE_URL = "https://cloud.langfuse.com"
+$env:LANGFUSE_PUBLIC_KEY = Read-Host "Langfuse public key"
+$langfuseSecret = Read-Host "Langfuse secret key" -AsSecureString
+$env:LANGFUSE_SECRET_KEY = [System.Net.NetworkCredential]::new("", $langfuseSecret).Password
+# Необязательно: от 0 до 1; по умолчанию 1 (все трассы)
+$env:LANGFUSE_SAMPLE_RATE = "1"
+dotnet run --project src/UnityDocsRag.Api
+```
+
+После тестового вопроса проверьте trace в Langfuse. Экспорт выполняется пакетно в фоне; при выключенной интеграции API работает как прежде. Передаются только статусы, язык, длительности, количества, similarity scores и имена моделей — не содержимое вопросов/ответов, chunks, prompts или URL citations.
+
 ## Grabber Unity Scripting API
 
 Grabber читает официальный `docdata/toc.js` со страницы Unity Scripting API, проверяет ссылки по allowlist версии 6000.3 и загружает страницы последовательно. Текущий временный конфиг задаёт `SeedPages: ["AI.NavMeshAgent.html"]` и `IncludeMemberPages: true`: загружается страница NavMeshAgent, затем её прямые собственные properties, constructors, operators и methods. Раздел `Inherited Members` исключается, а страницы members не обходятся рекурсивно. `MaxPages: 75` ограничивает суммарное число seed- и member-страниц; index и TOC в лимит не входят. Полный Unity Scripting API corpus будет отдельным этапом и сейчас не загружается.
@@ -130,4 +159,4 @@ dotnet run --project src/UnityDocsRag.Ingestion -- configs/ingestion.json
 
 Исходный HTML сохраняется в `data/raw/unity-6000.3`, а manifest — в `data/state/unity-6000.3-manifest.json`. При повторном запуске страницы с тем же содержимым показываются как `Unchanged`; дубликаты не создаются и HTML не перезаписывается. Папки `lab1/data/raw/` и `lab1/data/state/` содержат generated data и исключены из Git.
 
-Grabber сохраняет локальный файловый cache; preprocessing, chunking и indexing выполняются отдельными командами. Команда `ask` использует уже созданный PostgreSQL индекс. API, Langfuse и полный crawl Unity corpus не входят в текущую реализацию.
+Grabber сохраняет локальный файловый cache; preprocessing, chunking и indexing выполняются отдельными командами. Команда `ask` и локальный API используют уже созданный PostgreSQL индекс. Полный crawl Unity corpus не входит в текущую реализацию.

@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
@@ -22,6 +26,7 @@
     <ProjectReference Include="..\..\src\UnityDocsRag.Core\UnityDocsRag.Core.csproj" />
     <ProjectReference Include="..\..\src\UnityDocsRag.Infrastructure\UnityDocsRag.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\UnityDocsRag.Ingestion\UnityDocsRag.Ingestion.csproj" />
+    <ProjectReference Include="..\..\src\UnityDocsRag.Api\UnityDocsRag.Api.csproj" />
     <ProjectReference Include="..\..\src\UnityDocsRag.Evaluation\UnityDocsRag.Evaluation.csproj" />
   </ItemGroup>
 

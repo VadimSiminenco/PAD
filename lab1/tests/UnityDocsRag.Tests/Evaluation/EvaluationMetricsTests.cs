@@ -22,6 +22,13 @@ public sealed class EvaluationMetricsTests
               "Text": "Вопрос без ответа?", "ExpectedStatus": "InsufficientEvidence",
               "RequiresMultipleSources": false,
               "ExpectedSourceUrls": [], "ExpectedFacts": []
+            },
+            {
+              "Id": "S", "Language": "en", "Category": "InCorpus",
+              "Text": "Single-source question?", "ExpectedStatus": "Answered",
+              "RequiresMultipleSources": false,
+              "ExpectedSourceUrls": ["https://example.test/single"],
+              "ExpectedFacts": ["A single-source fact"]
             }
           ]
         }
@@ -29,6 +36,7 @@ public sealed class EvaluationMetricsTests
 
     private static EvaluationQuestion Answered => Dataset.Questions[0];
     private static EvaluationQuestion Negative => Dataset.Questions[1];
+    private static EvaluationQuestion SingleSource => Dataset.Questions[2];
 
     [Fact]
     public void AnyExpectedUrlCountsAsHitAtK()
@@ -109,5 +117,52 @@ public sealed class EvaluationMetricsTests
     public void InvalidKIsRejected()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => EvaluationMetrics.HitAtK(Answered, [], 0));
+    }
+
+    [Fact]
+    public void MultipleExpectedUrlsRequireDistinctMatchesForFullCoverage()
+    {
+        string[] ranked = ["https://example.test/a", "https://example.test/a", "https://example.test/b"];
+
+        Assert.Equal(0.5, EvaluationMetrics.SourceCoverageAtK(Answered, ranked, 1));
+        Assert.Equal(0.5, EvaluationMetrics.SourceCoverageAtK(Answered, ranked, 2));
+        Assert.Equal(1.0, EvaluationMetrics.SourceCoverageAtK(Answered, ranked, 3));
+        Assert.Equal(0.0, EvaluationMetrics.AllSourcesHitAtK(Answered, ranked, 2));
+        Assert.Equal(1.0, EvaluationMetrics.AllSourcesHitAtK(Answered, ranked, 3));
+    }
+
+    [Fact]
+    public void DuplicateRetrievedUrlDoesNotIncreaseCoverageAndMissIsZero()
+    {
+        string[] ranked = ["https://example.test/other", "https://example.test/b", "https://example.test/b"];
+
+        Assert.Equal(0.0, EvaluationMetrics.SourceCoverageAtK(Answered, ranked, 1));
+        Assert.Equal(0.5, EvaluationMetrics.SourceCoverageAtK(Answered, ranked, 3));
+        Assert.Equal(0.0, EvaluationMetrics.AllSourcesHitAtK(Answered, ranked, 3));
+        Assert.Equal(0.0, EvaluationMetrics.SourceCoverageAtK(Answered, [], 20));
+    }
+
+    [Fact]
+    public void SingleExpectedSourceMakesCoverageAndAllSourcesHitEquivalentToHit()
+    {
+        string[] ranked = ["https://example.test/other", "https://example.test/single"];
+
+        Assert.Equal(0.0, EvaluationMetrics.SourceCoverageAtK(SingleSource, ranked, 1));
+        Assert.Equal(0.0, EvaluationMetrics.AllSourcesHitAtK(SingleSource, ranked, 1));
+        Assert.Equal(1.0, EvaluationMetrics.SourceCoverageAtK(SingleSource, ranked, 2));
+        Assert.Equal(1.0, EvaluationMetrics.AllSourcesHitAtK(SingleSource, ranked, 2));
+        Assert.Equal(EvaluationMetrics.HitAtK(SingleSource, ranked, 2),
+            EvaluationMetrics.AllSourcesHitAtK(SingleSource, ranked, 2));
+    }
+
+    [Fact]
+    public void NegativeQuestionsHaveNoCoverageMetricsAndInvalidKIsRejected()
+    {
+        string[] ranked = ["https://example.test/a"];
+
+        Assert.Null(EvaluationMetrics.SourceCoverageAtK(Negative, ranked, 1));
+        Assert.Null(EvaluationMetrics.AllSourcesHitAtK(Negative, ranked, 1));
+        Assert.Throws<ArgumentOutOfRangeException>(() => EvaluationMetrics.SourceCoverageAtK(Answered, ranked, 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => EvaluationMetrics.AllSourcesHitAtK(Answered, ranked, 0));
     }
 }

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unity Docs RAG</title>
+  <style>
+    :root { color-scheme: light dark; font: 16px/1.5 system-ui, sans-serif; }
+    body { max-width: 860px; margin: 3rem auto; padding: 0 1.25rem; }
+    h1 { margin-bottom: .35rem; }
+    .intro { color: #738096; margin-top: 0; }
+    form, .panel { border: 1px solid #52607855; border-radius: 12px; padding: 1rem; margin-top: 1.25rem; }
+    label { display: block; font-weight: 650; margin-bottom: .5rem; }
+    textarea { box-sizing: border-box; display: block; width: 100%; min-height: 115px; resize: vertical; padding: .75rem; border: 1px solid #738096; border-radius: 8px; font: inherit; }
+    button { margin-top: .75rem; padding: .6rem 1.15rem; border: 0; border-radius: 8px; background: #356de8; color: white; font: inherit; font-weight: 650; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; }
+    .model-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .model-card { min-width: 0; border: 1px solid #52607855; border-radius: 10px; padding: .8rem; }
+    @media (max-width: 640px) { .model-grid { grid-template-columns: 1fr; } }
+    #status { font-weight: 650; }
+    #answer { white-space: pre-wrap; overflow-wrap: anywhere; }
+    #citations { padding-left: 1.3rem; }
+    #citations li { margin: .45rem 0; }
+    a { color: #78a4ff; }
+    [hidden] { display: none !important; }
+    .error { color: #c43f3f; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Unity Docs RAG</h1>
+    <p class="intro">Вопросы по официальной Unity Scripting API</p>
+    <form id="ask-form">
+      <label for="question">Ваш вопрос</label>
+      <textarea id="question" name="question" maxlength="2000" required placeholder="Например: Как задать точку назначения NavMeshAgent?"></textarea>
+      <button id="submit" type="submit">Спросить</button>
+      <button id="compare" type="button">Сравнить модели</button>
+    </form>
+    <section id="result" class="panel" aria-live="polite" hidden>
+      <div id="status"></div>
+      <p id="answer"></p>
+      <h2 id="citations-heading" hidden>Источники</h2>
+      <ul id="citations"></ul>
+    </section>
+    <section id="comparison" class="panel" aria-live="polite" hidden>
+      <h2>Сравнение моделей — один пробный замер</h2>
+      <p id="comparison-summary"></p>
+      <div id="comparison-models" class="model-grid"></div>
+    </section>
+    <p id="previous-measurement" class="intro" hidden></p>
+    <p id="error" class="error" role="alert" hidden></p>
+  </main>
+  <script>
+    const form = document.querySelector("#ask-form");
+    const questionField = document.querySelector("#question");
+    const submitButton = document.querySelector("#submit");
+    const result = document.querySelector("#result");
+    const status = document.querySelector("#status");
+    const answer = document.querySelector("#answer");
+    const citations = document.querySelector("#citations");
+    const citationsHeading = document.querySelector("#citations-heading");
+    const error = document.querySelector("#error");
+    const compareButton = document.querySelector("#compare");
+    const comparison = document.querySelector("#comparison");
+    const comparisonSummary = document.querySelector("#comparison-summary");
+    const comparisonModels = document.querySelector("#comparison-models");
+    const previousMeasurement = document.querySelector("#previous-measurement");
+
+    function addCitations(list, items) {
+      for (const citation of items || []) {
+        const item = document.createElement("li");
+        const link = document.createElement("a");
+        const url = new URL(citation.url, window.location.href);
+        if (url.protocol !== "http:" && url.protocol !== "https:") continue;
+        link.href = url.href; link.target = "_blank"; link.rel = "noopener noreferrer";
+        link.textContent = citation.title; item.append(link);
+        if (citation.section) { const section = document.createElement("span"); section.textContent = ` — ${citation.section}`; item.append(section); }
+        list.append(item);
+      }
+    }
+
+    function renderComparison(payload) {
+      comparison.hidden = false;
+      comparisonModels.replaceChildren();
+      if (!payload.isComparison) {
+        comparisonSummary.textContent = `Общий результат: ${payload.status}${payload.message ? ` — ${payload.message}` : ""}. Скорость моделей не сравнивалась.`;
+        return;
+      }
+      comparisonSummary.textContent = payload.fasterModel && payload.fasterRatio
+        ? `${payload.fasterModel} быстрее в ${payload.fasterRatio.toFixed(2)} раза (время только генерации). Один пробный замер, не статистический вывод.`
+        : "Оба вызова выполнены, но отношение времени рассчитать нельзя. Один пробный замер.";
+      for (const model of payload.models || []) {
+        const card = document.createElement("article"); card.className = "model-card";
+        const heading = document.createElement("h3"); heading.textContent = model.model; card.append(heading);
+        const modelStatus = document.createElement("p");
+        modelStatus.textContent = `Статус: ${model.status}${model.generationSeconds != null ? ` · генерация ${model.generationSeconds.toFixed(2)} с` : ""}`;
+        card.append(modelStatus);
+        const text = document.createElement("p"); text.style.whiteSpace = "pre-wrap"; text.textContent = model.text || model.safeError || "Ответ отсутствует."; card.append(text);
+        const list = document.createElement("ul"); addCitations(list, model.citations); card.append(list);
+        comparisonModels.append(card);
+      }
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const question = questionField.value.trim();
+      if (!question) return;
+
+      error.hidden = true;
+      result.hidden = false;
+      status.textContent = "Ожидание ответа…";
+      answer.textContent = "";
+      citations.replaceChildren();
+      citationsHeading.hidden = true;
+      submitButton.disabled = true;
+      compareButton.disabled = true;
+
+      try {
+        const response = await fetch("/api/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question })
+        });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.message || "Не удалось получить ответ.");
+
+        status.textContent = `Статус: ${payload.status}${payload.language ? ` · ${payload.language}` : ""}`;
+        answer.textContent = payload.text || "";
+        addCitations(citations, payload.citations);
+        citationsHeading.hidden = citations.childElementCount === 0;
+      } catch {
+        result.hidden = true;
+        error.textContent = "Не удалось получить ответ. Проверьте, что локальные службы запущены, и попробуйте ещё раз.";
+        error.hidden = false;
+      } finally {
+        submitButton.disabled = false;
+        compareButton.disabled = false;
+      }
+    });
+
+    compareButton.addEventListener("click", async () => {
+      const question = questionField.value.trim();
+      if (!question) { error.textContent = "Введите вопрос."; error.hidden = false; return; }
+      error.hidden = true; comparison.hidden = false; comparisonSummary.textContent = "Общий поиск и reranking, затем последовательная генерация…";
+      comparisonModels.replaceChildren(); compareButton.disabled = true; submitButton.disabled = true;
+      try {
+        const response = await fetch("/api/compare", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question }) });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.message || "Сравнение недоступно.");
+        renderComparison(payload);
+      } catch {
+        comparisonSummary.textContent = "Не удалось выполнить сравнение. Проверьте локальные службы и установленные модели.";
+      } finally { compareButton.disabled = false; submitButton.disabled = false; }
+    });
+
+    fetch("/api/compare/last").then(response => response.ok ? response.json() : null).then(snapshot => {
+      if (!snapshot) return;
+      const timings = (snapshot.models || []).map(model => `${model.model}: ${model.status}${model.generationSeconds != null ? `, ${model.generationSeconds.toFixed(2)} с` : ""}`).join("; ");
+      previousMeasurement.textContent = `Последний сохранённый замер (${new Date(snapshot.completedAt).toLocaleString()}): ${timings}. Вопрос и ответы намеренно не сохраняются.`;
+      previousMeasurement.hidden = false;
+    }).catch(() => {});
+  </script>
+</body>
+</html>

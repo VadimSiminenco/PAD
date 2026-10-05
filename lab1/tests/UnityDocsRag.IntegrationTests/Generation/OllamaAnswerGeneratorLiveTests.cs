@@ -134,6 +134,65 @@ public sealed class OllamaAnswerGeneratorLiveTests
         }
     }
 
+    [Fact]
+    public async Task AnswersEveryPartOfRussianMoveAndWarpComparisonWhenEndpointIsConfigured()
+    {
+        var endpoint = Environment.GetEnvironmentVariable("UNITYDOCS_TEST_OLLAMA_ENDPOINT");
+        if (string.IsNullOrWhiteSpace(endpoint)) return;
+        AssertLoopbackEndpoint(endpoint);
+
+        var model = Environment.GetEnvironmentVariable("UNITYDOCS_TEST_GENERATION_MODEL");
+        var options = new OllamaGenerationOptions
+        {
+            Endpoint = endpoint,
+            Model = string.IsNullOrWhiteSpace(model) ? "qwen3:4b" : model,
+            Temperature = 0,
+            NumPredict = 256,
+            NumCtx = 4096,
+            HttpTimeoutSeconds = 1200,
+            KeepAlive = "5m"
+        };
+        options.Validate();
+
+        var moveUrl = new Uri("https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html");
+        var warpUrl = new Uri("https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html");
+        var evidence = new[]
+        {
+            new RetrievedChunk(
+                new DocumentChunk("live-move", "live-move-document",
+                    "public void Move(Vector3 offset); offset — The relative movement vector. Apply relative movement to current position. If the agent has a path it will be adjusted.",
+                    "Description", 0, 25),
+                moveUrl, "NavMeshAgent.Move", 0.91, 1),
+            new RetrievedChunk(
+                new DocumentChunk("live-warp", "live-warp-document",
+                    "public bool Warp(Vector3 newPosition); newPosition — New position to warp the agent to. Warps agent to the provided position.",
+                    "Description", 0, 21),
+                warpUrl, "NavMeshAgent.Warp", 0.89, 2)
+        };
+
+        using var client = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
+        var generator = new OllamaAnswerGenerator(client, options);
+        var answer = await generator.GenerateAsync(
+            new UserQuestion("Чем отличаются относительное смещение NavMeshAgent через Move и перенос в заданную позицию через Warp? Что происходит с существующим путём при Move?"),
+            SupportedLanguage.Russian, evidence, CancellationToken.None);
+
+        try
+        {
+            Assert.Equal(AnswerStatus.Answered, answer.Status);
+            Assert.Equal(SupportedLanguage.Russian, answer.Language);
+            Assert.Matches("[\\u0400-\\u04FF]", answer.Text!);
+            Assert.Matches(@"(?is)(?:Move.{0,180}(?:относител|смещен)|(?:относител|смещен).{0,180}Move)", answer.Text!);
+            Assert.Matches(@"(?is)(?:Warp.{0,180}(?:позици|положени)|(?:позици|положени).{0,180}Warp)", answer.Text!);
+            Assert.Matches(@"(?is)(?:путь|маршрут).{0,180}(?:корректир|измен|подстраив|адаптир)|(?:корректир|измен|подстраив|адаптир).{0,180}(?:путь|маршрут)", answer.Text!);
+            Assert.Contains(answer.Citations, citation => citation.Title == "NavMeshAgent.Move" && citation.Url == moveUrl);
+            Assert.Contains(answer.Citations, citation => citation.Title == "NavMeshAgent.Warp" && citation.Url == warpUrl);
+        }
+        catch (XunitException exception)
+        {
+            throw new XunitException($"{exception.Message}{Environment.NewLine}Full generated answer:{Environment.NewLine}{answer.Text}");
+        }
+    }
+
     [Theory]
     [InlineData("Используйте SetDestination, а не Warp, чтобы двигаться по рассчитанному пути.", false)]
     [InlineData("Не используйте Warp для движения по пути.", false)]

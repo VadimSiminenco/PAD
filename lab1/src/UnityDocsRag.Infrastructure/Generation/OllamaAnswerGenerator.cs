@@ -28,7 +28,7 @@ public sealed class OllamaAnswerGenerator : IAnswerGenerator
             answer = new
             {
                 type = "string",
-                description = "A concise answer using only facts supported by the supplied sources; must be non-empty when sufficientEvidence is true."
+                description = "A meaningful, source-grounded answer covering every part of a multi-part question, including each compared operation and requested effect or condition; explicitly identify unsupported parts. A method name alone is acceptable only when asked solely which method. A SOURCE number or bare yes/no cannot answer an operation or comparison. Put SOURCE numbers only in citedSourceNumbers and include every SOURCE actually used. Must be non-empty when sufficientEvidence is true."
             },
             citedSourceNumbers = new
             {
@@ -46,6 +46,8 @@ public sealed class OllamaAnswerGenerator : IAnswerGenerator
     private readonly OllamaGenerationOptions _options;
     private readonly Uri _endpoint;
     private readonly RagPromptBuilder _promptBuilder;
+    private const string RetryClarification = "Your previous answer was only a source number or a bare yes/no. Give a meaningful answer in the answer field; put SOURCE numbers only in citedSourceNumbers. Follow all original evidence and language rules.";
+    private const string StructuredJsonRetryClarification = "Return exactly one valid JSON object matching the requested schema, with no Markdown or extra text. Keep the answer brief and substantive.";
 
     public OllamaAnswerGenerator(HttpClient httpClient, OllamaGenerationOptions options, RagPromptBuilder? promptBuilder = null)
     {
@@ -67,11 +69,53 @@ public sealed class OllamaAnswerGenerator : IAnswerGenerator
         if (evidence.Count == 0) return InsufficientEvidence(language);
 
         var prompt = _promptBuilder.Build(question, language, evidence);
+        string? retryClarification = null;
+        for (var attempt = 0; attempt < 2; attempt++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            ParsedAnswer parsed;
+            try
+            {
+                parsed = await RequestAnswerAsync(prompt, evidence.Count, attempt + 1,
+                        retryClarification, cancellationToken)
+                    .ConfigureAwait(false);
+            }
+            catch (OllamaAnswerValidationException exception) when
+                (attempt == 0 && exception.ReasonCode == OllamaAnswerValidationCode.StructuredJsonMalformed)
+            {
+                retryClarification = StructuredJsonRetryClarification;
+                continue;
+            }
+
+            if (!parsed.SufficientEvidence) return InsufficientEvidence(language);
+            if (IsClearlyUninformativeAnswer(parsed.Answer))
+            {
+                if (attempt == 0)
+                {
+                    retryClarification = RetryClarification;
+                    continue;
+                }
+                throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.NonSubstantiveAnswer, attempt + 1);
+            }
+
+            var citations = parsed.CitedSourceNumbers
+                .Select(sourceNumber => evidence[sourceNumber - 1])
+                .Select(source => new Citation(source.SourceTitle, source.SourceUrl, source.Chunk.Section))
+                .ToArray();
+            return new RagAnswer(parsed.Answer, language, AnswerStatus.Answered, citations);
+        }
+
+        throw new InvalidOperationException("Generation attempts were exhausted.");
+    }
+
+    private async Task<ParsedAnswer> RequestAnswerAsync(RagPrompt prompt, int sourceCount, int attemptNumber,
+        string? clarification, CancellationToken cancellationToken)
+    {
         var requestBody = new ChatRequest(
             _options.Model,
             new[]
             {
-                new ChatMessage("system", prompt.SystemMessage),
+                new ChatMessage("system", clarification is null ? prompt.SystemMessage : prompt.SystemMessage + "\n" + clarification),
                 new ChatMessage("user", prompt.UserMessage)
             },
             Stream: false,
@@ -100,23 +144,22 @@ public sealed class OllamaAnswerGenerator : IAnswerGenerator
         }
         catch (JsonException)
         {
-            throw new InvalidDataException("Ollama chat response contains malformed JSON.");
+            throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.OuterJsonMalformed, attemptNumber);
         }
 
         var content = outer?.Message?.Content;
         if (string.IsNullOrWhiteSpace(content))
-            throw new InvalidDataException("Ollama chat response is missing message content.");
-        var parsed = ParseStructuredAnswer(content, evidence.Count);
-        if (!parsed.SufficientEvidence) return InsufficientEvidence(language);
-
-        var citations = parsed.CitedSourceNumbers
-            .Select(sourceNumber => evidence[sourceNumber - 1])
-            .Select(source => new Citation(source.SourceTitle, source.SourceUrl, source.Chunk.Section))
-            .ToArray();
-        return new RagAnswer(parsed.Answer, language, AnswerStatus.Answered, citations);
+            throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.MessageContentMissing, attemptNumber);
+        return ParseStructuredAnswer(content, sourceCount, attemptNumber);
     }
 
-    private static ParsedAnswer ParseStructuredAnswer(string content, int sourceCount)
+    private static bool IsClearlyUninformativeAnswer(string answer) =>
+        Regex.IsMatch(answer, @"^\s*(?:(?:source\s*#?\s*)?\d+|(?:source\s*)?\[\d+\])\s*[.!?]?\s*$",
+            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant) ||
+        Regex.IsMatch(answer, @"^\s*(?:да|нет|yes|no)\s*[.!?]?\s*$",
+            RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+
+    private static ParsedAnswer ParseStructuredAnswer(string content, int sourceCount, int attemptNumber)
     {
         JsonDocument document;
         try
@@ -125,14 +168,14 @@ public sealed class OllamaAnswerGenerator : IAnswerGenerator
         }
         catch (JsonException)
         {
-            throw new InvalidDataException("Ollama message content contains malformed structured JSON.");
+            throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.StructuredJsonMalformed, attemptNumber);
         }
 
         using (document)
         {
             var root = document.RootElement;
             if (root.ValueKind != JsonValueKind.Object)
-                throw new InvalidDataException("Structured answer must be a JSON object.");
+                throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.StructuredShapeInvalid, attemptNumber);
 
             bool? sufficientEvidence = null;
             string? answer = null;
@@ -140,7 +183,8 @@ public sealed class OllamaAnswerGenerator : IAnswerGenerator
             var fields = new HashSet<string>(StringComparer.Ordinal);
             foreach (var property in root.EnumerateObject())
             {
-                if (!fields.Add(property.Name)) throw new InvalidDataException("Structured answer contains a duplicate field.");
+                if (!fields.Add(property.Name))
+                    throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.StructuredShapeInvalid, attemptNumber);
                 switch (property.Name)
                 {
                     case "sufficientEvidence" when property.Value.ValueKind is JsonValueKind.True or JsonValueKind.False:
@@ -154,26 +198,27 @@ public sealed class OllamaAnswerGenerator : IAnswerGenerator
                         var unique = new HashSet<int>();
                         foreach (var value in property.Value.EnumerateArray())
                         {
-                            if (!value.TryGetInt32(out var sourceNumber) || sourceNumber < 1 || sourceNumber > sourceCount)
-                                throw new InvalidDataException("Structured answer contains a source number outside the supplied context.");
+                            if (value.ValueKind != JsonValueKind.Number || !value.TryGetInt32(out var sourceNumber) ||
+                                sourceNumber < 1 || sourceNumber > sourceCount)
+                                throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.CitationNumberInvalid, attemptNumber);
                             if (!unique.Add(sourceNumber))
-                                throw new InvalidDataException("Structured answer contains duplicate source numbers.");
+                                throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.CitationNumberDuplicate, attemptNumber);
                             sourceNumbers.Add(sourceNumber);
                         }
                         break;
                     default:
-                        throw new InvalidDataException("Structured answer contains an unsupported or invalid field.");
+                        throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.StructuredShapeInvalid, attemptNumber);
                 }
             }
 
             if (fields.Count != 3 || sufficientEvidence is null || answer is null || sourceNumbers is null)
-                throw new InvalidDataException("Structured answer is missing a required field.");
+                throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.StructuredShapeInvalid, attemptNumber);
             if (sufficientEvidence.Value && string.IsNullOrWhiteSpace(answer))
-                throw new InvalidDataException("An answer with sufficient evidence must contain answer text.");
+                throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.AnswerMissing, attemptNumber);
             if (sufficientEvidence.Value && Regex.IsMatch(answer!, @"https?://\S+", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
-                throw new InvalidDataException("Answer text must not contain model-generated URLs.");
+                throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.AnswerUrlForbidden, attemptNumber);
             if (sufficientEvidence.Value && sourceNumbers.Count == 0)
-                throw new InvalidDataException("An answer with sufficient evidence must cite at least one source.");
+                throw new OllamaAnswerValidationException(OllamaAnswerValidationCode.CitationMissing, attemptNumber);
 
             return new ParsedAnswer(sufficientEvidence.Value, answer, sourceNumbers);
         }
@@ -219,4 +264,31 @@ public sealed class OllamaAnswerGenerator : IAnswerGenerator
     }
 
     private sealed record ParsedAnswer(bool SufficientEvidence, string Answer, IReadOnlyList<int> CitedSourceNumbers);
+}
+
+public enum OllamaAnswerValidationCode
+{
+    OuterJsonMalformed,
+    MessageContentMissing,
+    StructuredJsonMalformed,
+    StructuredShapeInvalid,
+    CitationNumberInvalid,
+    CitationNumberDuplicate,
+    AnswerMissing,
+    AnswerUrlForbidden,
+    CitationMissing,
+    NonSubstantiveAnswer
+}
+
+public sealed class OllamaAnswerValidationException : Exception
+{
+    public OllamaAnswerValidationCode ReasonCode { get; }
+    public int AttemptNumber { get; }
+
+    internal OllamaAnswerValidationException(OllamaAnswerValidationCode reasonCode, int attemptNumber)
+        : base("Ollama answer validation failed.")
+    {
+        ReasonCode = reasonCode;
+        AttemptNumber = attemptNumber;
+    }
 }

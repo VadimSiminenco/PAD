@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\UnityDocsRag.Core\UnityDocsRag.Core.csproj" />
     <ProjectReference Include="..\UnityDocsRag.Infrastructure\UnityDocsRag.Infrastructure.csproj" />
+    <ProjectReference Include="..\UnityDocsRag.Ingestion\UnityDocsRag.Ingestion.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

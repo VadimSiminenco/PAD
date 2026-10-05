@@ -41,8 +41,13 @@ public sealed class OllamaAnswerGeneratorTests
             var properties = format.GetProperty("properties");
             Assert.Contains("directly supports a useful, correct answer",
                 properties.GetProperty("sufficientEvidence").GetProperty("description").GetString(), StringComparison.Ordinal);
-            Assert.Contains("only facts supported by the supplied sources",
-                properties.GetProperty("answer").GetProperty("description").GetString(), StringComparison.Ordinal);
+            var answerDescription = properties.GetProperty("answer").GetProperty("description").GetString();
+            Assert.Contains("covering every part of a multi-part question", answerDescription, StringComparison.Ordinal);
+            Assert.Contains("each compared operation and requested effect or condition", answerDescription, StringComparison.Ordinal);
+            Assert.Contains("explicitly identify unsupported parts", answerDescription, StringComparison.Ordinal);
+            Assert.Contains("A SOURCE number or bare yes/no cannot answer an operation or comparison", answerDescription, StringComparison.Ordinal);
+            Assert.Contains("SOURCE numbers only in citedSourceNumbers", answerDescription, StringComparison.Ordinal);
+            Assert.Contains("every SOURCE actually used", answerDescription, StringComparison.Ordinal);
             var citationSchema = properties.GetProperty("citedSourceNumbers");
             Assert.Contains("numbers of the supplied SOURCE records actually used",
                 citationSchema.GetProperty("description").GetString(), StringComparison.Ordinal);
@@ -121,45 +126,191 @@ public sealed class OllamaAnswerGeneratorTests
     [Fact]
     public async Task AnsweredResponseWithEmptyTextIsRejected()
     {
-        await AssertInvalidStructuredAsync(Structured(true, " ", 1));
+        await AssertInvalidStructuredAsync(Structured(true, " ", 1), OllamaAnswerValidationCode.AnswerMissing);
     }
 
     [Fact]
     public async Task AnsweredResponseWithoutCitationsIsRejected()
     {
-        await AssertInvalidStructuredAsync(Structured(true, "An answer", Array.Empty<int>()));
+        await AssertInvalidStructuredAsync(Structured(true, "An answer", Array.Empty<int>()), OllamaAnswerValidationCode.CitationMissing);
     }
 
     [Fact]
     public async Task OutOfRangeSourceNumberIsRejected()
     {
-        await AssertInvalidStructuredAsync(Structured(true, "An answer", 2));
+        await AssertInvalidStructuredAsync(Structured(true, "An answer", 2), OllamaAnswerValidationCode.CitationNumberInvalid);
     }
 
     [Fact]
     public async Task DuplicateSourceNumbersAreRejected()
     {
-        await AssertInvalidStructuredAsync(Structured(true, "An answer", 1, 1));
+        await AssertInvalidStructuredAsync(Structured(true, "An answer", 1, 1), OllamaAnswerValidationCode.CitationNumberDuplicate);
     }
 
     [Fact]
     public async Task ModelGeneratedUrlInAnswerIsRejected()
     {
-        await AssertInvalidStructuredAsync(Structured(true, "See https://example.invalid/page", 1));
+        await AssertInvalidStructuredAsync(Structured(true, "See https://example.invalid/page", 1), OllamaAnswerValidationCode.AnswerUrlForbidden);
+    }
+
+    [Fact]
+    public async Task BareSourceNumberIsCorrectedOnSecondAttemptWithSameEvidence()
+    {
+        var context = new[] { Source("Title", "Section", "PRIVATE CHUNK marker", "Title.html") };
+        var requests = new List<(string System, string User)>();
+        var handler = new FakeHandler(async (request, token) =>
+        {
+            using var json = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
+            var messages = json.RootElement.GetProperty("messages").EnumerateArray().ToArray();
+            requests.Add((messages[0].GetProperty("content").GetString()!, messages[1].GetProperty("content").GetString()!));
+            return OllamaResponse(Structured(true, requests.Count == 1 ? "1" : "Use the documented method to perform the operation.", 1));
+        });
+        using var client = new HttpClient(handler);
+
+        var answer = await Generator(client).GenerateAsync(new UserQuestion("PRIVATE QUESTION marker"),
+            SupportedLanguage.English, context, CancellationToken.None);
+
+        Assert.Equal(AnswerStatus.Answered, answer.Status);
+        Assert.Single(answer.Citations);
+        Assert.Equal(2, handler.RequestCount);
+        Assert.Equal(requests[0].User, requests[1].User);
+        Assert.StartsWith(requests[0].System, requests[1].System, StringComparison.Ordinal);
+        Assert.Contains("Give a meaningful answer", requests[1].System, StringComparison.Ordinal);
     }
 
     [Theory]
-    [InlineData("outer")]
-    [InlineData("inner")]
-    public async Task MalformedOuterOrInnerJsonIsRejected(string malformedLayer)
+    [InlineData("1")]
+    [InlineData("SOURCE 1")]
+    [InlineData("[1]")]
+    [InlineData("Да.")]
+    [InlineData("Нет")]
+    [InlineData("yes")]
+    [InlineData("NO!")]
+    public async Task RepeatedNonSubstantiveAnswerFailsAfterExactlyOneRetry(string badAnswer)
     {
-        var content = malformedLayer == "outer" ? "{" : "not valid inner json";
-        var body = malformedLayer == "outer" ? content : JsonSerializer.Serialize(new { message = new { content } });
-        using var client = new HttpClient(Responding(RawResponse(body)));
+        var handler = new FakeHandler((_, _) => Task.FromResult(OllamaResponse(Structured(true, badAnswer, 1))));
+        using var client = new HttpClient(handler);
+
+        var exception = await Assert.ThrowsAsync<OllamaAnswerValidationException>(() => Generator(client).GenerateAsync(
+            new UserQuestion("PRIVATE QUESTION marker"), SupportedLanguage.English,
+            [Source("Title", "Section", "PRIVATE CHUNK marker", "Title.html")], CancellationToken.None));
+
+        Assert.Equal(OllamaAnswerValidationCode.NonSubstantiveAnswer, exception.ReasonCode);
+        Assert.Equal(2, exception.AttemptNumber);
+        Assert.Equal(2, handler.RequestCount);
+        Assert.Equal("Ollama answer validation failed.", exception.Message);
+        Assert.DoesNotContain("PRIVATE QUESTION marker", exception.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain("PRIVATE CHUNK marker", exception.ToString(), StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ConciseMethodNameIsAcceptedWithoutRetry()
+    {
+        var handler = new FakeHandler((_, _) => Task.FromResult(OllamaResponse(Structured(true, "SetDestination", 1))));
+        using var client = new HttpClient(handler);
+
+        var answer = await Generator(client).GenerateAsync(new UserQuestion("Which method sets the destination?"),
+            SupportedLanguage.English, [Source("Title", "Section", "Method: SetDestination", "Title.html")], CancellationToken.None);
+
+        Assert.Equal(AnswerStatus.Answered, answer.Status);
+        Assert.Equal("SetDestination", answer.Text);
+        Assert.Equal(1, handler.RequestCount);
+    }
+
+    [Fact]
+    public async Task MalformedOuterJsonIsRejectedWithoutRetry()
+    {
+        using var client = new HttpClient(Responding(RawResponse("{")));
         var generator = Generator(client);
 
-        await Assert.ThrowsAsync<InvalidDataException>(() => generator.GenerateAsync(new UserQuestion("question"),
-            SupportedLanguage.English, [Source("Title", "Section", "text", "Title.html")], CancellationToken.None));
+        var exception = await Assert.ThrowsAsync<OllamaAnswerValidationException>(() => generator.GenerateAsync(
+            new UserQuestion("PRIVATE QUESTION marker"), SupportedLanguage.English,
+            [Source("Title", "Section", "PRIVATE CHUNK marker", "Title.html")], CancellationToken.None));
+
+        Assert.Equal(OllamaAnswerValidationCode.OuterJsonMalformed, exception.ReasonCode);
+        Assert.Equal(1, exception.AttemptNumber);
+        Assert.DoesNotContain("PRIVATE QUESTION marker", exception.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain("PRIVATE CHUNK marker", exception.ToString(), StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task MalformedStructuredJsonRetriesAndReturnsValidAnswer()
+    {
+        const string malformedResponse = "PRIVATE RESPONSE marker invalid structured JSON";
+        var requestMessages = new List<(string System, string User)>();
+        var handler = new FakeHandler(async (request, token) =>
+        {
+            using var document = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
+            var messages = document.RootElement.GetProperty("messages").EnumerateArray().ToArray();
+            requestMessages.Add((messages[0].GetProperty("content").GetString()!, messages[1].GetProperty("content").GetString()!));
+            return OllamaResponse(requestMessages.Count == 1 ? malformedResponse : Structured(true, "A concise grounded answer.", 1));
+        });
+        using var client = new HttpClient(handler);
+        var generator = Generator(client);
+        var sources = new[] { Source("Title", "Section", "PRIVATE CHUNK marker", "Title.html") };
+
+        var answer = await generator.GenerateAsync(new UserQuestion("PRIVATE QUESTION marker"),
+            SupportedLanguage.English, sources, CancellationToken.None);
+
+        Assert.Equal(AnswerStatus.Answered, answer.Status);
+        Assert.Equal("A concise grounded answer.", answer.Text);
+        Assert.Equal(2, handler.RequestCount);
+        Assert.Equal(requestMessages[0].User, requestMessages[1].User);
+        Assert.StartsWith(requestMessages[0].System, requestMessages[1].System, StringComparison.Ordinal);
+        Assert.Contains("exactly one valid JSON object", requestMessages[1].System, StringComparison.Ordinal);
+        Assert.Contains("no Markdown or extra text", requestMessages[1].System, StringComparison.Ordinal);
+        Assert.Contains("brief and substantive", requestMessages[1].System, StringComparison.Ordinal);
+        Assert.DoesNotContain(malformedResponse, requestMessages[1].System, StringComparison.Ordinal);
+        Assert.DoesNotContain(malformedResponse, requestMessages[1].User, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task RepeatedMalformedStructuredJsonFailsWithSafeCodeAndSecondAttempt()
+    {
+        const string firstMalformed = "PRIVATE RESPONSE FIRST malformed";
+        const string secondMalformed = "PRIVATE RESPONSE SECOND malformed";
+        var requestMessages = new List<(string System, string User)>();
+        var handler = new FakeHandler(async (request, token) =>
+        {
+            using var document = JsonDocument.Parse(await request.Content!.ReadAsStringAsync(token));
+            var messages = document.RootElement.GetProperty("messages").EnumerateArray().ToArray();
+            requestMessages.Add((messages[0].GetProperty("content").GetString()!, messages[1].GetProperty("content").GetString()!));
+            return OllamaResponse(requestMessages.Count == 1 ? firstMalformed : secondMalformed);
+        });
+        using var client = new HttpClient(handler);
+
+        var exception = await Assert.ThrowsAsync<OllamaAnswerValidationException>(() => Generator(client).GenerateAsync(
+            new UserQuestion("PRIVATE QUESTION marker"), SupportedLanguage.English,
+            [Source("Title", "Section", "PRIVATE CHUNK marker", "Title.html")], CancellationToken.None));
+
+        Assert.Equal(OllamaAnswerValidationCode.StructuredJsonMalformed, exception.ReasonCode);
+        Assert.Equal(2, exception.AttemptNumber);
+        Assert.Equal(2, handler.RequestCount);
+        Assert.Equal(requestMessages[0].User, requestMessages[1].User);
+        Assert.DoesNotContain(firstMalformed, requestMessages[1].System, StringComparison.Ordinal);
+        Assert.DoesNotContain(firstMalformed, requestMessages[1].User, StringComparison.Ordinal);
+        Assert.DoesNotContain(firstMalformed, exception.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain(secondMalformed, exception.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain("PRIVATE QUESTION marker", exception.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain("PRIVATE CHUNK marker", exception.ToString(), StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task InvalidStructuredJsonOnRetryReportsSecondAttempt()
+    {
+        var handlerCallCount = 0;
+        var handler = new FakeHandler((_, _) => Task.FromResult(OllamaResponse(
+            handlerCallCount++ == 0 ? Structured(true, "1", 1) : "PRIVATE RESPONSE marker invalid JSON")));
+        using var client = new HttpClient(handler);
+
+        var exception = await Assert.ThrowsAsync<OllamaAnswerValidationException>(() => Generator(client).GenerateAsync(
+            new UserQuestion("PRIVATE QUESTION marker"), SupportedLanguage.English,
+            [Source("Title", "Section", "PRIVATE CHUNK marker", "Title.html")], CancellationToken.None));
+
+        Assert.Equal(OllamaAnswerValidationCode.StructuredJsonMalformed, exception.ReasonCode);
+        Assert.Equal(2, exception.AttemptNumber);
+        Assert.Equal(2, handler.RequestCount);
+        Assert.DoesNotContain("PRIVATE RESPONSE marker", exception.ToString(), StringComparison.Ordinal);
     }
 
     [Fact]
@@ -209,12 +360,18 @@ public sealed class OllamaAnswerGeneratorTests
         Assert.Throws<ArgumentOutOfRangeException>(() => new OllamaGenerationOptions { Temperature = double.NaN }.Validate());
     }
 
-    private static async Task AssertInvalidStructuredAsync(string structured)
+    private static async Task AssertInvalidStructuredAsync(string structured, OllamaAnswerValidationCode expectedCode)
     {
         using var client = new HttpClient(Responding(OllamaResponse(structured)));
         var generator = Generator(client);
-        await Assert.ThrowsAsync<InvalidDataException>(() => generator.GenerateAsync(new UserQuestion("question"),
-            SupportedLanguage.English, [Source("Title", "Section", "text", "Title.html")], CancellationToken.None));
+        var exception = await Assert.ThrowsAsync<OllamaAnswerValidationException>(() => generator.GenerateAsync(
+            new UserQuestion("PRIVATE QUESTION marker"), SupportedLanguage.English,
+            [Source("Title", "Section", "PRIVATE CHUNK marker", "Title.html")], CancellationToken.None));
+        Assert.Equal(expectedCode, exception.ReasonCode);
+        Assert.Equal(1, exception.AttemptNumber);
+        Assert.DoesNotContain("PRIVATE QUESTION marker", exception.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain("PRIVATE CHUNK marker", exception.ToString(), StringComparison.Ordinal);
+        Assert.DoesNotContain(structured, exception.ToString(), StringComparison.Ordinal);
     }
 
     private static OllamaAnswerGenerator Generator(HttpClient client, OllamaGenerationOptions? options = null) =>

@@ -1,0 +1,2457 @@
+{
+  "DatasetVersion": 1,
+  "UnityVersion": "6000.3",
+  "EmbeddingProfile": {
+    "Provider": "Ollama",
+    "ModelName": "embeddinggemma",
+    "Dimension": 768,
+    "Multilingual": true
+  },
+  "Questions": [
+    {
+      "Id": "Q01",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.6135723407992156
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.6079122476656434
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6029169388488689
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.6002427280166228
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.588183455602838
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.5817825642435368
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.5809786589411886
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.575961140141904
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.5684987131056869
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.5625209640705421
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5542506676092346
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.5539666313499203
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+          "Similarity": 0.5537780560122431
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.5525909042806159
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.5524309254664838
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.5436319702849352
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.5426522271607328
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-acceleration.html",
+          "Similarity": 0.5360792801545551
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+          "Similarity": 0.5348209780241234
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.5325754722185408
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 0.5,
+      "SourceCoverageAt5": 0.5,
+      "SourceCoverageAt10": 0.5,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 0,
+      "AllSourcesHitAt5": 0,
+      "AllSourcesHitAt10": 0,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q02",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.6886597256070869
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.6797034584503858
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+          "Similarity": 0.6637192365872204
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html",
+          "Similarity": 0.6623078379493713
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.6612089266554582
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.6420227053795319
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.6417039014432367
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6398976373397953
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.6379889059666264
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.629094745353681
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.6272456459031943
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.6251761876204207
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html",
+          "Similarity": 0.609094376185036
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isPathStale.html",
+          "Similarity": 0.5891914330620006
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.5837519690768714
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.579839794578488
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5793956000153392
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html",
+          "Similarity": 0.5692092432393498
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.5644315298375243
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.5634312830983504
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 0.6666666666666666,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 0,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q03",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+          "Similarity": 0.7316091118701502
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6230852301324007
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+          "Similarity": 0.600093722343449
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.5461026051793406
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.5419938837293542
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+          "Similarity": 0.5383043977774596
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.5365156080956482
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html",
+          "Similarity": 0.5253259449032147
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.5242861821822046
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-acceleration.html",
+          "Similarity": 0.5235585910484665
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isOnOffMeshLink.html",
+          "Similarity": 0.52032140745224
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5198752570226718
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.513517231554821
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.5090883666820389
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.5081368249858658
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.5079643291181819
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.5073846302582793
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.FindClosestEdge.html",
+          "Similarity": 0.5072446163150978
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5046506518542133
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isOnNavMesh.html",
+          "Similarity": 0.5041374869592473
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q04",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+          "Similarity": 0.7528511720921014
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+          "Similarity": 0.6079748663985134
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.5931583178357172
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html",
+          "Similarity": 0.5905702386247637
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5788968425289116
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.5751610643730267
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.5715651767228641
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html",
+          "Similarity": 0.5701419800097306
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5578497039886006
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-radius.html",
+          "Similarity": 0.5550313857180247
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.5528979606604638
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html",
+          "Similarity": 0.5515474575688284
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-obstacleAvoidanceType.html",
+          "Similarity": 0.5332454999393575
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Raycast.html",
+          "Similarity": 0.5291973563441033
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.5255346802945424
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-acceleration.html",
+          "Similarity": 0.520743484319869
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-height.html",
+          "Similarity": 0.5197974658857659
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.FindClosestEdge.html",
+          "Similarity": 0.519599070740204
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.5148010832309347
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+          "Similarity": 0.5124734856362148
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q05",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.6966440570436112
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.6641266548446405
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.6363881880544263
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.6345556390218818
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6031155454034843
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.6026934132432776
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+          "Similarity": 0.5842372125590065
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5790345793756534
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.5715492026067959
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.5664166649779694
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5653406407008374
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.5541256738377268
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SamplePathPosition.html",
+          "Similarity": 0.5464932696851748
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SamplePathPosition.html",
+          "Similarity": 0.5394361474146929
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5384384164581354
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html",
+          "Similarity": 0.5359904286871465
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.5334389130023681
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html",
+          "Similarity": 0.5314539558456706
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.5280373029620863
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5222665823183396
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q06",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.7085342655819232
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.7001784383933073
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6670471828096538
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6455833029200518
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.6365735260423665
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.6116172937434594
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.6094551449689886
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.6057838814806682
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.6052990320503662
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.5984194992089057
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.5982702547601767
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.598224227720853
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.5924191032829987
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+          "Similarity": 0.5883632547639707
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CompleteOffMeshLink.html",
+          "Similarity": 0.5811262380406359
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.5770171720416514
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.5765719231197108
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.5745418236480118
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.573552140863948
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.5721159325198806
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q11",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html",
+          "Similarity": 0.5559335415641082
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-angularSpeed.html",
+          "Similarity": 0.4954572328107616
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-acceleration.html",
+          "Similarity": 0.48643803434825705
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.43870682466389344
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.43320410249307295
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+          "Similarity": 0.43109110408478424
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+          "Similarity": 0.4197024530083674
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-radius.html",
+          "Similarity": 0.40895596413493895
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.4047244006723909
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-desiredVelocity.html",
+          "Similarity": 0.3909637175051328
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.38693854212760925
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.3790874625340176
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.37851264348701563
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.3782288432121277
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-avoidancePriority.html",
+          "Similarity": 0.37127767547635404
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.3698115083406739
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-obstacleAvoidanceType.html",
+          "Similarity": 0.3694060431494921
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html",
+          "Similarity": 0.3693254810169633
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.36847466230392456
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.3684256955208157
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q12",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html",
+          "Similarity": 0.7037498531490665
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6618936850898078
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.6365300470834898
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.6323608975195361
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6308614235602972
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.6278100831621847
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.6155725626181452
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+          "Similarity": 0.6155513158111992
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.6134256410104112
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.608555503580369
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+          "Similarity": 0.6079208722208891
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.6057740197720524
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+          "Similarity": 0.6001542031719052
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html",
+          "Similarity": 0.5913340609865276
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.590733029667613
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.5858635902404826
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.5709816388520659
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html",
+          "Similarity": 0.5707036256790202
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.568832158500735
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isPathStale.html",
+          "Similarity": 0.5669554828564747
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q13",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+          "Similarity": 0.5266843092410021
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+          "Similarity": 0.47616009627341893
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.4256884924862331
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.41859086308697147
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.41677215199306383
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-radius.html",
+          "Similarity": 0.408723248611113
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Raycast.html",
+          "Similarity": 0.403485065490904
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.4033119072580621
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html",
+          "Similarity": 0.3999731957944427
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.3982803702867007
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-obstacleAvoidanceType.html",
+          "Similarity": 0.3946589701961496
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.3872559551222422
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.FindClosestEdge.html",
+          "Similarity": 0.3841404595040179
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-avoidancePriority.html",
+          "Similarity": 0.38377174525934565
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.3834585090329068
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html",
+          "Similarity": 0.3815820554352871
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.3743998558044632
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html",
+          "Similarity": 0.3719059007223964
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Raycast.html",
+          "Similarity": 0.3698704487625931
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.36769349960166475
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q14",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html",
+          "Similarity": 0.570167949845785
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.5485531697894654
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5480364291690129
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5206037808904274
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5177232644228389
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.5051705253530945
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.4901686263888485
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.48977440351831003
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.4815419912338804
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.4814237278679674
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.47328885593678993
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.4721766975136936
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.470451330392504
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.46779247926432865
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.46468516885184874
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.4615745934071307
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+          "Similarity": 0.4578237756175797
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.4523067417510729
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.4513206270956842
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SamplePathPosition.html",
+          "Similarity": 0.4410870267904645
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q15",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.583303386978966
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5246057823065399
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.4736691399615498
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isPathStale.html",
+          "Similarity": 0.44986872080121043
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.44299789923417054
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.4428686533648649
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.4398928999581706
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.4391880486459879
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html",
+          "Similarity": 0.4368823095419776
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+          "Similarity": 0.433627521834008
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.4269647983354692
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.4268626657888217
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.42586039613013216
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.42450935098473797
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+          "Similarity": 0.4184660689651434
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.4174630789524957
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.40881892889508076
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextOffMeshLinkData.html",
+          "Similarity": 0.4079165646930414
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.40234692173649167
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+          "Similarity": 0.3984511732131949
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q16",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-areaMask.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.693525360471101
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html",
+          "Similarity": 0.6738951031221934
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.6633010111271839
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-areaMask.html",
+          "Similarity": 0.6602859682441314
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6551907453054645
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.6417661691764706
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.6399436211619706
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.6379900358909402
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.6332800130272769
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.6287172283271457
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html",
+          "Similarity": 0.6220766331850583
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.608760667891582
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+          "Similarity": 0.6060149995009416
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.5996835826884552
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5952742582232814
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.5948576685701422
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isPathStale.html",
+          "Similarity": 0.5921787995866201
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html",
+          "Similarity": 0.5906638178836238
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.5859690441387866
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.5799880814523932
+        }
+      ],
+      "HitAt3": 0,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 0.25,
+      "SourceCoverageAt3": 0,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 0,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q17",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.5456589460372964
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5075436216488822
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.49981701375144727
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.4889882034933062
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.4834196597183368
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.4815713178174911
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.46374068312513617
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.45536137984280434
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.4517600353336282
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.45129977785942965
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.45072232039935844
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.4459092351252305
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.FindClosestEdge.html",
+          "Similarity": 0.43976674560903173
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-acceleration.html",
+          "Similarity": 0.4378181658874919
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.43245669232110107
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.4261832149247309
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.4241404371010483
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.41419021918109844
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SamplePathPosition.html",
+          "Similarity": 0.41381049156189254
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SamplePathPosition.html",
+          "Similarity": 0.4106850730556162
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q18",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.6001771449092712
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html",
+          "Similarity": 0.5250748336136738
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5174606976053641
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5092549313002943
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Raycast.html",
+          "Similarity": 0.5057293759037552
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.5024604195450736
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5015179511265871
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5009231266608466
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.5007022620084918
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.4999381899907398
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.49690634049101945
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.4957481332275637
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+          "Similarity": 0.49530133801047604
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.4951898750776198
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.492398679709521
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.49080063430070053
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.4850507478583108
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isOnOffMeshLink.html",
+          "Similarity": 0.4841551742924226
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.4792294862182488
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.4764142460985268
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q19",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html",
+          "Similarity": 0.6984895401851454
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6118609624893976
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6032343100183433
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html",
+          "Similarity": 0.5743737575405964
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html",
+          "Similarity": 0.5663624901659757
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ActivateCurrentOffMeshLink.html",
+          "Similarity": 0.5494034991202023
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5486561877513273
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.5479880734678726
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+          "Similarity": 0.5467652618445803
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.5353117190765976
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-areaMask.html",
+          "Similarity": 0.5326115288172748
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+          "Similarity": 0.5307861323570288
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.5248639173602992
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html",
+          "Similarity": 0.5226707045243298
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-radius.html",
+          "Similarity": 0.5215760416877514
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.5207018175041676
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.5168318788604457
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-stoppingDistance.html",
+          "Similarity": 0.5165085062243311
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.5155509863958242
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.5148160953216867
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q20",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.5767091340808262
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.5751669064065505
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.5731276866229664
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.565160676202649
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.5477880991136975
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathPending.html",
+          "Similarity": 0.5370556899739474
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5306063744514625
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.5222982995813424
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.5190161575939716
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.5160860054134191
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.5142607331380251
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-pathStatus.html",
+          "Similarity": 0.50977968936454
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.5065213434075284
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.5047005080517251
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.5036769796380685
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-remainingDistance.html",
+          "Similarity": 0.49733573261842745
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.49611017293445325
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.49214342564321467
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SamplePathPosition.html",
+          "Similarity": 0.4885746877522532
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.48600778734266337
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 0.5,
+      "SourceCoverageAt3": 0.3333333333333333,
+      "SourceCoverageAt5": 0.3333333333333333,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 0,
+      "AllSourcesHitAt5": 0,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q21",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html",
+          "Similarity": 0.6144831640144435
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+          "Similarity": 0.578670806088829
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updateRotation.html",
+          "Similarity": 0.4760406442916989
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.4642409703587915
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.44815003055038694
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.4333441336936822
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.4232675455288768
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.42297265735024303
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.42187650874222316
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.41970200890935305
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-destination.html",
+          "Similarity": 0.41825804873628025
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CompleteOffMeshLink.html",
+          "Similarity": 0.41200196385326904
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.40670854509251386
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updateUpAxis.html",
+          "Similarity": 0.4059336492320418
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isOnOffMeshLink.html",
+          "Similarity": 0.3922468634534837
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+          "Similarity": 0.39190394168864195
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.39158640604181494
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetDestination.html",
+          "Similarity": 0.386030187720629
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.38258023390837215
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-baseOffset.html",
+          "Similarity": 0.38041523519890774
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q22",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+          "Similarity": 0.6963294298284488
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isOnOffMeshLink.html",
+          "Similarity": 0.6494001924277735
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CompleteOffMeshLink.html",
+          "Similarity": 0.6111217439117624
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ActivateCurrentOffMeshLink.html",
+          "Similarity": 0.5471987499243022
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-currentOffMeshLinkData.html",
+          "Similarity": 0.5270110964775685
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextOffMeshLinkData.html",
+          "Similarity": 0.5177298454529553
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.517246480644603
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoBraking.html",
+          "Similarity": 0.5125662211190781
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ActivateCurrentOffMeshLink.html",
+          "Similarity": 0.5116603041707645
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.48886458741658756
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.4863150723985218
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.48100370621594224
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.46061423257764744
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html",
+          "Similarity": 0.45716132265520804
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.45024286499874977
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.44804567524777017
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-navMeshOwner.html",
+          "Similarity": 0.44387991574290686
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.4414255951985746
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+          "Similarity": 0.4398387099177613
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.43411004035027567
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q23",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.5345179787745665
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+          "Similarity": 0.4428066356142547
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.4355676144973526
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.4322901256393519
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updatePosition.html",
+          "Similarity": 0.4113568139375694
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.4086273341319675
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-steeringTarget.html",
+          "Similarity": 0.4048554648760785
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.40214855645320746
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetPath.html",
+          "Similarity": 0.3989057544154837
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.3833571125992967
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isOnOffMeshLink.html",
+          "Similarity": 0.37583412980052744
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+          "Similarity": 0.37259283132003596
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Warp.html",
+          "Similarity": 0.3647035626813864
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.36451028133717034
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoRepath.html",
+          "Similarity": 0.3634267911584266
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.ResetPath.html",
+          "Similarity": 0.3632033576955487
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isStopped.html",
+          "Similarity": 0.3625909201530021
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-updateRotation.html",
+          "Similarity": 0.3592533911832323
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.35763499120206577
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-baseOffset.html",
+          "Similarity": 0.35551027987685613
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 0.5,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 0,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    },
+    {
+      "Id": "Q24",
+      "ExpectedSourceUrls": [
+        "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html"
+      ],
+      "RetrievedSources": [
+        {
+          "Rank": 1,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html",
+          "Similarity": 0.7025441091705009
+        },
+        {
+          "Rank": 2,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html",
+          "Similarity": 0.6836701300058349
+        },
+        {
+          "Rank": 3,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6561289596941958
+        },
+        {
+          "Rank": 4,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.SetAreaCost.html",
+          "Similarity": 0.6317246462560244
+        },
+        {
+          "Rank": 5,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html",
+          "Similarity": 0.6263909490574582
+        },
+        {
+          "Rank": 6,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-speed.html",
+          "Similarity": 0.6217661435109844
+        },
+        {
+          "Rank": 7,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.html",
+          "Similarity": 0.6215905096042807
+        },
+        {
+          "Rank": 8,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.GetAreaCost.html",
+          "Similarity": 0.6215823598904459
+        },
+        {
+          "Rank": 9,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-velocity.html",
+          "Similarity": 0.6172028279429616
+        },
+        {
+          "Rank": 10,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-acceleration.html",
+          "Similarity": 0.5999253034413584
+        },
+        {
+          "Rank": 11,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-autoTraverseOffMeshLink.html",
+          "Similarity": 0.5816171972194265
+        },
+        {
+          "Rank": 12,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMesh.html",
+          "Similarity": 0.5758357572066071
+        },
+        {
+          "Rank": 13,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-angularSpeed.html",
+          "Similarity": 0.5736288682443833
+        },
+        {
+          "Rank": 14,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.CalculatePath.html",
+          "Similarity": 0.5698817795303676
+        },
+        {
+          "Rank": 15,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-hasPath.html",
+          "Similarity": 0.564942740777523
+        },
+        {
+          "Rank": 16,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-path.html",
+          "Similarity": 0.5575040578842322
+        },
+        {
+          "Rank": 17,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-agentTypeID.html",
+          "Similarity": 0.556533098220841
+        },
+        {
+          "Rank": 18,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent.Move.html",
+          "Similarity": 0.5554843677627743
+        },
+        {
+          "Rank": 19,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-nextPosition.html",
+          "Similarity": 0.5485953899749894
+        },
+        {
+          "Rank": 20,
+          "Url": "https://docs.unity3d.com/6000.3/Documentation/ScriptReference/AI.NavMeshAgent-isPathStale.html",
+          "Similarity": 0.5471223806520497
+        }
+      ],
+      "HitAt3": 1,
+      "HitAt5": 1,
+      "HitAt10": 1,
+      "HitAt20": 1,
+      "ReciprocalRank": 1,
+      "SourceCoverageAt3": 1,
+      "SourceCoverageAt5": 1,
+      "SourceCoverageAt10": 1,
+      "SourceCoverageAt20": 1,
+      "AllSourcesHitAt3": 1,
+      "AllSourcesHitAt5": 1,
+      "AllSourcesHitAt10": 1,
+      "AllSourcesHitAt20": 1
+    }
+  ],
+  "Summary": {
+    "AnsweredQuestionCount": 20,
+    "HitRateAt3": 0.95,
+    "HitRateAt5": 1,
+    "HitRateAt10": 1,
+    "HitRateAt20": 1,
+    "MrrAt20": 0.9375,
+    "MeanSourceCoverageAt3": 0.85,
+    "MeanSourceCoverageAt5": 0.9416666666666668,
+    "MeanSourceCoverageAt10": 0.975,
+    "MeanSourceCoverageAt20": 1,
+    "MeanAllSourcesHitAt3": 0.75,
+    "MeanAllSourcesHitAt5": 0.9,
+    "MeanAllSourcesHitAt10": 0.95,
+    "MeanAllSourcesHitAt20": 1
+  }
+}

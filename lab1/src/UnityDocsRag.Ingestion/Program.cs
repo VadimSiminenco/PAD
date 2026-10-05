@@ -140,6 +140,12 @@ catch (OperationCanceledException) when (cancellationSource.IsCancellationReques
     logger.LogInformation("Command cancelled by user");
     return 130;
 }
+catch (OllamaAnswerValidationException exception) when (args.Length > 0 && args[0] == "ask")
+{
+    logger.LogError("Ask generation failed ({ExceptionType}; ReasonCode={ReasonCode}; Attempt={AttemptNumber})",
+        exception.GetType().Name, exception.ReasonCode, exception.AttemptNumber);
+    return 1;
+}
 catch (Exception exception)
 {
     logger.LogError("Command failed ({ExceptionType}). Usage: [grab [config]] | [process [config]] | [index [config]] | search \"<question>\" [config] | ask \"<question>\" [config] | [legacy-grab-config]",

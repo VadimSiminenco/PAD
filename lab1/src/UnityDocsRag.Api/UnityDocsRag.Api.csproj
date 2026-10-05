@@ -8,11 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+    <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.19.1" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.19.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UnityDocsRag.Core\UnityDocsRag.Core.csproj" />
     <ProjectReference Include="..\UnityDocsRag.Infrastructure\UnityDocsRag.Infrastructure.csproj" />
+    <ProjectReference Include="..\UnityDocsRag.Ingestion\UnityDocsRag.Ingestion.csproj" />
   </ItemGroup>
 
 </Project>
